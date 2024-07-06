@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_KEY = 'YOUR_UNSPLASH_API_KEY'; // Replace with your actual Unsplash API key
-const API_URL = 'https://api.unsplash.com/photos/random';
+const API_KEY = 'vD54gyJ0BpARfHy4OIfqTg1p7LUJBPChX10EZr3X48M'; // Your Unsplash API key
+const API_URL = 'https://api.unsplash.com/photos';
 const SEARCH_URL = 'https://api.unsplash.com/search/photos';
+const IMAGES_PER_PAGE = 21;
 
 const categories = [
   'Nature', 'Travel', 'Architecture', 'Food', 'Animals', 'Technology', 'Art', 'Fashion'
@@ -16,40 +17,33 @@ export default function Gallery() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [totalPages, setTotalPages] = useState(0);
 
-  const fetchInitialImages = async () => {
+  const fetchImages = async (searchQuery = '', pageNum = 1) => {
     setLoading(true);
     try {
-      const response = await axios.get(API_URL, {
-        params: {
-          count: 20,
-          client_id: API_KEY,
-        },
-      });
-      setImages(response.data);
-    } catch (error) {
-      console.error('Error fetching initial images:', error);
-    }
-    setLoading(false);
-  };
-
-  const searchImages = async (searchQuery, newSearch = false) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(SEARCH_URL, {
-        params: {
-          query: searchQuery,
-          page: newSearch ? 1 : page,
-          per_page: 20,
-          client_id: API_KEY,
-        },
-      });
-      if (newSearch) {
+      let response;
+      if (searchQuery) {
+        response = await axios.get(SEARCH_URL, {
+          params: {
+            query: searchQuery,
+            page: pageNum,
+            per_page: IMAGES_PER_PAGE,
+            client_id: API_KEY,
+          },
+        });
         setImages(response.data.results);
-        setPage(2);
+        setTotalPages(Math.ceil(response.data.total / IMAGES_PER_PAGE));
       } else {
-        setImages(prevImages => [...prevImages, ...response.data.results]);
-        setPage(prevPage => prevPage + 1);
+        response = await axios.get(API_URL, {
+          params: {
+            page: pageNum,
+            per_page: IMAGES_PER_PAGE,
+            client_id: API_KEY,
+          },
+        });
+        setImages(response.data);
+        setTotalPages(10); // Assuming 10 pages for random images, adjust as needed
       }
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -58,12 +52,12 @@ export default function Gallery() {
   };
 
   useEffect(() => {
-    fetchInitialImages();
+    fetchImages();
   }, []);
 
   useEffect(() => {
     if (activeCategory) {
-      searchImages(activeCategory, true);
+      fetchImages(activeCategory, 1);
     }
   }, [activeCategory]);
 
@@ -71,21 +65,21 @@ export default function Gallery() {
     e.preventDefault();
     if (query.trim()) {
       setActiveCategory(null);
-      searchImages(query, true);
+      setPage(1);
+      fetchImages(query, 1);
     }
   };
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
     setQuery('');
+    setPage(1);
   };
 
-  const handleLoadMore = () => {
-    if (activeCategory || query) {
-      searchImages(activeCategory || query, false);
-    } else {
-      fetchInitialImages();
-    }
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    fetchImages(activeCategory || query, newPage);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -133,7 +127,7 @@ export default function Gallery() {
 
       <AnimatePresence>
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -161,18 +155,28 @@ export default function Gallery() {
         </motion.div>
       </AnimatePresence>
 
-      {images.length > 0 && (
-        <div className="mt-8 text-center">
-          <motion.button
-            onClick={handleLoadMore}
-            className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
-            disabled={loading}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+      {totalPages > 1 && (
+        <div className="mt-8 flex justify-center items-center space-x-2">
+          <button
+            onClick={() => handlePageChange(page - 1)}
+            disabled={page === 1}
+            className="px-4 py-2 bg-purple-500 text-white rounded-md disabled:opacity-50"
           >
-            {loading ? 'Loading...' : 'Load More'}
-          </motion.button>
+            Previous
+          </button>
+          <span className="text-gray-700">Page {page} of {totalPages}</span>
+          <button
+            onClick={() => handlePageChange(page + 1)}
+            disabled={page === totalPages}
+            className="px-4 py-2 bg-purple-500 text-white rounded-md disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
+      )}
+
+      {loading && (
+        <div className="mt-8 text-center text-gray-600">Loading...</div>
       )}
     </div>
   );
