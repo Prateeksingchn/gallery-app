@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation, useInView } from 'framer-motion';
 
-
-const IMAGES_PER_PAGE = 15; // Adjusted for improved bento grid
+const API_KEY = 'vD54gyJ0BpARfHy4OIfqTg1p7LUJBPChX10EZr3X48M';
+const IMAGES_PER_PAGE = 15;
 
 export default function Home() {
   const [images, setImages] = useState([]);
@@ -38,23 +38,23 @@ export default function Home() {
   };
 
   const getBentoGridSpan = (index) => {
-    // Improved spans for a more consistent bento grid effect
+    // Adjusted spans for better responsiveness
     const spans = [
-      'col-span-1 row-span-1',
-      'col-span-1 row-span-1',
-      'col-span-2 row-span-1',
-      'col-span-1 row-span-2',
-      'col-span-1 row-span-1',
-      'col-span-2 row-span-2',
-      'col-span-1 row-span-1',
-      'col-span-2 row-span-1',
-      'col-span-1 row-span-1',
-      'col-span-1 row-span-2',
-      'col-span-2 row-span-1',
-      'col-span-1 row-span-1',
-      'col-span-1 row-span-1',
-      'col-span-2 row-span-1',
-      'col-span-1 row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-2 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
     ];
     return spans[index % spans.length];
   };
@@ -95,38 +95,38 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-8 md:py-12 lg:py-16">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="text-center"
       >
-        <h1 className="text-5xl font-bold mb-6 text-gray-800">Welcome to ImageGallery</h1>
-        <p className="text-xl mb-8 text-gray-600">Explore beautiful images in a bento grid style.</p>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-gray-800">Welcome to ImageGallery</h1>
+        <p className="text-lg md:text-xl mb-6 md:mb-8 text-gray-600">Explore beautiful images in a bento grid style.</p>
         <Link
           to="/gallery"
-          className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+          className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
         >
           Explore Gallery
         </Link>
       </motion.div>
       
-      <div className="mt-16">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Featured Images</h2>
+      <div className="mt-8 md:mt-12 lg:mt-16">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center text-gray-800">Featured Images</h2>
         {error && <p className="text-center text-red-500">{error}</p>}
-        <div className="grid grid-cols-4 gap-4 mx-10 auto-rows-[200px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4 mx-auto max-w-7xl auto-rows-[100px] sm:auto-rows-[150px] md:auto-rows-[200px]">
           {images.map((image, index) => (
             <ImageCard key={image.id} image={image} span={getBentoGridSpan(index)} />
           ))}
         </div>
-        <div className="mt-8 flex justify-center">
+        <div className="mt-6 md:mt-8 flex justify-center">
           {loading ? (
             <p className="text-center text-gray-600">Loading more images...</p>
           ) : (
             <button
               onClick={handleLoadMore}
-              className="px-6 py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors duration-300"
+              className="px-4 py-2 md:px-6 md:py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors duration-300 text-sm md:text-base"
             >
               Load More
             </button>

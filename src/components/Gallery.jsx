@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const API_KEY = 'vD54gyJ0BpARfHy4OIfqTg1p7LUJBPChX10EZr3X48M'; // Your Unsplash API key
 const API_URL = 'https://api.unsplash.com/photos';
 const SEARCH_URL = 'https://api.unsplash.com/search/photos';
-const IMAGES_PER_PAGE = 21;
+const IMAGES_PER_PAGE = 24;
 
 const categories = [
   'Nature', 'Travel', 'Architecture', 'Food', 'Animals', 'Technology', 'Art', 'Fashion'
@@ -127,7 +127,7 @@ export default function Gallery() {
 
       <AnimatePresence>
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
