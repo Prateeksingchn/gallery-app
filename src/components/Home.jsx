@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation, useInView } from 'framer-motion';
 
-const API_KEY = 'vD54gyJ0BpARfHy4OIfqTg1p7LUJBPChX10EZr3X48M';
+const API_KEY = '';
 const IMAGES_PER_PAGE = 15;
 
 export default function Home() {
