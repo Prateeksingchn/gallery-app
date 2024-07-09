@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_KEY = 'vD54gyJ0BpARfHy4OIfqTg1p7LUJBPChX10EZr3X48M'; // Your Unsplash API key
+const API_KEY = ''; // Your Unsplash API key
 const API_URL = 'https://api.unsplash.com/photos';
 const SEARCH_URL = 'https://api.unsplash.com/search/photos';
 const IMAGES_PER_PAGE = 24;
