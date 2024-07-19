@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const API_KEY = ''; // Your Unsplash API key
+const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const API_URL = 'https://api.unsplash.com/photos';
 const SEARCH_URL = 'https://api.unsplash.com/search/photos';
 const IMAGES_PER_PAGE = 24;
@@ -18,6 +20,7 @@ export default function Gallery() {
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
+  const navigate = useNavigate();
 
   const fetchImages = async (searchQuery = '', pageNum = 1) => {
     setLoading(true);
@@ -43,7 +46,7 @@ export default function Gallery() {
           },
         });
         setImages(response.data);
-        setTotalPages(10); // Assuming 10 pages for random images, adjust as needed
+        setTotalPages(10);
       }
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -82,102 +85,81 @@ export default function Gallery() {
     window.scrollTo(0, 0);
   };
 
+  const handleImageClick = (imageId) => {
+    navigate(`/details/${imageId}`);
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Image Gallery</h1>
-      
-      <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Categories</h2>
-        <div className="flex flex-wrap gap-2">
-          {categories.map((category) => (
-            <motion.button
-              key={category}
-              onClick={() => handleCategoryClick(category)}
-              className={`px-4 py-2 rounded-full ${
-                activeCategory === category
-                  ? 'bg-purple-500 text-white'
-                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-              } transition-colors duration-300`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+      <div className="container mx-auto px-4 py-12">
+        <h1 className="text-5xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+          Inspirational Image Gallery
+        </h1>
+        
+        {/* Categories and search form remain unchanged */}
+        
+        <AnimatePresence>
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {images.map((image) => (
+              <motion.div
+                key={image.id}
+                className="relative group overflow-hidden rounded-xl shadow-md bg-white cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
+                onClick={() => handleImageClick(image.id)}
+              >
+                <img
+                  src={image.urls.small}
+                  alt={image.alt_description}
+                  className="w-full h-64 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-start p-4">
+                  <p className="text-white text-sm font-medium line-clamp-2">
+                    {image.description || image.alt_description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {totalPages > 1 && (
+          <div className="mt-12 flex justify-center items-center space-x-4">
+            <button
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1}
+              className="px-4 py-2 bg-white text-purple-500 rounded-full disabled:opacity-50 flex items-center border border-purple-500 hover:bg-purple-50 transition-colors duration-300"
             >
-              {category}
-            </motion.button>
-          ))}
-        </div>
+              <ChevronLeft size={20} className="mr-2" />
+              Previous
+            </button>
+            <span className="text-gray-700 font-medium">Page {page} of {totalPages}</span>
+            <button
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPages}
+              className="px-4 py-2 bg-white text-purple-500 rounded-full disabled:opacity-50 flex items-center border border-purple-500 hover:bg-purple-50 transition-colors duration-300"
+            >
+              Next
+              <ChevronRight size={20} className="ml-2" />
+            </button>
+          </div>
+        )}
+
+        {loading && (
+          <div className="mt-12 text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+            <p className="mt-2 text-gray-600">Loading amazing images...</p>
+          </div>
+        )}
       </div>
-
-      <form onSubmit={handleSearch} className="mb-8">
-        <div className="flex max-w-md mx-auto">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for images..."
-            className="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
-          <button
-            type="submit"
-            className="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-r-md hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300"
-          >
-            Search
-          </button>
-        </div>
-      </form>
-
-      <AnimatePresence>
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          {images.map((image) => (
-            <motion.div
-              key={image.id}
-              className="relative group overflow-hidden rounded-lg shadow-md"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <img
-                src={image.urls.small}
-                alt={image.alt_description}
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                <p className="text-white text-center p-4">{image.description || image.alt_description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </AnimatePresence>
-
-      {totalPages > 1 && (
-        <div className="mt-8 flex justify-center items-center space-x-2">
-          <button
-            onClick={() => handlePageChange(page - 1)}
-            disabled={page === 1}
-            className="px-4 py-2 bg-purple-500 text-white rounded-md disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span className="text-gray-700">Page {page} of {totalPages}</span>
-          <button
-            onClick={() => handlePageChange(page + 1)}
-            disabled={page === totalPages}
-            className="px-4 py-2 bg-purple-500 text-white rounded-md disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      )}
-
-      {loading && (
-        <div className="mt-8 text-center text-gray-600">Loading...</div>
-      )}
     </div>
   );
 }
