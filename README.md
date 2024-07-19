@@ -90,7 +90,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ## Contact
 
-Your Name - your.email@example.com
+Your Name - prateeksinghchouhan007@gmail.com
 
 Project Link: [https://github.com/your-username/image-gallery](https://github.com/your-username/image-gallery)
 
