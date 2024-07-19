@@ -1,28 +1,25 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, useAnimation, useInView } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, useAnimation, useInView, useScroll, useTransform } from 'framer-motion';
 
-import GalleryLoader from './GalleryLoader'; // Uncommented this import
+import GalleryLoader from './GalleryLoader';
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
-// Removed console.log for API_KEY
-
 const IMAGES_PER_PAGE = 15;
 
-const ImagePlaceholder = ({ controls }) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={controls}
-    style={{
-      position: 'absolute',
-      width: '80px',
-      height: '80px',
-      backgroundColor: 'rgba(221, 221, 221, 0.5)',
-      borderRadius: '4px',
-    }}
-  />
-);
+const FloatingImage = ({ src, alt, className }) => {
+  return (
+    <motion.img
+      src={src}
+      alt={alt}
+      className={`absolute object-cover rounded-sm ${className}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+    />
+  );
+};
 
 export default function Home() {
   const [images, setImages] = useState([]);
@@ -30,7 +27,59 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
-  const controls = useAnimation(); // Added missing controls
+  const controls = useAnimation();
+
+  const inspirationRef = useRef(null);
+  const bentoGridRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: inspirationRef,
+    offset: ["start start", "end start"]
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const yPos = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  const InspirationSection = () => (
+    <motion.div 
+      ref={inspirationRef}
+      style={{ opacity, y: yPos }}
+      className="h-screen w-full bg-[#f5f5f5] relative overflow-hidden font-serif"
+    >
+      <div className="absolute inset-0">
+        <FloatingImage src="https://i.pinimg.com/236x/3d/18/21/3d182196300ee640b486dc88b3f09bb7.jpg" alt="Placeholder" className="top-[5%] left-[5%] w-[150px] h-[170px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/0e/42/7f/0e427fefb82a8f6326dbcce6e4468a56.jpg" alt="Placeholder" className="top-[10%] right-[10%] w-[130px] h-[130px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/33/12/c4/3312c4eea018181a4de435c44bdb8f30.jpg" alt="Placeholder" className="bottom-[15%] left-[15%] w-[140px] h-[160px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/98/8b/0d/988b0d2faafc1156acd8ea0b28009985.jpg" alt="Placeholder" className="bottom-[10%] right-[20%] w-[160px] h-[130px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/a4/e2/02/a4e202ba80d3a9a0b8db24d75c73ff40.jpg" alt="Placeholder" className="top-[30%] left-[30%] w-[150px] h-[150px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/4a/cf/77/4acf771a623bb6acacf51b832374028f.jpg" alt="Placeholder" className="top-[25%] right-[25%] w-[170px] h-[210px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/4d/92/aa/4d92aa15d703b6f5619953a62876e9f9.jpg" alt="Placeholder" className="bottom-[30%] left-[40%] w-[140px] h-[140px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/10/f3/c0/10f3c0375d6afc939af6f854b333bba1.jpg" alt="Placeholder" className="top-[40%] right-[5%] w-[130px] h-[160px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/c9/dd/59/c9dd590d03ea0cc26c8bdb94c53d92cb.jpg" alt="Placeholder" className="bottom-[5%] left-[25%] w-[150px] h-[120px]" />
+        <FloatingImage src="https://i.pinimg.com/236x/3d/63/90/3d639037ba61d2f2548226940b360db5.jpg" alt="Placeholder" className="top-[15%] left-[45%] w-[140px] h-[170px]" />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="text-center max-w-4xl px-4">
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
+            Find Inspiration Wherever You Are
+          </h1>
+          <motion.div
+            className="mt-4"
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+          >
+            <div className="h-0.5 bg-red-500 mx-auto" style={{ width: "80px" }}></div>
+          </motion.div>
+        </div>
+      </div>
+      <div className="absolute top-4 left-4 text-sm text-gray-500">
+        MOODJOURNAL
+      </div>
+      <div className="absolute bottom-4 right-4 text-sm text-gray-500">
+        SEE YOUR OWN MUSE
+      </div>
+    </motion.div>
+  );
 
   const fetchImages = useCallback(async () => {
     setLoading(true);
@@ -53,23 +102,6 @@ export default function Home() {
   useEffect(() => {
     fetchImages();
   }, [fetchImages, page]);
-
-  const createImagePlaceholder = useCallback(async () => {
-    const x = Math.random() * 80 + 10;
-    const y = Math.random() * 80 + 10;
-
-    await controls.start({
-      opacity: [0, 1, 1, 0],
-      x: `${x}%`,
-      y: `${y}%`,
-      transition: { duration: 2.5, times: [0, 0.1, 0.9, 1] },
-    });
-  }, [controls]);
-
-  useEffect(() => {
-    const interval = setInterval(createImagePlaceholder, 500);
-    return () => clearInterval(interval);
-  }, [createImagePlaceholder]);
 
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
@@ -141,44 +173,24 @@ export default function Home() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <div className="absolute inset-0">
-        {[...Array(10)].map((_, index) => (
-          <ImagePlaceholder key={index} controls={controls} />
-        ))}
-      </div>
-      <div className="relative z-10 container mx-auto px-4 py-8 md:py-12 lg:py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-gray-800">Welcome to ImageGallery</h1>
-          <p className="text-lg md:text-xl mb-6 md:mb-8 text-gray-600">Explore beautiful images in a bento grid style.</p>
-          <Link
-            to="/gallery"
-            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
-          >
-            Explore Gallery
-          </Link>
-        </motion.div>
-        
-        <div className="mt-8 md:mt-12 lg:mt-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center text-gray-800">Featured Images</h2>
-          {error && <p className="text-center text-red-500">{error}</p>}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4 mx-auto max-w-7xl auto-rows-[100px] sm:auto-rows-[150px] md:auto-rows-[200px]">
+    <div className="relative">
+      <InspirationSection />
+
+      <div ref={bentoGridRef} className="min-h-screen pt-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Inspiration Gallery</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-7xl auto-rows-[200px]">
             {images.map((image, index) => (
               <ImageCard key={image.id} image={image} span={getBentoGridSpan(index)} />
             ))}
           </div>
-          <div className="mt-6 md:mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center">
             {loading ? (
               <p className="text-center text-gray-600">Loading more images...</p>
             ) : (
               <button
                 onClick={handleLoadMore}
-                className="px-4 py-2 md:px-6 md:py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors duration-300 text-sm md:text-base"
+                className="px-6 py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors duration-300"
               >
                 Load More
               </button>

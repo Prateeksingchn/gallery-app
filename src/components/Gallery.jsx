@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const API_URL = 'https://api.unsplash.com/photos';
@@ -20,8 +19,6 @@ export default function Gallery() {
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
-  const navigate = useNavigate();
-
   const fetchImages = async (searchQuery = '', pageNum = 1) => {
     setLoading(true);
     try {
@@ -85,10 +82,6 @@ export default function Gallery() {
     window.scrollTo(0, 0);
   };
 
-  const handleImageClick = (imageId) => {
-    navigate(`/details/${imageId}`);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
       <div className="container mx-auto px-4 py-12">
@@ -96,8 +89,46 @@ export default function Gallery() {
           Inspirational Image Gallery
         </h1>
         
-        {/* Categories and search form remain unchanged */}
-        
+        <div className="mb-12">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Explore Categories</h2>
+          <div className="flex flex-wrap gap-3">
+            {categories.map((category) => (
+              <motion.button
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                className={`px-5 py-2 rounded-full text-sm font-medium ${
+                  activeCategory === category
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                } transition-all duration-300`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {category}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        <form onSubmit={handleSearch} className="mb-12">
+          <div className="flex max-w-lg mx-auto">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search for images..."
+              className="flex-grow px-5 py-3 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-700"
+            />
+            <button
+              type="submit"
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-r-full hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300 flex items-center"
+            >
+              <Search size={20} className="mr-2" />
+              Search
+            </button>
+          </div>
+        </form>
+
         <AnimatePresence>
           <motion.div 
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -108,13 +139,12 @@ export default function Gallery() {
             {images.map((image) => (
               <motion.div
                 key={image.id}
-                className="relative group overflow-hidden rounded-xl shadow-md bg-white cursor-pointer"
+                className="relative group overflow-hidden rounded-xl shadow-md bg-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
                 whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
-                onClick={() => handleImageClick(image.id)}
               >
                 <img
                   src={image.urls.small}
