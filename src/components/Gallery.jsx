@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation, useInView } from 'framer-motion';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const API_URL = 'https://api.unsplash.com/photos';
 const SEARCH_URL = 'https://api.unsplash.com/search/photos';
-const IMAGES_PER_PAGE = 24;
+const IMAGES_PER_PAGE = 15;
 
 const categories = [
   'Nature', 'Travel', 'Architecture', 'Food', 'Animals', 'Technology', 'Art', 'Fashion'
@@ -19,6 +19,7 @@ export default function Gallery() {
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
+
   const fetchImages = async (searchQuery = '', pageNum = 1) => {
     setLoading(true);
     try {
@@ -82,19 +83,93 @@ export default function Gallery() {
     window.scrollTo(0, 0);
   };
 
+  const getBentoGridSpan = (index) => {
+    const spans = [
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+      'col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1',
+      'col-span-1 row-span-2 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+    ];
+    return spans[index % spans.length];
+  };
+
+  const ImageCard = ({ image, span }) => {
+    const cardControls = useAnimation();
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true });
+  
+    useEffect(() => {
+      if (inView) {
+        cardControls.start("visible");
+      }
+    }, [cardControls, inView]);
+  
+    return (
+      <motion.div
+        ref={ref}
+        animate={cardControls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+          hidden: { opacity: 0, scale: 0.9 }
+        }}
+        className={`${span} relative overflow-hidden rounded-lg shadow-lg cursor-pointer`}
+      >
+        <img
+          src={image.urls.regular}
+          alt={image.alt_description}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black to-transparent">
+          <p className="text-white text-xs">Photo by {image.user.name}</p>
+        </div>
+      </motion.div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className="min-h-screen bg-[#ECE8E2]"
+    >
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-5xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+        <motion.h1 
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="text-5xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"
+        >
           Inspirational Image Gallery
-        </h1>
+        </motion.h1>
         
-        <div className="mb-12">
+        <motion.div 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="mb-12"
+        >
           <h2 className="text-2xl font-semibold mb-6 text-gray-800">Explore Categories</h2>
           <div className="flex flex-wrap gap-3">
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <motion.button
                 key={category}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
                 onClick={() => handleCategoryClick(category)}
                 className={`px-5 py-2 rounded-full text-sm font-medium ${
                   activeCategory === category
@@ -108,9 +183,15 @@ export default function Gallery() {
               </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <form onSubmit={handleSearch} className="mb-12">
+        <motion.form 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          onSubmit={handleSearch} 
+          className="mb-12"
+        >
           <div className="flex max-w-lg mx-auto">
             <input
               type="text"
@@ -127,69 +208,68 @@ export default function Gallery() {
               Search
             </button>
           </div>
-        </form>
+        </motion.form>
 
         <AnimatePresence>
           <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-7xl auto-rows-[200px]"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
           >
-            {images.map((image) => (
-              <motion.div
-                key={image.id}
-                className="relative group overflow-hidden rounded-xl shadow-md bg-white"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
-              >
-                <img
-                  src={image.urls.small}
-                  alt={image.alt_description}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-start p-4">
-                  <p className="text-white text-sm font-medium line-clamp-2">
-                    {image.description || image.alt_description}
-                  </p>
-                </div>
-              </motion.div>
+            {images.map((image, index) => (
+              <ImageCard key={image.id} image={image} span={getBentoGridSpan(index)} />
             ))}
           </motion.div>
         </AnimatePresence>
 
         {totalPages > 1 && (
-          <div className="mt-12 flex justify-center items-center space-x-4">
-            <button
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="mt-12 flex justify-center items-center space-x-4"
+          >
+            <motion.button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
               className="px-4 py-2 bg-white text-purple-500 rounded-full disabled:opacity-50 flex items-center border border-purple-500 hover:bg-purple-50 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ChevronLeft size={20} className="mr-2" />
               Previous
-            </button>
+            </motion.button>
             <span className="text-gray-700 font-medium">Page {page} of {totalPages}</span>
-            <button
+            <motion.button
               onClick={() => handlePageChange(page + 1)}
               disabled={page === totalPages}
               className="px-4 py-2 bg-white text-purple-500 rounded-full disabled:opacity-50 flex items-center border border-purple-500 hover:bg-purple-50 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Next
               <ChevronRight size={20} className="ml-2" />
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         )}
 
         {loading && (
-          <div className="mt-12 text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="mt-12 text-center"
+          >
+            <motion.div
+              className="inline-block h-8 w-8 border-t-2 border-b-2 border-purple-500 rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            ></motion.div>
             <p className="mt-2 text-gray-600">Loading amazing images...</p>
-          </div>
+          </motion.div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

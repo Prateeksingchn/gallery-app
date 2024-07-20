@@ -6,11 +6,12 @@ import Home from './components/Home';
 import Gallery from './components/Gallery';
 import About from './components/About';
 import Details from './components/Details';
+import CollectionPage from './components/CollectionPage';
 
 export default function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-gray-100">
+      <div className="flex flex-col min-h-screen bg-[#ECE8E2]">
         <Navigation />
         <main className="flex-grow">
           <Routes>
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/about" element={<About />} />
             <Route path="/details/:id" element={<Details />} />
+            <Route path="/collections" element={<CollectionPage />} />
           </Routes>
         </main>
         <Footer />
@@ -25,3 +27,4 @@ export default function App() {
     </Router>
   );
 }
+
