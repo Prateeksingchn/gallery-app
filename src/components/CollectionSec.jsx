@@ -8,14 +8,14 @@ const collections = [
     id: 1,
     title: "Modern Abstracts",
     description: "A curated selection of contemporary abstract artworks",
-    image: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YWJzdHJhY3QlMjBhcnR8ZW58MHx8MHx8fDA%3D",
+    image: "https://images.unsplash.com/photo-1527067829737-402993088e6b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fE1vZGVybiUyMEFic3RyYWN0c3xlbnwwfDB8MHx8fDA%3D",
     items: 12
   },
   {
     id: 2,
     title: "Impressionist Landscapes",
     description: "Breathtaking landscapes inspired by the Impressionist movement",
-    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1wcmVzc2lvbmlzdCUyMGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D",
+    image: "https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fEltcHJlc3Npb25pc3QlMjBMYW5kc2NhcGVzfGVufDB8MHwwfHx8MA%3D%3D",
     items: 8
   },
   {
