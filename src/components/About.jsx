@@ -2,7 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const FeatureCard = ({ title, description, icon }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md">
+  <motion.div 
+    className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
     <div className="flex items-center space-x-4 pb-2">
       <div className="bg-purple-100 p-3 rounded-full">
         {icon}
@@ -10,21 +15,34 @@ const FeatureCard = ({ title, description, icon }) => (
       <h3 className="text-xl font-semibold">{title}</h3>
     </div>
     <p className="text-gray-600">{description}</p>
-  </div>
+  </motion.div>
 );
 
 const StatItem = ({ value, label }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md text-center">
-    <motion.div
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ type: 'spring', stiffness: 100, delay: 0.5 }}
-      className="text-4xl font-bold text-purple-600 mb-2"
-    >
+  <motion.div
+    initial={{ scale: 0 }}
+    animate={{ scale: 1 }}
+    transition={{ type: 'spring', stiffness: 100, delay: 0.5 }}
+    className="bg-white p-6 rounded-lg shadow-md text-center"
+  >
+    <div className="text-4xl font-bold text-purple-600 mb-2">
       {value}
-    </motion.div>
+    </div>
     <div className="text-gray-600">{label}</div>
-  </div>
+  </motion.div>
+);
+
+const TeamMemberCard = ({ name, position, image }) => (
+  <motion.div 
+    className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <img src={image} alt={name} className="w-24 h-24 rounded-full mx-auto mb-4"/>
+    <h4 className="text-xl font-semibold">{name}</h4>
+    <p className="text-gray-600">{position}</p>
+  </motion.div>
 );
 
 export default function About() {
@@ -46,15 +64,23 @@ export default function About() {
     },
   ];
 
+  const teamMembers = [
+    { name: 'Alice Johnson', position: 'CEO', image: 'https://via.placeholder.com/150' },
+    { name: 'Bob Smith', position: 'CTO', image: 'https://via.placeholder.com/150' },
+    { name: 'Charlie Brown', position: 'Lead Designer', image: 'https://via.placeholder.com/150' },
+  ];
+
   return (
-    <div className="container mx-auto px-4 py-16 bg-gray-50">
+    <div className="px-4 py-16 bg-[#ECE8E2]">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="text-center mb-16"
       >
-        <h1 className="text-6xl font-bold mb-6 text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">About ImageGallery</h1>
+        <h1 className="text-6xl font-bold mb-6 text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+          About ImageGallery
+        </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           ImageGallery is your gateway to a world of stunning visuals. We bring together the best of 
           photography and technology to provide an immersive image browsing experience.
@@ -106,6 +132,20 @@ export default function About() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.8 }}
+        className="mb-16"
+      >
+        <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">Meet Our Team</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {teamMembers.map((member, index) => (
+            <TeamMemberCard key={index} {...member} />
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
         className="text-center bg-white p-8 rounded-lg shadow-lg"
       >
         <h2 className="text-4xl font-bold mb-6 text-gray-800">Join Our Community</h2>

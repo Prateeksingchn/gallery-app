@@ -151,7 +151,7 @@ export default function Gallery() {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-5xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"
+          className="text-5xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 to-zinc-900"
         >
           Inspirational Image Gallery
         </motion.h1>

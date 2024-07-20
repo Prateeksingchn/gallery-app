@@ -96,7 +96,7 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="w-full h-[95vh] bg-[#ECE8E2] flex flex-col px-10">
+    <div className="w-full h-[95vh] bg-[#afada9] flex flex-col px-10">
       <div className="flex-1 flex">
         <motion.div 
           className="w-[30%] relative p-8"
