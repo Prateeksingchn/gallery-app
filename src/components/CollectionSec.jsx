@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -137,6 +137,41 @@ const DraggableContainer = ({ children }) => {
     setStartY(y);
   };
 
+  useEffect(() => {
+    const container = containerRef.current;
+    let animationFrameId;
+    let lastMouseX = 0;
+
+    const handleMouseMoveSwipe = (e) => {
+      lastMouseX = e.clientX;
+    };
+
+    const animate = () => {
+      if (container) {
+        const containerRect = container.getBoundingClientRect();
+        const containerWidth = containerRect.width;
+        const threshold = containerWidth * 0.2; // 20% from each edge
+
+        if (lastMouseX < containerRect.left + threshold) {
+          // Swipe from left
+          container.scrollLeft -= 5;
+        } else if (lastMouseX > containerRect.right - threshold) {
+          // Swipe from right
+          container.scrollLeft += 5;
+        }
+      }
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    container.addEventListener('mousemove', handleMouseMoveSwipe);
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMoveSwipe);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -147,7 +182,7 @@ const DraggableContainer = ({ children }) => {
       onMouseLeave={handleMouseUp}
       onMouseMove={handleMouseMove}
     >
-      <div style={{ width: '2000px', height: '400px', position: 'relative' }}>
+      <div style={{ width: '3200px', height: '400px', position: 'relative' }}>
         {children}
       </div>
     </div>
