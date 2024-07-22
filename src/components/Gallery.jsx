@@ -6,7 +6,7 @@ import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const API_URL = 'https://api.unsplash.com/photos';
 const SEARCH_URL = 'https://api.unsplash.com/search/photos';
-const IMAGES_PER_PAGE = 15;
+const IMAGES_PER_PAGE = 22;
 
 const categories = [
   'Nature', 'Travel', 'Architecture', 'Food', 'Animals', 'Technology', 'Art', 'Fashion'
@@ -144,14 +144,14 @@ export default function Gallery() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen bg-[#ECE8E2]"
+      className="min-h-screen bg-[#ECE8E2] rounded-b-[50px] border-b-2 boder-zinc-300 "
     >
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-16">
         <motion.h1 
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-5xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 to-zinc-900"
+          className="text-5xl font-bold mb-12 py-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 to-zinc-900"
         >
           Inspirational Image Gallery
         </motion.h1>

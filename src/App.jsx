@@ -7,6 +7,8 @@ import Gallery from './components/Gallery';
 import About from './components/About';
 import Details from './components/Details';
 import CollectionPage from './components/CollectionPage';
+import CollectionDetail from './components/CollectionDetail';
+import AIPage from './components/AIPage';
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/details/:id" element={<Details />} />
             <Route path="/collections" element={<CollectionPage />} />
+            <Route path="/collection/:id" element={<CollectionDetail />} />
+            <Route path="/ai-image-generation" element={<AIPage />} />
           </Routes>
         </main>
         <Footer />
@@ -27,6 +31,4 @@ export default function App() {
     </Router>
   );
 }
-
-
 

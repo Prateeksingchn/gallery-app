@@ -6,9 +6,9 @@ import { Menu, X } from "lucide-react";
 const navItems = [
   { name: "Home", path: "/" },
   { name: "Gallery", path: "/gallery" },
+  { name: "Collection", path: "/collections" },  // Add this line
   { name: "About", path: "/about" },
 ];
-
 const NavItem = ({ item, isMobile, onClick }) => {
   const location = useLocation();
   const isActive = location.pathname === item.path;

@@ -58,7 +58,7 @@ const collections = [
     description: "Thought-provoking images from modern photographers",
     image: "https://images.unsplash.com/photo-1649325897907-10fc87d1b6e1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fENvbnRlbXBvcmFyeSUyMFBob3RvZ3JhcGh5fGVufDB8MXwwfHx8MA%3D%3D",
     items: 20,
-    position: { top: 200, left: 2000 }
+    position: { top: 170, left: 2000 }
   },
   {
     id: 8,
@@ -154,10 +154,10 @@ const DraggableContainer = ({ children }) => {
 
         if (lastMouseX < containerRect.left + threshold) {
           // Swipe from left
-          container.scrollLeft -= 5;
+          container.scrollLeft -= 3;
         } else if (lastMouseX > containerRect.right - threshold) {
           // Swipe from right
-          container.scrollLeft += 5;
+          container.scrollLeft += 3;
         }
       }
       animationFrameId = requestAnimationFrame(animate);
@@ -176,7 +176,7 @@ const DraggableContainer = ({ children }) => {
     <div
       ref={containerRef}
       className="overflow-x-auto overflow-y-hidden scrollbar-hide cursor-grab"
-      style={{ width: '100%', height: '480px' }}
+      style={{ width: '100%', height: '460px' }}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
@@ -220,7 +220,7 @@ const CollectionSec = () => {
           ))}
         </DraggableContainer>
         <motion.div
-          className="flex justify-center mt-16"
+          className="flex justify-center mt-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}

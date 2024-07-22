@@ -4,9 +4,11 @@ import Floating from "./Floating";
 import ImageSlider from "./ImageSlider";
 import CollectionPage from "./CollectionSec";
 import ImageGrid from "./ImageGrid";
+import FeaturedArtists from "./FeaturedArtists";
+import AIImageGenerationSection from "./AIImageGenerationSection";
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
-const IMAGES_TO_SHOW = 36; // Increased for smoother vertical scrolling
+const IMAGES_TO_SHOW = 36;
 
 export default function Home() {
   const [images, setImages] = useState([]);
@@ -38,24 +40,19 @@ export default function Home() {
     fetchImages();
   }, [fetchImages]);
 
-  const handleExploreClick = () => {
-    navigate("/gallery");
-  };
-
   return (
-    <div className="relative z-10 bg-[#ECE8E2]">
+    <div>
       <Floating />
-      <ImageSlider />
+      <ImageSlider images={images.slice(0, 5)} />
       <CollectionPage />
-      
-      <div className="min-h-screen">
-        <ImageGrid
-          images={images}
-          loading={loading}
-          error={error}
-          onExploreClick={handleExploreClick}
-        />
-      </div>
+      <ImageGrid images={images} loading={loading} error={error} />
+      <AIImageGenerationSection />
+      <FeaturedArtists artists={[
+        // Add some sample artist data here
+        { name: "Artist 1", specialty: "Digital Art", bio: "A talented digital artist..." },
+        { name: "Artist 2", specialty: "Photography", bio: "An award-winning photographer..." },
+        // ... more artists
+      ]} />
     </div>
   );
 }
