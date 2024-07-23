@@ -1,14 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import Footer from './components/Footer';
-import Home from './components/Home';
-import Gallery from './components/Gallery';
-import About from './components/About';
-import Details from './components/Details';
-import CollectionPage from './components/CollectionPage';
-import CollectionDetail from './components/CollectionDetail';
-import AIPage from './components/AIPage';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import Gallery from "./components/Gallery";
+import About from "./components/About";
+import Details from "./components/Details";
+import CollectionPage from "./components/CollectionPage";
+import CollectionDetail from "./components/CollectionDetail";
+import AIPage from "./components/AIPage";
 
 export default function App() {
   return (
@@ -31,4 +31,8 @@ export default function App() {
     </Router>
   );
 }
+
+
+
+
 
