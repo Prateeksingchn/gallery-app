@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const SEARCH_URL = 'https://api.unsplash.com/search/photos';
-const IMAGES_PER_PAGE = 24;
+const IMAGES_PER_PAGE = 30;
 
 const CollectionDetail = () => {
   const { id } = useParams();

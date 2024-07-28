@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Floating from "../Home/Floating";
-import ImageSlider from "../Home/ImageSlider";
-import CollectionPage from "../Home/CollectionSec";
-import ImageGrid from "../Home/ImageGrid";
-import FeaturedArtists from "../Home/FeaturedArtists";
-import AIImageGenerationSection from "../Home/AIImageGenerationSection";
+import Floating from "./Home/Floating";
+import ImageSlider from "./Home/ImageSlider";
+import CollectionPage from "./Home/CollectionSec";
+import ImageGrid from "./Home/ImageGrid";
+import FeaturedArtists from "./Home/FeaturedArtists";
+import AIImageGenerationSection from "./AIImageGenerationSection";
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const IMAGES_TO_SHOW = 36;
