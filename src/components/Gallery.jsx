@@ -5,6 +5,8 @@ import {
   AnimatePresence,
   useAnimation,
   useInView,
+  useScroll,
+  useTransform,
 } from "framer-motion";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -29,6 +31,65 @@ const categories = [
   "Music",
   "Film",
 ];
+
+const GalleryIntroSection = ({ featuredImages }) => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+
+  return (
+    <div className="min-h-screen w-full" ref={sectionRef}>
+      <section className="h-screen w-full bg-[#ECE8E2] relative overflow-hidden">
+        <motion.h1
+          style={{ opacity, scale }}
+          className="absolute inset-0 flex items-center justify-center text-[17vw] font-[kalnia] font-normal tracking-wide leading-none text-red-600 z-10"
+        >
+          Gallery
+        </motion.h1>
+
+        {featuredImages.slice(0, 4).map((image, index) => {
+          const imageY = useTransform(
+            scrollYProgress,
+            [0, 1],
+            [0, index % 2 === 0 ? -100 : 100]
+          );
+          const imageScale = useTransform(
+            scrollYProgress,
+            [0, 0.5, 1],
+            [1, 1.1, 1]
+          );
+
+          return (
+            <motion.div
+              key={image.id}
+              className="absolute"
+              style={{
+                top: `${[20, 15, 68, 50][index]}%`,
+                left: `${[3.5, 57, 42, 82][index]}%`,
+                width: `${[23, 20, 17, 15][index]}%`,
+                height: `${[65, 25, 20, 40][index]}%`,
+                zIndex: index === 0 ? 5 : index + 10,
+                y: imageY,
+                scale: imageScale,
+              }}
+            >
+              <img
+                src={image.urls.regular}
+                alt={image.alt_description}
+                className="w-full h-full object-cover rounded-sm shadow-xl"
+              />
+            </motion.div>
+          );
+        })}
+      </section>
+    </div>
+  );
+};
 
 export default function Gallery() {
   const [query, setQuery] = useState("");
@@ -183,41 +244,7 @@ export default function Gallery() {
     >
       <div className="container mx-auto px-4 py-2">
         {/* Full-screen Gallery Intro Section */}
-        <div className="min-h-screen w-full">
-          <section className="h-screen w-full bg-[#ECE8E2] relative overflow-hidden">
-            <motion.h1
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="absolute inset-0 flex items-center justify-center text-[17vw] font-[kalnia] font-normal tracking-wide leading-none text-[#1c211cb3] z-10"
-            >
-              Gallery
-            </motion.h1>
-
-            {featuredImages.slice(0, 4).map((image, index) => (
-              <motion.div
-                key={image.id}
-                className="absolute"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: index * 0.2 }}
-                style={{
-                  top: `${[20, 15, 68, 50][index]}%`,
-                  left: `${[3.5, 57, 42, 82][index]}%`,
-                  width: `${[23, 20, 17, 15][index]}%`,
-                  height: `${[65, 25, 20, 40][index]}%`,
-                  zIndex: index === 0 ? 5 : index + 10,
-                }}
-              >
-                <img
-                  src={image.urls.regular}
-                  alt={image.alt_description}
-                  className="w-full h-full object-cover rounded-sm shadow-xl"
-                />
-              </motion.div>
-            ))}
-          </section>
-        </div>
+        <GalleryIntroSection featuredImages={featuredImages} />
 
         {/* Combined Categories and Search Section */}
         <motion.div
