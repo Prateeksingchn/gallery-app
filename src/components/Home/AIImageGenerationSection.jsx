@@ -16,18 +16,30 @@ const AIImageGenerationSection = () => {
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 500, damping: 140 });
   const springY = useSpring(mouseY, { stiffness: 500, damping: 140 });
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      mouseX.set(x);
-      mouseY.set(y);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
     };
 
+    const handleMouseMove = (e) => {
+      if (!isMobile) {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        mouseX.set(x);
+        mouseY.set(y);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [mouseX, mouseY, isMobile]);
 
   const generatedImages = [
     "https://th.bing.com/th/id/OIG1.WJ3VVrQ6Y0vKwMuxKpZJ?pid=ImgGn",
@@ -54,34 +66,41 @@ const AIImageGenerationSection = () => {
     },
   };
 
+  const SplineComponent = ({ scene, splineRef }) => (
+    <Suspense fallback={<div className="w-full h-full bg-zinc-800 rounded-lg animate-pulse" />}>
+      <Spline 
+        scene={scene}
+        ref={splineRef}
+        style={{
+          width: '100%',
+          height: '100%',
+          transform: isMobile ? 'none' : `perspective(1000px) rotateY(${springX.get() * 20 - 10}deg) rotateX(${springY.get() * -20 + 10}deg)`,
+        }}
+      />
+    </Suspense>
+  );
+
   return (
     <section className="relative min-h-screen overflow-x-hidden bg-[#121212]">
       <div className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between">
           {/* Left Spline Scene */}
-          <div className="w-full lg:w-[35%] h-[300px] sm:h-[400px] lg:h-[500px] mb-8 lg:mb-0 ">
-            <Suspense fallback={<div className="w-full h-full bg-zinc-800 rounded-lg animate-pulse" />}>
-              <Spline 
-                scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
-                ref={leftSplineRef}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  transform: `perspective(1000px) rotateY(${springX.get() * 20 - 10}deg) rotateX(${springY.get() * -20 + 10}deg)`,
-                }}
-              />
-            </Suspense>
+          <div className="w-[90%] lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[550px] mb-8 lg:mb-0 hidden lg:block ">
+            <SplineComponent 
+              scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
+              splineRef={leftSplineRef}
+            />
           </div>
 
           {/* Center Content */}
-          <div className="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
+          <div className="w-full lg:w-[30%] px-4 mb-8 lg:mb-0">
             <motion.div
               className="text-center"
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+              <h2 className="text-5xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                 AI-Powered Image Creation
               </h2>
               <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8">
@@ -110,18 +129,11 @@ const AIImageGenerationSection = () => {
           </div>
 
           {/* Right Spline Scene */} 
-          <div className="w-full lg:w-[35%] h-[300px] sm:h-[400px] lg:h-[500px] hidden lg:block">
-            <Suspense fallback={<div className="w-full h-full bg-zinc-800 rounded-lg animate-pulse" />}>
-              <Spline 
-                scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
-                ref={rightSplineRef}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  transform: `perspective(1000px) rotateY(${springX.get() * -20 + 10}deg) rotateX(${springY.get() * -20 + 10}deg)`,
-                }}
-              />
-            </Suspense>
+          <div className="w-full lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[500px] hidden lg:block">
+            <SplineComponent 
+              scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
+              splineRef={rightSplineRef}
+            />
           </div>
         </div>
 

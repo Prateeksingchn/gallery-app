@@ -41,7 +41,7 @@ const ImageGrid = ({ images, loading, error, onExploreClick }) => {
   }, [images, loading, error]);
 
   return (
-    <div className="bg-black lg:min-h-screen min-h-[500px] relative">
+    <div className="bg-black lg:h-screen min-h-[500px] relative">
       <div className="absolute top-10 left-10 z-10">
         <h2 className="text-4xl font-bold text-white">Save.</h2>
         <h2 className="text-4xl font-bold text-white">Share.</h2>

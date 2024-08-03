@@ -4,8 +4,9 @@ import Floating from "./Home/Floating";
 import ImageSlider from "./Home/ImageSlider";
 import CollectionPage from "./Home/CollectionSec";
 import ImageGrid from "./Home/ImageGrid";
-import FeaturedArtists from "./Home/FeaturedArtists";
-import AIImageGenerationSection from "./AIImageGenerationSection";
+import FeaturedArtists from "./FeaturedArtists";
+import AIImageGenerationSection from "./Home/AIImageGenerationSection";
+import FeatureShowcase from "./Home/FeatureShowcase";
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const IMAGES_TO_SHOW = 36;
@@ -45,6 +46,7 @@ export default function Home() {
       <Floating />
       <ImageSlider images={images.slice(0, 5)} />
       <CollectionPage />
+      <FeatureShowcase />
       <AIImageGenerationSection />
       <ImageGrid images={images} loading={loading} error={error} />
       <FeaturedArtists artists={[
