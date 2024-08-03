@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, Suspense, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import Robot from "../robot/Robot";
-import Particles from "../robot/Particles";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import Spline from '@splinetool/react-spline';
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
 
 const AIImageGenerationSection = () => {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState(
     "a portrait of a young, elderly wizard in a cherry blossom garden"
   );
+  const leftSplineRef = useRef(null);
+  const rightSplineRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 500, damping: 140 });
+  const springY = useSpring(mouseY, { stiffness: 500, damping: 140 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
   const generatedImages = [
     "https://th.bing.com/th/id/OIG1.WJ3VVrQ6Y0vKwMuxKpZJ?pid=ImgGn",
@@ -21,66 +38,101 @@ const AIImageGenerationSection = () => {
     "https://th.bing.com/th/id/OIG1.8tmux1hcyp0VjwoSBOqw?pid=ImgGn",
   ];
 
+  const particlesInit = async (main) => {
+    await loadFull(main);
+  };
+
+  const particlesConfig = {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
+      size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1, sync: false } },
+      line_linked: { enable: false },
+      move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false },
+    },
+  };
+
   return (
-    <section className="bg-gradient-to-r from-gray-800 to-blue-900 min-h-screen py-20 rounded-b-[50px] relative overflow-hidden">
-      <div className="absolute left-0 top-0 w-1/3 h-full">
-        <Canvas camera={{ position: [0, 0, 5] }}>
-          <ambientLight intensity={0.5} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
-            penumbra={1}
-            intensity={1}
-          />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} />
-          <Robot />
-          <Particles />
-          <OrbitControls enableZoom={false} enablePan={false} />
-        </Canvas>
-      </div>
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            AI-Powered Image Creation
-          </h2>
-          <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Elevate your gallery with AI-generated masterpieces. Create unique,
-            stunning visuals to complement your curated collection.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <button
-              onClick={() => navigate("/ai-image-generation")}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300"
-            >
-              Start Creating
-            </button>
-            <button
-              onClick={() => navigate("/explore")}
-              className="bg-transparent border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300"
-            >
-              Explore AI Gallery
-            </button>
-            <button
-              onClick={() => navigate("/tutorials")}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300"
-            >
-              AI Art Tutorials
-            </button>
+    <section className="relative min-h-screen overflow-x-hidden bg-[#121212]">
+      <div className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between">
+          {/* Left Spline Scene */}
+          <div className="w-full lg:w-[35%] h-[300px] sm:h-[400px] lg:h-[500px] mb-8 lg:mb-0 ">
+            <Suspense fallback={<div className="w-full h-full bg-zinc-800 rounded-lg animate-pulse" />}>
+              <Spline 
+                scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
+                ref={leftSplineRef}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  transform: `perspective(1000px) rotateY(${springX.get() * 20 - 10}deg) rotateX(${springY.get() * -20 + 10}deg)`,
+                }}
+              />
+            </Suspense>
           </div>
-        </motion.div>
+
+          {/* Center Content */}
+          <div className="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                AI-Powered Image Creation
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8">
+                Elevate your gallery with AI-generated masterpieces. Create unique,
+                stunning visuals to complement your curated collection.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate("/ai-image-generation")}
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full text-base sm:text-lg transition duration-300 shadow-lg"
+                >
+                  Start Creating
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate("/explore")}
+                  className="bg-transparent border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full text-base sm:text-lg transition duration-300 shadow-lg"
+                >
+                  Explore AI Gallery
+                </motion.button>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Spline Scene */} 
+          <div className="w-full lg:w-[35%] h-[300px] sm:h-[400px] lg:h-[500px] hidden lg:block">
+            <Suspense fallback={<div className="w-full h-full bg-zinc-800 rounded-lg animate-pulse" />}>
+              <Spline 
+                scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
+                ref={rightSplineRef}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  transform: `perspective(1000px) rotateY(${springX.get() * -20 + 10}deg) rotateX(${springY.get() * -20 + 10}deg)`,
+                }}
+              />
+            </Suspense>
+          </div>
+        </div>
+
+        {/* Laptop-like container */}
         <motion.div
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto mt-12 lg:-mt-16"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {/* Laptop-like container */}
-          <div className="bg-gray-800 rounded-t-xl p-2 pb-0 shadow-xl">
+          <div className="bg-gray-800 rounded-t-xl p-2 pb-0 shadow-2xl backdrop-blur-sm bg-opacity-80">
             <div className="bg-gray-700 rounded-t-lg p-2">
               <div className="flex space-x-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -88,20 +140,24 @@ const AIImageGenerationSection = () => {
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
             </div>
-            <div className="bg-gray-100 p-4 rounded-b-lg">
-              <div className="flex items-center mb-4">
+            <div className="bg-gray-100 p-4 sm:p-6 rounded-b-lg">
+              <div className="flex flex-col sm:flex-row items-center mb-4 sm:mb-6">
                 <input
                   type="text"
-                  className="flex-grow px-4 py-2 bg-white border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  className="w-full sm:flex-grow px-4 py-2 sm:py-3 bg-white border-2 border-gray-300 rounded-full sm:rounded-l-full sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-base sm:text-lg mb-2 sm:mb-0"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  placeholder="Describe the image you want to generate..."
+                  placeholder="Describe the image..."
                 />
-                <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-r-full transition duration-300">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full sm:rounded-l-none sm:rounded-r-full transition duration-300 text-base sm:text-lg font-bold shadow-md"
+                >
                   Generate
-                </button>
+                </motion.button>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
                 {generatedImages.map((src, idx) => (
                   <motion.div
                     key={idx}
@@ -113,7 +169,7 @@ const AIImageGenerationSection = () => {
                     <img
                       src={src}
                       alt={`Generated ${idx + 1}`}
-                      className="w-full h-40 object-cover rounded-lg shadow-md"
+                      className="w-full h-32 sm:h-40 object-cover rounded-lg shadow-lg transition duration-300 group-hover:scale-105 group-hover:shadow-xl"
                     />
                   </motion.div>
                 ))}
@@ -122,46 +178,51 @@ const AIImageGenerationSection = () => {
           </div>
           {/* Laptop stand */}
           <div
-            className="bg-gray-700 h-4 mx-auto rounded-b-3xl"
+            className="bg-gray-700 h-4 sm:h-6 mx-auto rounded-b-3xl shadow-md"
             style={{ width: "70%" }}
           ></div>
         </motion.div>
+
         {/* Additional features section */}
-        <div className="mt-10 text-center">
-          <h3 className="text-3xl font-bold text-white mb-8">
+        <div className="mt-16 sm:mt-24 text-center">
+          <h3 className="text-3xl sm:text-4xl font-bold text-white mb-8 sm:mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
             Enhance Your Gallery Experience
           </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-800 p-6 rounded-lg">
-              <h4 className="text-xl font-semibold text-purple-400 mb-4">
-                AI Style Transfer
-              </h4>
-              <p className="text-gray-300">
-                Apply the style of famous artworks to your photos using AI.
-              </p>
-            </div>
-            <div className="bg-gray-800 p-6 rounded-lg">
-              <h4 className="text-xl font-semibold text-purple-400 mb-4">
-                Virtual Exhibitions
-              </h4>
-              <p className="text-gray-300">
-                Create and explore 3D virtual galleries featuring AI and
-                human-made art.
-              </p>
-            </div>
-            <div className="bg-gray-800 p-6 rounded-lg">
-              <h4 className="text-xl font-semibold text-purple-400 mb-4">
-                Collaborative AI Art
-              </h4>
-              <p className="text-gray-300">
-                Collaborate with AI to create unique pieces in real-time.
-              </p>
-            </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {[
+              {
+                title: "AI Style Transfer",
+                description: "Apply the style of famous artworks to your photos using AI.",
+                icon: "🎨",
+              },
+              {
+                title: "Virtual Exhibitions",
+                description: "Create and explore 3D virtual galleries featuring AI and human-made art.",
+                icon: "🖼️",
+              },
+              {
+                title: "Collaborative AI Art",
+                description: "Collaborate with AI to create unique pieces in real-time.",
+                icon: "🤖",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="bg-gray-800 p-6 sm:p-8 rounded-xl backdrop-blur-sm bg-opacity-80 shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className="text-3xl sm:text-4xl mb-4">{feature.icon}</div>
+                <h4 className="text-xl sm:text-2xl font-semibold text-purple-400 mb-3 sm:mb-4">
+                  {feature.title}
+                </h4>
+                <p className="text-gray-300 text-base sm:text-lg">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
-        ;
       </div>
-      ;
     </section>
   );
 };

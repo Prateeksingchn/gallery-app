@@ -68,7 +68,7 @@ const Floating = () => {
     <motion.div
       ref={inspirationRef}
       style={{ opacity, y: yPos }}
-      className="h-screen w-full bg-[#ECE8E2] relative overflow-hidden font-serif"
+      className="lg:h-screen md:h-[800px] h-[550px] w-full bg-[#ECE8E2] relative overflow-hidden font-serif lg:mt-0 mt-7 "
     >
       <div className="absolute inset-0">
         <FloatingImage
@@ -89,27 +89,27 @@ const Floating = () => {
         <FloatingImage
           src="https://i.pinimg.com/236x/98/8b/0d/988b0d2faafc1156acd8ea0b28009985.jpg"
           alt="Placeholder"
-          className="bottom-[10%] right-[10%] w-[90px] h-[70px] md:w-[140px] md:h-[110px]"
+          className="bottom-[20%] right-[5%] w-[90px] h-[70px] md:w-[140px] md:h-[110px]"
         />
         <FloatingImage
           src="https://i.pinimg.com/236x/a4/e2/02/a4e202ba80d3a9a0b8db24d75c73ff40.jpg"
           alt="Placeholder"
-          className="lg:top-[22%] lg:left-[23%] top-[27%] left-[15%] w-[80px] h-[80px] md:w-[130px] md:h-[130px]"
+          className="lg:top-[22%] lg:left-[23%] top-[27%] left-[17%] w-[80px] h-[80px] md:w-[130px] md:h-[130px]"
         />
         <FloatingImage
           src="https://i.pinimg.com/236x/4a/cf/77/4acf771a623bb6acacf51b832374028f.jpg"
           alt="Placeholder"
-          className="lg:top-[14%] lg:right-[23.7%] top-[17%] right-[22%] w-[100px] h-[120px] md:w-[150px] md:h-[190px] "
+          className="lg:top-[14%] lg:right-[23.7%] top-[17%] right-[25%] w-[100px] h-[120px] md:w-[150px] md:h-[190px] "
         />
         <FloatingImage
           src="https://i.pinimg.com/236x/4d/92/aa/4d92aa15d703b6f5619953a62876e9f9.jpg"
           alt="Placeholder"
-          className="bottom-[7%] right-[30%] w-[80px] h-[80px] md:w-[120px] md:h-[120px]"
+          className="bottom-[7%] right-[30%] w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden lg:block"
         />
         <FloatingImage
           src="https://i.pinimg.com/236x/10/f3/c0/10f3c0375d6afc939af6f854b333bba1.jpg"
           alt="Placeholder"
-          className="top-[40%] right-[5%] w-[70px] h-[90px] md:w-[110px] md:h-[140px]"
+          className="top-[40%] right-[5%] w-[70px] h-[90px] md:w-[110px] md:h-[140px] hidden lg:block"
         />
         <FloatingImage
           src="https://i.pinimg.com/236x/c9/dd/59/c9dd590d03ea0cc26c8bdb94c53d92cb.jpg"
@@ -124,7 +124,7 @@ const Floating = () => {
         <FloatingImage
           src="https://i.pinimg.com/236x/3d/63/90/3d639037ba61d2f2548226940b360db5.jpg"
           alt="Placeholder"
-          className="lg:top-[15%] lg:left-[45%] top-[35%] left-[45%] w-[80px] h-[100px] md:w-[120px] md:h-[150px]"
+          className="lg:top-[15%] lg:left-[45%] top-[35%] left-[45%] w-[80px] h-[100px] md:w-[120px] md:h-[150px] hidden lg:block"
         />
       </div>
       <div className="absolute inset-0 flex items-center justify-center">

@@ -89,7 +89,7 @@ const collections = [
 const CollectionCard = ({ collection }) => {
   return (
     <div 
-      className="absolute overflow-hidden cursor-pointer w-80 h-72"
+      className="absolute overflow-hidden cursor-pointer lg:w-80 lg:h-72 w-48 h-44 lg:mt-0 -mt-28 "
       style={{
         top: `${collection.position.top}px`,
         left: `${collection.position.left}px`
@@ -181,7 +181,7 @@ const DraggableContainer = ({ children }) => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
       onMouseMove={handleMouseMove}
-    >
+    > 
       <div style={{ width: '3200px', height: '400px', position: 'relative' }}>
         {children}
       </div>
@@ -191,8 +191,8 @@ const DraggableContainer = ({ children }) => {
 
 const CollectionSec = () => {
   return (
-    <div className="min-h-screen bg-[#1D1D1D] text-white py-16 px-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="lg:h-screen h-[800px] bg-[#1D1D1D] text-white py-16 px-8">
+      <div className="container mx-auto">
         <motion.h1
           className="text-6xl lg:text-7xl font-bold mb-12"
           initial={{ opacity: 0, y: -50 }}
@@ -220,7 +220,7 @@ const CollectionSec = () => {
           ))}
         </DraggableContainer>
         <motion.div
-          className="flex justify-center mt-10"
+          className="flex justify-center lg:mt-10 -mt-24"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}

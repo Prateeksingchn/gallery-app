@@ -36,13 +36,13 @@ const Footer = () => {
                 </button>
               </form>
             </div>
-            <p className="text-xs">&copy; MOODJOURNAL 2024. All rights reserved</p>
+            <p className="text-xs">&copy; PixelPerfect 2024. All rights reserved</p>
           </div>
           <div className="md:ml-16">
             <h3 className="font-bold mb-2">New business</h3>
-            <p>viki@moodjournal.com</p>
+            <p>viki@PixelPerfect.com</p>
             <h3 className="font-bold mt-4 mb-2">Join us</h3>
-            <p>hello@moodjournal.com</p>
+            <p>hello@PixelPerfect.com</p>
             <h3 className="font-bold mt-4 mb-2">Follow us</h3>
             <ul>
               <li><a href="#" className="hover:underline">LinkedIn</a></li>
@@ -67,9 +67,9 @@ const Footer = () => {
       </div>
 
       {/* bottom footer */}
-      <div className="bg-[#F8D347] pt-12 w-full h-auto overflow-hidden">
-        <div className=" mx-auto px-4 flex items-center justify-center overflow-hidden">
-          <h1 className="text-[70px] md:text-[16rem] lg:text-[17rem] md:leading-[210px] mt-4 tracking-tighter lg:tracking-[-0.07em] font-bold">MoodJournal</h1>
+      <div className="bg-[#F8D347] pt-12 w-full h-[350px] overflow-hidden flex items-end justify-center">
+        <div className="container mx-auto px-4 flex items-end justify-center overflow-hidden">
+          <h1 className="text-[70px] md:text-[16rem] lg:text-[20rem] md:leading-[210px] mt-4 lg:tracking-[-0.07em] font-bold">PixelPerfect</h1>
         </div>
       </div>
     </footer>

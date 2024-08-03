@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 const navItems = [
   { name: "Home", path: "/" },
   { name: "Gallery", path: "/gallery" },
-  { name: "Collection", path: "/collections" },  // Add this line
+  { name: "Collection", path: "/collections" }, // Add this line
   { name: "About", path: "/about" },
 ];
 const NavItem = ({ item, isMobile, onClick }) => {
@@ -14,17 +14,12 @@ const NavItem = ({ item, isMobile, onClick }) => {
   const isActive = location.pathname === item.path;
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
+    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
       <Link
         to={item.path}
         onClick={onClick}
         className={`px-3 py-2 text-sm font-serif ${
-          isActive
-            ? "text-red-500"
-            : "text-gray-700 hover:text-red-500"
+          isActive ? "text-red-500" : "text-gray-700 hover:text-red-500"
         } ${isMobile ? "block" : "inline-block"}`}
       >
         {item.name}
@@ -67,7 +62,7 @@ const FloatingNavigation = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="text-xl font-serif text-gray-800">
-              MOODJOURNAL
+              PixelPerfect
             </Link>
           </div>
           <div className="hidden md:block">
