@@ -23,7 +23,7 @@ const AIImageGeneration = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer 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" // Replace with your actual API key
+            
           },
           body: JSON.stringify({ inputs: prompt }),
         }
