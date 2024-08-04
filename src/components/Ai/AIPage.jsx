@@ -89,7 +89,7 @@ const AIPage = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer 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"
+            "Authorization": "Bearer my-api-key",
           },
           body: JSON.stringify({ inputs: prompt }),
         }
