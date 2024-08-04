@@ -129,8 +129,8 @@ const Floating = () => {
       </div>
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center max-w-4xl px-4">
-          <h1 className="text-[45px] md:text-6xl lg:text-8xl font-normal mb-4 leading-tight">
-            Find Inspiration <span className="text-[45px] md:text-6xl">Wherever You Are</span>
+          <h1 className="text-[45px] md:text-6xl lg:text-8xl font-normal mb-4 leading-tight font-[kalnia] ">
+            Find Inspiration <span className="text-[45px] md:text-6xl font-[kalnia] ">Wherever You Are</span>
           </h1>
           <motion.div
             className="mt-4"

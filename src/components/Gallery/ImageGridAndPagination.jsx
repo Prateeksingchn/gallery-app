@@ -1,17 +1,23 @@
 import React, { useRef, useEffect } from "react";
 import { motion, AnimatePresence, useAnimation, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ImageCard = ({ image, span }) => {
   const cardControls = useAnimation();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (inView) {
       cardControls.start("visible");
     }
   }, [cardControls, inView]);
+
+  const handleClick = () => {
+    navigate(`/details/${image.id}`);
+  };
 
   return (
     <motion.div
@@ -23,6 +29,7 @@ const ImageCard = ({ image, span }) => {
         hidden: { opacity: 0, scale: 0.9 },
       }}
       className={`${span} relative overflow-hidden rounded-lg shadow-lg cursor-pointer`}
+      onClick={handleClick}
     >
       <img
         src={image.urls.regular}

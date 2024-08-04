@@ -1,23 +1,44 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const categories = [
-  "Nature", "Travel", "Architecture", "People", "Wallpapers", "Food",
-  "Animals", "Technology", "Art", "Fashion", "Sports", "Business", "Music", "Film",
+  "Nature",
+  "Travel",
+  "Architecture",
+  "People",
+  "Wallpapers",
+  "Food",
+  "Animals",
+  "Technology",
+  "Art",
+  "Fashion",
+  "Sports",
+  "Business",
+  "Music",
+  "Film",
 ];
 
-const CategoriesAndSearch = ({ query, setQuery, handleSearch, activeCategory, handleCategoryClick }) => {
+const CategoriesAndSearch = ({
+  query,
+  setQuery,
+  handleSearch,
+  activeCategory,
+  handleCategoryClick,
+}) => {
   return (
     <motion.div
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.4, duration: 0.8 }}
-      className="px-5 py-12 mx-32 bg-[#ece8e2d1] rounded-sm shadow-lg mb-12 -mt-10"
+      className="mx-12 py-16 px-40 bg-[#ece8e2d1] rounded-sm shadow-md mb-12 -mt-10"
     >
       {/* Categories */}
       <div className="mb-10">
-        <h3 className="text-xl font-medium mb-4 text-gray-700">Categories</h3>
+        <h3 className="text-4xl font-bold font-[pacifico] mb-8 text-gray-700">
+          Categories
+        </h3>
         <div className="flex flex-wrap gap-3">
           {categories.map((category, index) => (
             <motion.button
@@ -37,6 +58,11 @@ const CategoriesAndSearch = ({ query, setQuery, handleSearch, activeCategory, ha
               {category}
             </motion.button>
           ))}
+          <Link to="/collections">
+            <button className="px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 transition-all duration-300">
+              View All
+            </button>
+          </Link>
         </div>
       </div>
 

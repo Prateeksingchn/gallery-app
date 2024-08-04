@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import CollectionIntro from "./Collection/CollectionIntro";
@@ -352,7 +352,7 @@ const collections = [
 const CollectionCard = ({ collection }) => (
   <Link to={`/collection/${collection.id}`}>
     <motion.div
-      className="relative overflow-hidden rounded-lg shadow-lg h-64 sm:h-80 lg:h-[270px] xl:h-[270px] cursor-pointer"
+      className="relative overflow-hidden rounded-lg shadow-lg h-64 sm:h-80 lg:h-[270px] xl:h-[300px] cursor-pointer"
       whileHover={{ scale: 1.03 }}
       transition={{ duration: 0.3 }}
     >
@@ -373,21 +373,37 @@ const CollectionCard = ({ collection }) => (
 );
 
 const CollectionPage = () => {
-  const scrollToAbout = () => {
-    document
-      .getElementById("about-curation")
-      .scrollIntoView({ behavior: "smooth" });
+  const gridRef = useRef(null);
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
+  useEffect(() => {
+    const hash = window.location.hash.slice(1); // Remove the '#' from the hash
+    if (hash) {
+      // Delay the scroll to ensure the page has fully loaded
+      setTimeout(() => scrollToSection(hash), 100);
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[bg-[#ECE8E2]] to-black text-white ">
-      <CollectionIntro />
-      <div id="about-curation" className="max-w-7xl mx-auto my-20">
+    <div className="min-h-screen bg-[#F7F6EE] text-white">
+      <CollectionIntro scrollToSection={scrollToSection} />
+      <div
+        id="about-curation"
+        ref={gridRef}
+        className="max-w-8xl px-20 pb-10 my-20 bg-[#F7F6EE]"
+      >
+        <h2 className="text-5xl text-red-500 font-bold mb-10 font-[pacifico] hover:underline duration-300 translate-x-[10px] cursor-text ">Collections</h2>
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 bg-[#F7F6EE]"
         >
           {collections.map((collection) => (
             <CollectionCard key={collection.id} collection={collection} />

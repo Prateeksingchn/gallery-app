@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from 'react-router-dom';
 import axios from "axios";
 import { motion } from "framer-motion";
 import GalleryIntroSection from "./Gallery/GalleryIntroSection";
@@ -11,6 +12,8 @@ const SEARCH_URL = "https://api.unsplash.com/search/photos";
 const IMAGES_PER_PAGE = 30;
 
 const Gallery = () => {
+  const location = useLocation();
+  const gridRef = useRef(null);
   const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
   const [featuredImages, setFeaturedImages] = useState([]);
@@ -77,6 +80,12 @@ const Gallery = () => {
     }
   }, [activeCategory]);
 
+  useEffect(() => {
+    if (location.state && location.state.scrollToGrid && gridRef.current) {
+      gridRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location]);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
@@ -105,7 +114,7 @@ const Gallery = () => {
       transition={{ duration: 0.8 }}
       className="min-h-screen bg-[#ECE8E2] rounded-b-[50px] border-b-2 border-zinc-300"
     >
-      <div className="container mx-auto px-4 py-2">
+      <div className="max-w-8xl mx-auto px-4 py-2">
         <GalleryIntroSection featuredImages={featuredImages} />
 
         <CategoriesAndSearch
@@ -116,13 +125,15 @@ const Gallery = () => {
           handleCategoryClick={handleCategoryClick}
         />
 
-        <ImageGridAndPagination
-          images={images}
-          loading={loading}
-          totalPages={totalPages}
-          page={page}
-          handlePageChange={handlePageChange}
-        />
+        <div ref={gridRef}>
+          <ImageGridAndPagination
+            images={images}
+            loading={loading}
+            totalPages={totalPages}
+            page={page}
+            handlePageChange={handlePageChange}
+          />
+        </div>
       </div>
     </motion.div>
   );

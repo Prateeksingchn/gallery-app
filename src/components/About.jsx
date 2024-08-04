@@ -98,11 +98,13 @@ const AboutUs = () => {
           transition={{ duration: 1 }}
           className="mb-16 max-w-2xl"
         >
-          <h1 className="text-8xl mb-4 font-bold text-zinc-700">
+          <h1 className="text-8xl mb-4 font-bold text-zinc-700 font-[Kalnia] ">
             PixelPerfect
           </h1>
-          <h2 className="text-6xl mb-8 text-zinc-700 opacity-90">Gallery</h2>
-          <p className="text-xl mb-8 text-black opacity-80">
+          <h2 className="text-6xl mb-8 text-zinc-700 opacity-90 font-[pacifico]">
+            Gallery
+          </h2>
+          <p className="text-xl mb-8 text-black opacity-80 font-[roboto] ">
             Welcome to PixelPerfect Gallery, where art meets technology. We're
             reimagining the way you experience photography online. Our platform
             brings together a world of visual inspiration, powered by
@@ -112,13 +114,13 @@ const AboutUs = () => {
           <div className="flex space-x-4">
             <Link
               to="/gallery"
-              className="bg-white text-black px-8 py-3 text-lg font-semibold rounded-md hover:bg-gray-200 transition-colors duration-300"
+              className="bg-white text-black px-8 py-3 text-lg font-semibold rounded-md hover:bg-gray-200 transition-colors duration-300 hover:bg-transparent hover:border-2 hover:border-white hover:text-white font-[Kalnia] "
             >
               EXPLORE NOW
             </Link>
             <button
               onClick={scrollToAbout}
-              className="border-2 border-white text-white px-8 py-3 text-lg font-semibold rounded-md hover:bg-white hover:text-black transition-colors duration-300"
+              className="border-2 border-white text-white px-8 py-3 text-lg font-semibold rounded-md hover:bg-white hover:text-black transition-colors duration-300 font-[Kalnia]"
             >
               LEARN MORE
             </button>
@@ -137,11 +139,15 @@ const AboutUs = () => {
           id="about"
           style={{ minHeight: "1400px" }}
         >
-          <h2 className="text-7xl mb-12 italic pl-4">About Us</h2>
+          <h2 className="text-7xl mb-12 italic pl-4 font-[Pacifico] ">
+            About Us
+          </h2>
 
           <div className="flex mb-5 h-[80vh] pt-8 pb-5 px-2">
             <div className="w-1/2 pr-[170px]">
-              <p className="text-gray-300 mb-12 text-xl mt-12">
+              <p
+                className="text-gray-300 mb-12 text-xl mt-12 font-[Roboto]"
+              >
                 At PixelPerfect Gallery, we've crafted a unique space where
                 technology and creativity converge. Our platform harnesses the
                 power of the Unsplash API to curate an ever-evolving collection
@@ -149,7 +155,7 @@ const AboutUs = () => {
                 candid street scenes to abstract art and intimate portraits, our
                 gallery spans the full spectrum of photographic expression.
               </p>
-              <p className="text-gray-300 mb-6 text-lg">
+              <p className="text-gray-300 mb-6 text-xl font-[Roboto]">
                 What sets us apart is our commitment to showcasing both
                 established masters and emerging talents. Our AI-driven curation
                 ensures that each visit to PixelPerfect offers a fresh
@@ -227,21 +233,21 @@ const AboutUs = () => {
               ))}
             </div>
             <div className="w-1/2 pl-24 pt-8">
-              <p className="text-gray-300 mb-6 text-xl">
+              <p className="text-gray-300 mb-6 text-xl font-[Roboto] ">
                 We're thrilled to announce that we're pushing the boundaries of
                 creativity even further. Currently in development is our
                 groundbreaking AI image generation feature. This innovative tool
                 will allow users to create unique, stunning visuals based on
                 textual descriptions or style preferences.
               </p>
-              <p className="text-gray-300 mb-6 text-xl">
+              <p className="text-gray-300 mb-6 text-xl font-[Roboto]">
                 Join us in celebrating the democratization of photography and
                 the future of digital art. At PixelPerfect, every frame tells a
                 story, every image opens a window to new worlds, and soon, your
                 imagination will be the only limit to the visuals you can
                 create.
               </p>
-              <p className="text-gray-300 mb-6 text-xl">
+              <p className="text-gray-300 mb-6 text-xl font-[Roboto]">
                 Step into our gallery and rediscover the power of visual
                 storytelling in the digital age, where curation meets creation.
               </p>
@@ -276,11 +282,11 @@ const AboutUs = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <h2 className="text-5xl font-bold font-sans mb-8 text-white">
+            <h2 className="text-5xl font-bold mb-8 text-white font-[Pacifico] ">
               About the Creator
             </h2>
             <motion.p
-              className="text-gray-300 text-xl mb-6 leading-relaxed"
+              className="text-gray-300 text-xl mb-6 leading-relaxed font-[Roboto] "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -291,7 +297,7 @@ const AboutUs = () => {
               storytelling.
             </motion.p>
             <motion.p
-              className="text-gray-300 text-xl mb-6 leading-relaxed"
+              className="text-gray-300 text-xl mb-6 leading-relaxed font-[Roboto] "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.8 }}
@@ -303,7 +309,7 @@ const AboutUs = () => {
               alike.
             </motion.p>
             <motion.p
-              className="text-gray-300 text-xl mb-8 leading-relaxed"
+              className="text-gray-300 text-xl mb-8 leading-relaxed font-[Roboto] "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1 }}

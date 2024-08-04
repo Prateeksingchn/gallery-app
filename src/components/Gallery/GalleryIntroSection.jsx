@@ -50,9 +50,9 @@ const GalleryIntroSection = () => {
             key={image.id}
             className="absolute"
             style={{
-              top: `${[20, 10, 72, 45][index]}%`,
-              left: `${[3, 57, 42, 81][index]}%`,
-              width: `${[23, 20, 17, 15][index]}%`,
+              top: `${[20, 10, 72, 43][index]}%`,
+              left: `${[3, 54, 39, 82][index]}%`,
+              width: `${[20, 20, 17, 15][index]}%`,
               height: `${[65, 25, 20, 40][index]}%`,
               zIndex: index === 0 ? 5 : index + 10,
               y: imageTransforms[index],
