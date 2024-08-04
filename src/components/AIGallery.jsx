@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const API_URL = "https://api.unsplash.com/photos";
-const IMAGES_PER_PAGE = 15;
+const IMAGES_PER_PAGE = 18;
 
 const TopImagesGallery = () => {
   const [images, setImages] = useState([]);
@@ -39,7 +39,7 @@ const TopImagesGallery = () => {
       transition={{ duration: 0.8 }}
       className="min-h-screen bg-[#ECE8E2] px-8 py-24"
     >
-      <div className="max-w-[1350px] mx-auto">
+      <div className="max-w-[1450px] mx-auto">
         <Link
           to="/"
           className="text-black text-lg font-semibold mb-8 inline-block"
@@ -51,24 +51,27 @@ const TopImagesGallery = () => {
         </h1>
 
         <p className="text-lg text-gray-700 mb-12">
-          Discover the most popular images of today, curated from a selection of amazing AI and 3D renders. Immerse yourself in the creativity and innovation of these stunning visuals.
+          Discover the most popular images of today, curated from a selection of
+          amazing AI and 3D renders. Immerse yourself in the creativity and
+          innovation of these stunning visuals.
         </p>
 
         {loading ? (
           <div className="text-black text-center">Loading...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {images.map((image, index) => (
               <motion.div
                 key={image.id}
-                className={`overflow-hidden rounded-lg shadow-lg ${getBentoSize(index)}`}
-                whileHover={{ scale: 1.05 }}
+                className={`overflow-hidden h-full rounded-lg shadow-lg ${getBentoSize(
+                  index
+                )}`}
               >
-                <div className="relative h-full group">
+                <div className="relative h-full">
                   <img
                     src={image.urls.regular}
                     alt={image.alt_description}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50 text-white">
                     <p className="font-semibold">{image.user.name}</p>
@@ -85,21 +88,24 @@ const TopImagesGallery = () => {
 
 const getBentoSize = (index) => {
   const sizes = [
-    "row-span-2 col-span-2",
-    "row-span-2 col-span-1",
-    "row-span-1 col-span-1",
-    "row-span-2 col-span-1",
-    "row-span-2 col-span-1",
-    "row-span-2 col-span-2",
-    "row-span-1 col-span-1",
-    "row-span-2 col-span-2",
-    "row-span-1 col-span-1",
-    "row-span-1 col-span-1",
-    "row-span-2 col-span-2",
-    "row-span-2 col-span-1",
-    "row-span-1 col-span-1",
-    "row-span-1 col-span-2",
-    "row-span-1 col-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-2",
+    "col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-1 lg:row-span-2",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1",
   ];
   return sizes[index % sizes.length];
 };

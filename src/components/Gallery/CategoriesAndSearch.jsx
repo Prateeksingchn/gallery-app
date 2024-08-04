@@ -36,7 +36,7 @@ const CategoriesAndSearch = ({
     >
       {/* Categories */}
       <div className="mb-10">
-        <h3 className="text-4xl font-bold font-[pacifico] mb-8 text-gray-700">
+        <h3 className="text-4xl font-bold font-[pacifico] underline cursor-pointer pl-4 mb-8 text-gray-700">
           Categories
         </h3>
         <div className="flex flex-wrap gap-3">

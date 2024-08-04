@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { collections } from './CollectionPage';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -11,6 +11,7 @@ const IMAGES_PER_PAGE = 30;
 
 const CollectionDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const collection = collections.find(c => c.id === parseInt(id));
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,22 @@ const CollectionDetail = () => {
     setPage(newPage);
     fetchImages(newPage);
     window.scrollTo(0, 0);
+  };
+
+  const handleImageClick = (imageId) => {
+    console.log('Navigating to image details with state:', {
+      from: 'collection',
+      collectionId: id,
+      collectionTitle: collection.title
+    });
+    navigate(`/details/${imageId}`, { 
+      state: { 
+        from: 'collection', 
+        collectionId: id,
+        collectionTitle: collection.title 
+      },
+      replace: false  // This ensures the navigation is added to the history
+    });
   };
 
   if (!collection) {
@@ -85,15 +102,15 @@ const CollectionDetail = () => {
               {images.map(image => (
                 <motion.div
                   key={image.id}
-                  className="relative overflow-hidden rounded-lg shadow-lg lg:w-[400px] xl:w-[400px] md:w-[300px] w-[380px] h-[255px] sm:h-80 lg:h-[380px] xl:h-[380px]"
+                  className="relative overflow-hidden rounded-lg shadow-lg lg:w-[400px] xl:w-[400px] md:w-[300px] w-[380px] h-[255px] sm:h-80 lg:h-[380px] xl:h-[380px] cursor-pointer"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.3 }}
+                  onClick={() => handleImageClick(image.id)}
                 >
                   <img src={image.urls.regular} alt={image.alt_description} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70" />
                   <div className="absolute bottom-0 left-0 p-6 text-white">
                     <p className="text-sm font-medium mb-2">{image.user.name}</p>
-                    {/* <h3 className="text-sm font-bold">{image.description || image.alt_description}</h3> */}
                   </div>
                 </motion.div>
               ))}

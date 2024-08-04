@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Heart, Download, Share, User, Calendar, MapPin } from 'lucide-react';
+import { useParams, Link, useLocation } from 'react-router-dom';
+import { ArrowLeft, Heart, Download, Share, User, Calendar, MapPin, Edit } from 'lucide-react';
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 
 const Details = () => {
   const { id } = useParams();
+  const location = useLocation();
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [navState, setNavState] = useState(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
+    if (location.state) {
+      setNavState(location.state);
+      localStorage.setItem('detailsNavState', JSON.stringify(location.state));
+    } else {
+      const storedState = localStorage.getItem('detailsNavState');
+      if (storedState) {
+        setNavState(JSON.parse(storedState));
+      }
+    }
+
     const fetchImageDetails = async () => {
       setLoading(true);
       setError(null);
@@ -33,19 +46,16 @@ const Details = () => {
     };
 
     fetchImageDetails();
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
-  }, [id]);
+
+    return () => {
+      localStorage.removeItem('detailsNavState');
+    };
+  }, [id, location.state]);
 
   const handleLike = () => {
-    if (liked) {
-      setLikeCount((prevCount) => prevCount - 1);
-    } else {
-      setLikeCount((prevCount) => prevCount + 1);
-    }
     setLiked(!liked);
-    console.log(`Image ${id} ${liked ? 'unliked' : 'liked'}`);
-    alert(`Image ${liked ? 'unliked' : 'liked'}!`);
+    setLikeCount((prevCount) => liked ? prevCount - 1 : prevCount + 1);
   };
 
   const handleShare = () => {
@@ -59,16 +69,54 @@ const Details = () => {
       .catch((error) => console.log('Error sharing', error));
     } else {
       const shareUrl = image.links.html;
-      const textarea = document.createElement('textarea');
-      textarea.value = shareUrl;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      alert('Link copied to clipboard! You can now share it manually.');
+      navigator.clipboard.writeText(shareUrl)
+        .then(() => alert('Link copied to clipboard! You can now share it manually.'))
+        .catch(err => console.error('Failed to copy: ', err));
     }
   };
 
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = image.urls.full;
+    link.download = `${image.id}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
+
+  const handleEdit = () => {
+    // Placeholder for edit functionality
+    console.log('Edit functionality to be implemented');
+    alert('Edit functionality coming soon!');
+  };
+
+  const renderBackLink = () => {
+    if (navState && navState.from === 'collection') {
+      return (
+        <Link 
+          to={`/collections/${navState.collectionId}`}
+          className="inline-flex items-center mb-6 text-blue-600 hover:text-blue-800 transition-colors"
+        >
+          <ArrowLeft className="mr-2" /> Back to {navState.collectionTitle || 'Collection'}
+        </Link>
+      );
+    } else {
+      return (
+        <Link 
+          to="/gallery" 
+          state={{ scrollToGrid: true }}
+          className="inline-flex items-center mb-6 text-blue-600 hover:text-blue-800 transition-colors"
+        >
+          <ArrowLeft className="mr-2" /> Back to Gallery
+        </Link>
+      );
+    }
+  };
+  
   if (loading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
   }
@@ -83,22 +131,26 @@ const Details = () => {
 
   return (
     <div className="container mx-auto p-4 py-24 max-w-7xl">
-      <Link 
-        to="/gallery" 
-        state={{ scrollToGrid: true }}
-        className="inline-flex items-center mb-6 text-blue-600 hover:text-blue-800 transition-colors"
-      >
-        <ArrowLeft className="mr-2" /> Back to Gallery
-      </Link>
+      {renderBackLink()}
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="md:flex">
-          <div className="md:w-2/3 p-4">
+          <div className="md:w-2/3 p-4 relative">
             <img
               src={image.urls.regular}
               alt={image.alt_description}
-              className="w-full h-auto object-contain rounded-lg "
-              style={{ maxHeight: '70vh' }}
+              className="w-full h-auto object-contain rounded-lg cursor-pointer"
+              style={{ maxHeight: isFullscreen ? '100vh' : '70vh' }}
+              onClick={toggleFullscreen}
             />
+            {isFullscreen && (
+              <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={toggleFullscreen}>
+                <img
+                  src={image.urls.full}
+                  alt={image.alt_description}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            )}
           </div>
           <div className="md:w-1/3 p-6">
             <h2 className="text-2xl font-bold mb-4">{image.description || 'Untitled'}</h2>
@@ -128,9 +180,7 @@ const Details = () => {
                 ))}
               </div>
             </div>
-
-            {/* Like, Share and Download buttons */}
-            <div className="flex flex-col  gap-3">
+            <div className="flex flex-col gap-3">
               <button
                 onClick={handleLike}
                 className={`${
@@ -146,14 +196,18 @@ const Details = () => {
               >
                 <Share className="mr-2" size={18} /> Share
               </button>
-              <a
-                href={image.links.download}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={handleDownload}
                 className="bg-purple-500 text-white px-4 py-2 rounded-full hover:bg-purple-600 flex items-center justify-center transition-colors"
               >
                 <Download className="mr-2" size={18} /> Download
-              </a>
+              </button>
+              <button
+                onClick={handleEdit}
+                className="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-600 flex items-center justify-center transition-colors"
+              >
+                <Edit className="mr-2" size={18} /> Edit
+              </button>
             </div>
           </div>
         </div>

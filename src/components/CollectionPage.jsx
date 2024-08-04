@@ -398,7 +398,10 @@ const CollectionPage = () => {
         ref={gridRef}
         className="max-w-8xl px-20 pb-10 my-20 bg-[#F7F6EE]"
       >
-        <h2 className="text-5xl text-red-500 font-bold mb-10 font-[pacifico] hover:underline duration-300 translate-x-[10px] cursor-text ">Collections</h2>
+        <h2 className="text-5xl text-red-500 font-bold mb-10 font-[pacifico] underline cursor-pointer pl-4 ">
+          Collections
+        </h2>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

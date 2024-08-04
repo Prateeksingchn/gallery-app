@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Heart, Download, Share2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // ... (the images array of objects) ...
 const images = [
@@ -237,3 +237,4 @@ const ImageSlider = () => {
 };
 
 export default ImageSlider;
+
