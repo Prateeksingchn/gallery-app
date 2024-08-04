@@ -5,7 +5,7 @@ import ImageSlider from "./Home/ImageSlider";
 import CollectionPage from "./Home/CollectionSec";
 import ImageGrid from "./Home/ImageGrid";
 import FeaturedArtists from "./FeaturedArtists";
-import AIImageGenerationSection from "./Home/AIImageGenerationSection";
+import AIImageGenerationSection from "./AIImageGenerationSection";
 import FeatureShowcase from "./Home/FeatureShowcase";
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;

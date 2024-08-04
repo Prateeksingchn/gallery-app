@@ -8,7 +8,8 @@ import About from "./components/About";
 import Details from "./components/Details";
 import CollectionPage from "./components/CollectionPage";
 import CollectionDetail from "./components/CollectionDetail";
-import AIPage from "./components/AIPage";
+import AIGallery from "./components/AIGallery";
+
 
 export default function App() {
   return (
@@ -23,7 +24,7 @@ export default function App() {
             <Route path="/details/:id" element={<Details />} />
             <Route path="/collections" element={<CollectionPage />} />
             <Route path="/collection/:id" element={<CollectionDetail />} />
-            <Route path="/ai-image-generation" element={<AIPage />} />
+            <Route path="/ai-gallery" element={<AIGallery />} />
           </Routes>
         </main>
         <Footer />
