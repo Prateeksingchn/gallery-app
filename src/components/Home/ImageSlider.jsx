@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger); 
 
 // ... (the images array of objects) ...
 const images = [
@@ -119,6 +123,12 @@ const variants = {
 
 const ImageSlider = () => {
   const [[page, direction], setPage] = useState([0, 0]);
+  const containerRef = useRef(null);
+  const contentRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
   const imageIndex = Math.abs(page % images.length);
   const nextImageIndex = (imageIndex + 1) % images.length;
@@ -127,109 +137,138 @@ const ImageSlider = () => {
     setPage([page + newDirection, newDirection]);
   };
 
-  return (
-    <div className="w-full lg:h-[95vh] h-[450px] bg-[#f0f0f0] flex flex-col px-10">
-      <div className="flex-1 flex">
-        <motion.div 
-          className="w-[30%] relative p-8"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="absolute top-40">
-            <motion.h2 
-              className="text-4xl font-sans font-bold text-gray-800"
-              key={images[imageIndex].title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              {images[imageIndex].title}
-            </motion.h2>
-            <motion.h3 
-              className="text-xl font-sans mt-2 text-gray-600"
-              key={images[imageIndex].subtitle}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              {images[imageIndex].subtitle}
-            </motion.h3>
-            <motion.p
-              className="mt-4 text-sm text-gray-500"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              Powered by Unsplash API
-            </motion.p>
-            <motion.div
-              className="mt-6 space-y-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <p className="text-sm text-gray-700">
-                Explore our curated collection of stunning images from talented photographers around the world. Each photo tells a unique story and captures a moment in time.
-              </p>
-              <p className="text-sm text-gray-700">
-                Whether you're looking for inspiration, searching for the perfect image for your project, or just browsing beautiful photography, our gallery has something for everyone.
-              </p>
-              
-            </motion.div>
-          </div>
-        </motion.div>
-        
-        <div className="w-[70%] relative flex items-center justify-center space-x-4 overflow-hidden px-20">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.img
-              key={page}
-              src={images[imageIndex].src}
-              alt={images[imageIndex].alt}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.6 },
-                scale: { duration: 0.5 },
-              }}
-              className="w-[40%] h-[85%] object-cover absolute shadow-lg rounded-lg"
-            />
-          </AnimatePresence>
-          <motion.img
-            src={images[nextImageIndex].src}
-            alt={images[nextImageIndex].alt}
-            className="w-[35%] h-[60%] object-cover filter grayscale absolute right-0 rounded-lg"
-            initial={{ x: 500, opacity: 0, scale: 0.8 }}
-            animate={{ x: 0, opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          />
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
-          <div className="absolute bottom-8 right-8 flex items-center space-x-4">
-            <button
-              onClick={() => paginate(-1)}
-              className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <div className="text-sm text-gray-600">
-              {String(imageIndex + 1).padStart(2, "0")} /{" "}
-              {String(images.length).padStart(2, "0")}
+  useEffect(() => {
+    const container = containerRef.current;
+    const content = contentRef.current;
+
+    if (container && content) {
+      const ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: container,
+          start: "top top",
+          end: "bottom bottom",
+          pin: content,
+          pinSpacing: false,
+          scrub: true,
+        });
+      }, container);
+
+      return () => ctx.revert();
+    }
+  }, []);
+
+  return (
+    <div ref={containerRef} className="w-full h-[100vh] relative bg-[#f0f0f0]">
+      <div 
+        ref={contentRef}
+        className="w-full h-screen flex flex-col px-10 sticky top-0"
+      >
+        <div className="flex-1 flex py-20 relative">
+          <motion.div 
+            className="w-[30%] absolute left-8 top-44 z-10"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div>
+              <motion.h2 
+                className="text-4xl font-sans font-bold text-gray-800"
+                key={images[imageIndex].title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                {images[imageIndex].title}
+              </motion.h2>
+              <motion.h3 
+                className="text-xl font-sans mt-2 text-gray-600"
+                key={images[imageIndex].subtitle}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                {images[imageIndex].subtitle}
+              </motion.h3>
+              <motion.p
+                className="mt-4 text-sm text-gray-500"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Powered by Unsplash API
+              </motion.p>
+              <motion.div
+                className="mt-6 space-y-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <p className="text-sm text-gray-700">
+                  Explore our curated collection of stunning images from talented photographers around the world. Each photo tells a unique story and captures a moment in time.
+                </p>
+                <p className="text-sm text-gray-700">
+                  Whether you're looking for inspiration, searching for the perfect image for your project, or just browsing beautiful photography, our gallery has something for everyone.
+                </p>
+              </motion.div>
             </div>
-            <button
-              onClick={() => paginate(1)}
-              className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
+          </motion.div>
+          
+          <motion.div 
+            className="w-[70%] relative flex items-center justify-center space-x-4 overflow-hidden px-20 ml-auto"
+            style={{ y }}
+          >
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.img
+                key={page}
+                src={images[imageIndex].src}
+                alt={images[imageIndex].alt}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.6 },
+                  scale: { duration: 0.5 },
+                }}
+                className="w-[40%] h-[100%] object-cover absolute shadow-lg rounded-lg"
+              />
+            </AnimatePresence>
+            <motion.img
+              src={images[nextImageIndex].src}
+              alt={images[nextImageIndex].alt}
+              className="w-[35%] h-[70%] object-cover filter grayscale absolute right-0 rounded-lg"
+              initial={{ x: 500, opacity: 0, scale: 0.8 }}
+              animate={{ x: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+
+            <div className="absolute bottom-6 right-12 flex items-center space-x-4">
+              <button
+                onClick={() => paginate(-1)}
+                className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <div className="text-sm text-gray-600">
+                {String(imageIndex + 1).padStart(2, "0")} /{" "}
+                {String(images.length).padStart(2, "0")}
+              </div>
+              <button
+                onClick={() => paginate(1)}
+                className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>
@@ -237,4 +276,3 @@ const ImageSlider = () => {
 };
 
 export default ImageSlider;
-

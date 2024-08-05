@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Spline from "@splinetool/react-spline";
 import { Link } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AIImageGenerationSection = () => {
   const navigate = useNavigate();
+  const sectionRef = useRef(null);
   const leftSplineRef = useRef(null);
   const rightSplineRef = useRef(null);
   const mouseX = useMotionValue(0);
@@ -31,9 +36,21 @@ const AIImageGenerationSection = () => {
     window.addEventListener("resize", handleResize);
     window.addEventListener("mousemove", handleMouseMove);
 
+    // Set up the scrolling effect
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom top",
+        pin: true,
+        pinSpacing: false,
+      });
+    }, sectionRef);
+
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
+      ctx.revert();
     };
   }, [mouseX, mouseY, isMobile]);
 
@@ -60,9 +77,9 @@ const AIImageGenerationSection = () => {
   );
 
   return (
-    <section className="relative w-full h-full overflow-x-hidden bg-[#121212]">
-      <div className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
+    <section ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-[#121212]">
+      <div className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 h-full flex items-center">
+        <div className="flex flex-col lg:flex-row items-center justify-between w-full">
           {/* Left Spline Scene */}
           <div className="w-[90%] lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[550px] mb-8 lg:mb-0 hidden lg:block ">
             <SplineComponent
@@ -72,7 +89,7 @@ const AIImageGenerationSection = () => {
           </div>
 
           {/* Center Content */}
-          <div className="w-full lg:w-[30%] px-4 my-24">
+          <div className="w-full lg:w-[30%] px-4">
             <motion.div
               className="text-center"
               initial={{ opacity: 0, y: -30 }}

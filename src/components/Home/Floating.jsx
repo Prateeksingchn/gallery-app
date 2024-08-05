@@ -7,6 +7,10 @@ import {
   useSpring,
   useAnimationFrame,
 } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FloatingImage = ({ src, alt, className }) => {
   const ref = useRef(null);
@@ -47,15 +51,16 @@ const FloatingImage = ({ src, alt, className }) => {
 };
 
 const Floating = () => {
+  const sectionRef = useRef(null);
+  const contentRef = useRef(null);
   const inspirationRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
   const { scrollYProgress } = useScroll({
-    target: inspirationRef,
+    target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const yPos = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   useEffect(() => {
     setIsClient(true);
@@ -71,11 +76,33 @@ const Floating = () => {
     };
 
     window.addEventListener("mousemove", throttledUpdateMousePosition, { passive: true });
+
+    // Set up the scrolling effect
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom top",
+        pin: true,
+        pinSpacing: false,
+      });
+
+      // Add a new ScrollTrigger for the content
+      ScrollTrigger.create({
+        trigger: contentRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+      });
+    }, sectionRef);
+
     return () => {
       window.removeEventListener("mousemove", throttledUpdateMousePosition);
       cancelAnimationFrame(rafId);
+      ctx.revert();
     };
   }, []);
+
 
   const floatingImages = [
     { src: "https://i.pinimg.com/236x/3d/18/21/3d182196300ee640b486dc88b3f09bb7.jpg", alt: "Placeholder", className: "top-[5%] left-[5%] w-[80px] h-[100px] md:w-[130px] md:h-[150px]" },
@@ -92,42 +119,46 @@ const Floating = () => {
   ];
 
   return (
-    <motion.div
-      ref={inspirationRef}
-      style={{ opacity, y: yPos }}
-      className="lg:h-screen md:h-[800px] h-[550px] w-full bg-[#ECE8E2] relative overflow-hidden font-serif lg:mt-0 mt-7"
-    >
-      {isClient && (
-        <div className="absolute inset-0">
-          {floatingImages.map((img, index) => (
-            <FloatingImage key={index} {...img} />
-          ))}
-        </div>
-      )}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="text-center max-w-4xl px-4">
-          <motion.h1
-            className="text-[45px] md:text-6xl lg:text-8xl font-normal mb-4 leading-tight font-[kalnia]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            Find Inspiration{" "}
-            <span className="text-[45px] md:text-6xl font-[kalnia]">
-              Wherever You Are
-            </span>
-          </motion.h1>
-          <motion.div
-            className="mt-4"
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-          >
-            <div className="h-0.5 bg-red-500 mx-auto" style={{ width: "80px" }}></div>
-          </motion.div>
-        </div>
+    <section ref={sectionRef} className="relative w-full h-screen overflow-hidden">
+      <div ref={contentRef} className="absolute inset-0 bg-[#ECE8E2]">
+        <motion.div
+          ref={inspirationRef}
+          style={{ y }}
+          className="lg:h-screen md:h-[800px] h-[550px] w-full overflow-hidden font-serif lg:mt-0 mt-7 relative"
+        >
+          {isClient && (
+            <div className="absolute inset-0">
+              {floatingImages.map((img, index) => (
+                <FloatingImage key={index} {...img} />
+              ))}
+            </div>
+          )}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center max-w-4xl px-4">
+              <motion.h1
+                className="text-[45px] md:text-6xl lg:text-8xl font-normal mb-4 leading-tight font-[kalnia]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                Find Inspiration{" "}
+                <span className="text-[45px] md:text-6xl font-[kalnia]">
+                  Wherever You Are
+                </span>
+              </motion.h1>
+              <motion.div
+                className="mt-4"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1, ease: "easeInOut" }}
+              >
+                <div className="h-0.5 bg-red-500 mx-auto" style={{ width: "80px" }}></div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
       </div>
-    </motion.div>
+    </section>
   );
 };
 

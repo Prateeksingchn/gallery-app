@@ -49,9 +49,9 @@ const FeatureShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#121212] text-white py-20 px-4 md:px-8 rounded-b-3xl mb-2 overflow-hidden relative"
+      className=" text-white py-20 px-4 md:px-8 rounded-b-3xl -mb-5 overflow-hidden relative z-30"
     >
-      <div className="absolute inset-0 bg-[#1D1D1D]" />
+      <div className="absolute inset-0 bg-[#f0f0f0]" />
       <div className="max-w-6xl mx-auto relative z-10">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
           Unleash Your Creativity

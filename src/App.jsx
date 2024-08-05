@@ -14,7 +14,7 @@ import AIGallery from "./components/AIGallery";
 export default function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-[#ECE8E2]">
+      <div className="flex flex-col min-h-screen bg-transparent relative">
         <Navigation />
         <main className="flex-grow">
           <Routes>

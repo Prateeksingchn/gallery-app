@@ -46,8 +46,8 @@ export default function Home() {
       <Floating />
       <ImageSlider images={images.slice(0, 5)} />
       <CollectionPage />
-      <FeatureShowcase />
       <AIImageGenerationSection />
+      <FeatureShowcase />
       <ImageGrid images={images} loading={loading} error={error} />
       <FeaturedArtists artists={[
         // Add some sample artist data here
