@@ -48,8 +48,8 @@ export default function Home() {
       <CollectionPage />
       <AIImageGenerationSection />
       <FeatureShowcase />
-      <ImageGrid images={images} loading={loading} error={error} />
       <FeaturedArtists />
+      <ImageGrid images={images} loading={loading} error={error} />
     </div>
   );
 }

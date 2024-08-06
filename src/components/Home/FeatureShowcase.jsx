@@ -79,14 +79,14 @@ const FeatureShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="text-gray-800 py-24 px-4 md:px-8 rounded-t-[50px] overflow-hidden relative z-30 lg:-mt-0 md:-mt-0 -mt-[100px]"
+      className="text-gray-800 py-24 px-4 md:px-8 rounded-t-[50px] overflow-hidden relative z-10 lg:-mt-0 md:-mt-0 -mt-[100px]"
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-black opacity-50 mix-blend-overlay" />
+      <div className="absolute inset-0 bg- opacity-50 mix-blend-overlay" />
       <div className="max-w-6xl mx-auto relative z-10">
         <h2 className="feature-title text-5xl md:text-6xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
           Unleash Your Creativity
