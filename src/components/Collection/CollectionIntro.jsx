@@ -19,7 +19,7 @@ const CollectionIntro = ({ scrollToSection }) => {
           <h1 className="text-8xl mb-3 font-bold text-zinc-700 font-[kalnia]">
             Curated
           </h1>
-          <h2 className="text-6xl mb-4 text-zinc-700 opacity-90 font-[kalnia]">
+          <h2 className="text-6xl mb-4 text-zinc-700 opacity-90 font-[pacifico]">
             Collections
           </h2>
           <p className="text-xl mb-2 text-black opacity-80 w-[710px] font-[roboto]">

@@ -41,12 +41,12 @@ const ImageGrid = ({ images, loading, error, onExploreClick }) => {
   }, [images, loading, error]);
 
   return (
-    <div className="bg-black lg:h-screen min-h-[500px] relative z-10">
-      <div className="absolute top-10 left-10 z-10">
-        <h2 className="text-4xl font-bold text-white">Save.</h2>
-        <h2 className="text-4xl font-bold text-white">Share.</h2>
-        <h2 className="text-4xl font-bold text-white">Inspire.</h2>
-        <h2 className="text-4xl font-bold text-red-500">Join</h2>
+    <div className="bg-black h-[500px] sm:h-[700px] lg:h-[900px] relative z-10">
+      <div className="absolute top-5 left-5 lg:top-10 lg:left-10 z-10">
+        <h2 className="text-2xl lg:text-4xl font-bold text-white">Save.</h2>
+        <h2 className="text-2xl lg:text-4xl font-bold text-white">Share.</h2>
+        <h2 className="text-2xl lg:text-4xl font-bold text-white">Inspire.</h2>
+        <h2 className="text-2xl lg:text-4xl font-bold text-red-500">Join</h2>
       </div>
 
       {loading ? (
@@ -60,7 +60,7 @@ const ImageGrid = ({ images, loading, error, onExploreClick }) => {
       ) : (
         <div
           ref={gridRef}
-          className="grid grid-cols-6 gap-2 overflow-hidden h-screen"
+          className="grid grid-cols-6 gap-2 overflow-hidden h-full"
         >
           {[0, 1, 2, 3, 4, 5].map((colIndex) => (
             <div

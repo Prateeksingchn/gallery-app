@@ -49,12 +49,7 @@ export default function Home() {
       <AIImageGenerationSection />
       <FeatureShowcase />
       <ImageGrid images={images} loading={loading} error={error} />
-      <FeaturedArtists artists={[
-        // Add some sample artist data here
-        { name: "Artist 1", specialty: "Digital Art", bio: "A talented digital artist..." },
-        { name: "Artist 2", specialty: "Photography", bio: "An award-winning photographer..." },
-        // ... more artists
-      ]} />
+      <FeaturedArtists />
     </div>
   );
 }

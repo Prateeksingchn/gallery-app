@@ -160,7 +160,7 @@ const ImageSlider = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-[100vh] relative bg-[#f0f0f0]">
+    <div ref={containerRef} className="w-full lg:h-[100vh] h-[500px] relative bg-[#f0f0f0]">
       <div 
         ref={contentRef}
         className="w-full h-screen flex flex-col px-10 sticky top-0"

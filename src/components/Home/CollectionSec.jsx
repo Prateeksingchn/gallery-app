@@ -147,14 +147,14 @@ const CollectionSec = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
 
   return (
-    <div ref={containerRef} className="w-full h-screen bg-[#1D1D1D] overflow-hidden  rounded-t-[20px]">
+    <div ref={containerRef} className="w-full lg:h-screen h-[600px] bg-[#1D1D1D] overflow-hidden  rounded-t-[20px]">
       <motion.div
         style={{ y }}
         className="bg-[#1D1D1D] text-white py-8 px-4 md:py-12 md:px-6 lg:py-20 lg:px-10 sticky top-0 h-screen "
       >
         <div className="container mx-auto">
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 lg:mb-8"
+            className="text-5xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 lg:mb-8"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -175,14 +175,14 @@ const CollectionSec = () => {
             Explore our vast collection of stunning photographs from talented artists around the world. From breathtaking landscapes to candid street scenes, our gallery showcases the beauty and diversity of visual storytelling through the lens.
           </p>
           <MarqueeContainer>
-            <div className="flex">
+            <div className="flex h-[400px] ">
               {collections.map((collection, index) => (
                 <CollectionCard key={collection.id} collection={collection} index={index} />
               ))}
             </div>
           </MarqueeContainer>
           <motion.div
-            className="flex justify-center mt-14"
+            className="flex justify-center lg:mt-14 "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
