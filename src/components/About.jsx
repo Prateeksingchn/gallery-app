@@ -87,7 +87,7 @@ const AboutUs = () => {
   const backgroundImageUrl = "/images/bg9.jpg";
 
   return (
-    <div className="bg-black text-white min-h-screen font-serif">
+    <div className="bg-black text-white min-h-screen font-serif rounded-b-[30px] z-50 mb-[800px]">
       <div
         className="h-screen bg-cover bg-center flex flex-col justify-center items-start px-16"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}
@@ -261,7 +261,7 @@ const AboutUs = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mt-32 flex flex-col lg:flex-row items-center lg:items-start space-y-12 lg:space-y-0 lg:space-x-16"
+          className="mt-32 flex flex-col lg:flex-row items-center lg:items-start space-y-12 lg:space-y-10 pb-10 lg:space-x-16 "
         >
           <motion.div
             className="lg:w-2/5 flex justify-center"

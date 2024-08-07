@@ -139,7 +139,7 @@ const MarqueeContainer = ({ children }) => {
 
 const CollectionSec = () => {
   return (
-    <div className="w-full lg:h-screen h-[600px] md:h-[670px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px]">
+    <div className="w-full lg:h-screen h-[600px] md:h-[670px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px] z-50">
       <div className="bg-[#1D1D1D] text-[#f0f0f0] py-8 px-4 md:py-14 md:px-6 lg:pt-14 lg:pb-44 lg:px-10 pb-10">
         <div className="container mx-auto">
           <motion.h1

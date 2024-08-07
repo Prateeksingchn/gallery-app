@@ -119,7 +119,7 @@ const Floating = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative w-full lg:h-screen h-[500px] md:h-[850px] overflow-hidden">
+    <section ref={sectionRef} className="relative w-full lg:h-screen h-[500px] md:h-[850px] overflow-hidden ">
       <div ref={contentRef} className="absolute inset-0 bg-[#ECE8E2]">
         <motion.div
           ref={inspirationRef}

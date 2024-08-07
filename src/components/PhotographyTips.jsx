@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Camera, Aperture, Sun, Clock, Mountain, Droplet } from "lucide-react";
 import { gsap } from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const photographyTips = [
   {
@@ -45,32 +48,60 @@ const photographyTips = [
 
 const PhotographyTips = () => {
   const sectionRef = useRef(null);
+  const contentRef = useRef(null);
   const tipRefs = useRef([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".section-title",
-        { opacity: 0, y: -50 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
-      );
+      // Create a timeline for the section animations
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          // markers: true,
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+        },
+      });
 
-      gsap.fromTo(
-        tipRefs.current,
-        { opacity: 0, y: 50 },
+      // Animate the content background and position
+      tl.fromTo(
+        contentRef.current,
         { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.8, 
-          stagger: 0.1, 
-          ease: "power3.out",
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          y: '100%'
+        },
+        { 
+          backgroundColor: "rgba(255, 255, 255, 1)", 
+          y: '0%',
+          duration: 1
         }
       );
 
-      gsap.fromTo(
+      // Animate the title
+      tl.fromTo(
+        ".section-title",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        "-=0.5"
+      );
+
+      // Animate the tips
+      tipRefs.current.forEach((tip, index) => {
+        tl.fromTo(
+          tip,
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 0.3 },
+          "-=0.2"
+        );
+      });
+
+      // Animate the CTA button
+      tl.fromTo(
         ".cta-button",
         { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 }
+        { opacity: 1, y: 0, duration: 0.3 },
+        "-=0.2"
       );
     }, sectionRef);
 
@@ -86,9 +117,12 @@ const PhotographyTips = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="w-full h-full bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center overflow-hidden"
+      className="w-full min-h-screen flex items-end justify-center overflow-hidden"
     >
-      <div className="w-[90%] max-w-7xl bg-gradient-to-br from-indigo-100 to-pink-50 rounded-[50px] p-8 md:p-16 overflow-y-auto max-h-[90vh]">
+      <div 
+        ref={contentRef}
+        className="w-full bg-gradient-to-br from-indigo-100 to-pink-50 rounded-t-[50px] p-8 md:p-16 overflow-y-auto"
+      >
         <h2 className="section-title text-4xl font-bold mb-12 text-center text-gray-800">
           Photography Tips
         </h2>

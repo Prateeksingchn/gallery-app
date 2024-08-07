@@ -12,7 +12,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-white text-black pt-8 w-full h-auto flex flex-col">
+    <footer className="bg-white text-black w-full fixed bottom-0 left-0 right-0 -z-10">
 
       {/* Contact Section */}
       <motion.div 

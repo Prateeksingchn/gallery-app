@@ -40,7 +40,8 @@ const AIImageGenerationSection = () => {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "top top",
+        // markers: true,
+        start: "top 5%",
         end: "bottom top",
         pin: true,
         pinSpacing: false,
