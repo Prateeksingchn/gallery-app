@@ -79,7 +79,7 @@ const FeatureShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="text-gray-800 py-24 px-4 md:px-8 rounded-t-[50px] overflow-hidden relative z-10 lg:-mt-0 md:-mt-0 -mt-[100px]"
+      className="text-gray-800 lg:py-24 py-12 px-4 md:px-8 rounded-t-[50px] overflow-hidden relative z-10 lg:-mt-0 -mt-[100px] md:-mt-[100px]"
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'cover',
@@ -87,7 +87,7 @@ const FeatureShowcase = () => {
       }}
     >
       <div className="absolute inset-0 bg- opacity-50 mix-blend-overlay" />
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 ">
         <h2 className="feature-title text-5xl md:text-6xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
           Unleash Your Creativity
         </h2>
@@ -95,7 +95,7 @@ const FeatureShowcase = () => {
           Discover a world of possibilities with our feature-rich platform designed to inspire and empower your creative journey.
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div
               key={index}

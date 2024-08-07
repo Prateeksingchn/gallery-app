@@ -4,7 +4,7 @@ import Floating from "./Home/Floating";
 import ImageSlider from "./Home/ImageSlider";
 import CollectionPage from "./Home/CollectionSec";
 import ImageGrid from "./Home/ImageGrid";
-import FeaturedArtists from "./FeaturedArtists";
+import PhotographyTips from "./PhotographyTips";
 import AIImageGenerationSection from "./AIImageGenerationSection";
 import FeatureShowcase from "./Home/FeatureShowcase";
 
@@ -48,7 +48,7 @@ export default function Home() {
       <CollectionPage />
       <AIImageGenerationSection />
       <FeatureShowcase />
-      <FeaturedArtists />
+      <PhotographyTips />
       <ImageGrid images={images} loading={loading} error={error} />
     </div>
   );

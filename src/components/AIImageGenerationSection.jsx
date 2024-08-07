@@ -77,11 +77,11 @@ const AIImageGenerationSection = () => {
   );
 
   return (
-    <section ref={sectionRef} className="relative w-full lg:h-screen h-[600px] overflow-hidden bg-[#121212] z-10">
-      <div className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 h-full flex items-center">
+    <section ref={sectionRef} className="relative w-full lg:h-screen h-[450px] overflow-hidden bg-[#121212] mb-10">
+      <div className="px-4 sm:px-6 lg:px-8 pt-0 pb-12 sm:py-16 lg:py-20 relative z-10 h-full flex items-center">
         <div className="flex flex-col lg:flex-row items-center justify-between w-full">
           {/* Left Spline Scene */}
-          <div className="w-[90%] lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[550px] mb-8 lg:mb-0 hidden lg:block ">
+          <div className="w-[90%] lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[600px] mb-8 lg:mb-0 hidden lg:block ">
             <SplineComponent
               scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
               splineRef={leftSplineRef}
@@ -124,7 +124,7 @@ const AIImageGenerationSection = () => {
           </div>
 
           {/* Right Spline Scene */}
-          <div className="w-full lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[500px] hidden lg:block">
+          <div className="w-full lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[600px] hidden lg:block">
             <SplineComponent
               scene="https://prod.spline.design/ELjGuoCIJhgY6VJv/scene.splinecode"
               splineRef={rightSplineRef}

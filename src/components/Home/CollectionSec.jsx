@@ -139,11 +139,11 @@ const MarqueeContainer = ({ children }) => {
 
 const CollectionSec = () => {
   return (
-    <div className="w-full lg:h-screen h-[600px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px]">
-      <div className="bg-[#1D1D1D] text-[#f0f0f0] py-8 px-4 md:py-12 md:px-6 lg:pt-14 lg:pb-44 lg:px-10">
+    <div className="w-full lg:h-screen h-[600px] md:h-[670px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px]">
+      <div className="bg-[#1D1D1D] text-[#f0f0f0] py-8 px-4 md:py-14 md:px-6 lg:pt-14 lg:pb-44 lg:px-10 pb-10">
         <div className="container mx-auto">
           <motion.h1
-            className="text-5xl md:text-5xl lg:text-[5rem] font-bold mb-4 md:mb-6 lg:mb-8"
+            className="text-5xl md:text-6xl lg:text-[5rem] font-bold mb-4 md:mb-6 lg:mb-8"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -171,7 +171,7 @@ const CollectionSec = () => {
             </div>
           </MarqueeContainer>
           <motion.div
-            className="flex justify-center lg:mt-10 "
+            className="flex justify-center lg:mt-10 mt-0 md:-mt-4 "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
@@ -183,7 +183,7 @@ const CollectionSec = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 Explore More Collections 
-                <ChevronDown className="ml-1" />
+                <ChevronDown className="mt-2" />
               </motion.button>
             </Link>
           </motion.div>

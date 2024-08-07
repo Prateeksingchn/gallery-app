@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Camera, Aperture, Sun, Clock, Mountain, Droplet } from "lucide-react";
+import { gsap } from 'gsap';
 
 const photographyTips = [
   {
@@ -43,25 +44,60 @@ const photographyTips = [
 ];
 
 const PhotographyTips = () => {
+  const sectionRef = useRef(null);
+  const tipRefs = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".section-title",
+        { opacity: 0, y: -50 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+      );
+
+      gsap.fromTo(
+        tipRefs.current,
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          stagger: 0.1, 
+          ease: "power3.out",
+        }
+      );
+
+      gsap.fromTo(
+        ".cta-button",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const addToRefs = (el) => {
+    if (el && !tipRefs.current.includes(el)) {
+      tipRefs.current.push(el);
+    }
+  };
+
   return (
-    <section className="w-full min-h-screen bg-red-400 py-16 flex items-center justify-center mt-[80px] ">
-      <div className="w-[90%] max-w-7xl bg-gradient-to-br from-indigo-100 to-pink-50 rounded-[50px] p-8 md:p-16">
-        <motion.h2
-          className="text-4xl font-bold mb-12 text-center text-gray-800"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+    <section 
+      ref={sectionRef} 
+      className="w-full h-full bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center overflow-hidden"
+    >
+      <div className="w-[90%] max-w-7xl bg-gradient-to-br from-indigo-100 to-pink-50 rounded-[50px] p-8 md:p-16 overflow-y-auto max-h-[90vh]">
+        <h2 className="section-title text-4xl font-bold mb-12 text-center text-gray-800">
           Photography Tips
-        </motion.h2>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {photographyTips.map((tip, index) => (
             <motion.div
               key={index}
+              ref={addToRefs}
               className="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
             >
               <div className="flex items-center mb-4">
                 <div className="bg-indigo-100 rounded-full p-3 mr-4">
@@ -78,7 +114,7 @@ const PhotographyTips = () => {
         <div className="text-center">
           <Link
             to="/photography-tips"
-            className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-8 rounded-full font-semibold hover:from-indigo-600 hover:to-purple-700 transition duration-300 shadow-md hover:shadow-lg"
+            className="cta-button inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-8 rounded-full font-semibold hover:from-indigo-600 hover:to-purple-700 transition duration-300 shadow-md hover:shadow-lg"
           >
             Explore All Tips
           </Link>
