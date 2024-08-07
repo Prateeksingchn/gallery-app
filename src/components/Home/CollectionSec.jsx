@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -138,30 +138,19 @@ const MarqueeContainer = ({ children }) => {
 };
 
 const CollectionSec = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-
   return (
-    <div ref={containerRef} className="w-full lg:h-screen h-[600px] bg-[#1D1D1D] overflow-hidden  rounded-t-[20px]">
-      <motion.div
-        style={{ y }}
-        className="bg-[#1D1D1D] text-white py-8 px-4 md:py-12 md:px-6 lg:py-20 lg:px-10 sticky top-0 h-screen "
-      >
+    <div className="w-full lg:h-screen h-[600px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px]">
+      <div className="bg-[#1D1D1D] text-[#f0f0f0] py-8 px-4 md:py-12 md:px-6 lg:pt-14 lg:pb-44 lg:px-10">
         <div className="container mx-auto">
           <motion.h1
-            className="text-5xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 lg:mb-8"
+            className="text-5xl md:text-5xl lg:text-[5rem] font-bold mb-4 md:mb-6 lg:mb-8"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center flex-wrap">
               <span className="mr-2">COLL</span>
-              <div className="w-24 h-8 md:w-32 md:h-10 lg:w-40 lg:h-12 overflow-hidden rounded">
+              <div className="w-24 h-8 md:w-32 md:h-10 lg:w-40 lg:h-[58px] overflow-hidden rounded">
                 <img
                   src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmF0dXJlfGVufDB8MHwwfHx8MA%3D%3D"
                   alt="Nature"
@@ -182,24 +171,24 @@ const CollectionSec = () => {
             </div>
           </MarqueeContainer>
           <motion.div
-            className="flex justify-center lg:mt-14 "
+            className="flex justify-center lg:mt-10 "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
           >
             <Link to="/collections">
               <motion.button
-                className="flex items-center transition-colors text-base md:text-lg"
+                className="flex flex-col items-center transition-colors text-base md:text-lg"
                 whileHover={{ y: 3 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Explore More Collections
+                Explore More Collections 
                 <ChevronDown className="ml-1" />
               </motion.button>
             </Link>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

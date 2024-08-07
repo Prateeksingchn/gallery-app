@@ -1,10 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger); 
 
 // ... (the images array of objects) ...
 const images = [
@@ -100,7 +96,6 @@ const images = [
   }
 ];
 
-
 const variants = {
   enter: (direction) => ({
     x: direction > 0 ? 500 : -500,
@@ -123,12 +118,6 @@ const variants = {
 
 const ImageSlider = () => {
   const [[page, direction], setPage] = useState([0, 0]);
-  const containerRef = useRef(null);
-  const contentRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
 
   const imageIndex = Math.abs(page % images.length);
   const nextImageIndex = (imageIndex + 1) % images.length;
@@ -137,34 +126,9 @@ const ImageSlider = () => {
     setPage([page + newDirection, newDirection]);
   };
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const content = contentRef.current;
-
-    if (container && content) {
-      const ctx = gsap.context(() => {
-        ScrollTrigger.create({
-          trigger: container,
-          start: "top top",
-          end: "bottom bottom",
-          pin: content,
-          pinSpacing: false,
-          scrub: true,
-        });
-      }, container);
-
-      return () => ctx.revert();
-    }
-  }, []);
-
   return (
-    <div ref={containerRef} className="w-full lg:h-[100vh] h-[500px] relative bg-[#f0f0f0]">
-      <div 
-        ref={contentRef}
-        className="w-full h-screen flex flex-col px-10 sticky top-0"
-      >
+    <div className="w-full lg:h-[100vh] h-[500px] relative bg-[#f0f0f0] rouned-b-[10px]">
+      <div className="w-full h-screen flex flex-col px-10">
         <div className="flex-1 flex py-20 relative">
           <motion.div 
             className="w-[30%] absolute left-8 top-44 z-10"
@@ -219,10 +183,7 @@ const ImageSlider = () => {
             </div>
           </motion.div>
           
-          <motion.div 
-            className="w-[70%] relative flex items-center justify-center space-x-4 overflow-hidden px-20 ml-auto"
-            style={{ y }}
-          >
+          <div className="w-[70%] relative flex items-center justify-center space-x-4 overflow-hidden px-20 ml-auto">
             <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={page}
@@ -268,7 +229,7 @@ const ImageSlider = () => {
                 <ChevronRight size={24} />
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

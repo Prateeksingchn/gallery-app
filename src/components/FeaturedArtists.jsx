@@ -44,7 +44,7 @@ const photographyTips = [
 
 const PhotographyTips = () => {
   return (
-    <section className="w-full min-h-screen bg-red-400 py-20 flex items-center justify-center mt-[80px] ">
+    <section className="w-full min-h-screen bg-red-400 py-16 flex items-center justify-center mt-[80px] ">
       <div className="w-[90%] max-w-7xl bg-gradient-to-br from-indigo-100 to-pink-50 rounded-[50px] p-8 md:p-16">
         <motion.h2
           className="text-4xl font-bold mb-12 text-center text-gray-800"
