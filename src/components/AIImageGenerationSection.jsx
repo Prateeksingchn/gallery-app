@@ -41,8 +41,8 @@ const AIImageGenerationSection = () => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         // markers: true,
-        start: "top 5%",
-        end: "bottom top",
+        start: "top 10%",
+        end: "bottom 10%",
         pin: true,
         pinSpacing: false,
       });
@@ -78,8 +78,8 @@ const AIImageGenerationSection = () => {
   );
 
   return (
-    <section ref={sectionRef} className="relative w-full lg:h-screen h-[450px] overflow-hidden bg-[#121212] mb-10">
-      <div className="px-4 sm:px-6 lg:px-8 pt-0 pb-12 sm:py-16 lg:py-20 relative z-10 h-full flex items-center">
+    <section ref={sectionRef} className="relative w-[87%] mx-auto lg:h-[80vh] h-[450px] md:h-[300px] overflow-hidden bg-[#121212] my-10 rounded-3xl">
+      <div className="px-4 sm:px-6 lg:px-8 pt-0 pb-12 sm:py-16 lg:py-20 relative h-full flex items-center">
         <div className="flex flex-col lg:flex-row items-center justify-between w-full">
           {/* Left Spline Scene */}
           <div className="w-[90%] lg:w-[37%] h-[300px] sm:h-[400px] lg:h-[600px] mb-8 lg:mb-0 hidden lg:block ">
@@ -90,17 +90,20 @@ const AIImageGenerationSection = () => {
           </div>
 
           {/* Center Content */}
-          <div className="w-full lg:w-[30%] px-4">
+          <div className="w-full lg:w-[25%] px-4">
             <motion.div
               className="text-center"
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <h2 className="text-5xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+              <h2 className="lg:block hidden md:hidden text-5xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+                Top Images <br /> of Today
+              </h2>
+              <h2 className="lg:hidden hidden md:block text-5xl sm:text-4xl lg:text-[70px] font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
                 Top Images of Today
               </h2>
-              <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8">
+              <p className="text-lg md:text-xl lg:text-[16px] text-gray-300 mb-6 sm:mb-8">
                 Explore the most popular images of today, curated for you. Discover amazing visuals from talented artists around the world.
               </p>
               <motion.div

@@ -10,7 +10,7 @@ const FeatureShowcase = () => {
   const featureRefs = useRef([]);
   featureRefs.current = [];
 
-  const backgroundImageUrl = "/images/fb4.png";
+  const backgroundImageUrl = "#f2f2f2";
 
   const addToRefs = (el) => {
     if (el && !featureRefs.current.includes(el)) {
@@ -24,7 +24,7 @@ const FeatureShowcase = () => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         // markers: true,
-        start: "top 8%",
+        start: "top 15%",
         end: "bottom top",
         pin: true,
         pinSpacing: false,
@@ -104,7 +104,7 @@ const FeatureShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="text-gray-800 h-screen py-24 px-4 md:px-8 rounded-t-[50px] overflow-hidden relative "
+      className="text-gray-800 w-[90%] mx-auto lg:my-10 lg:h-[80vh] md:h-[600px] py-10 px-4 md:px-8 rounded-3xl overflow-hidden relative bg-gray-600"
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: "cover",
@@ -113,15 +113,15 @@ const FeatureShowcase = () => {
     >
       <div className="absolute inset-0 bg-black opacity-50 mix-blend-overlay" />
       <div className="max-w-6xl mx-auto relative z-10">
-        <h2 className="feature-title text-5xl md:text-6xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
+        <h2 className="feature-title text-5xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
           Unleash Your Creativity
         </h2>
-        <p className="text-xl md:text-2xl text-center mb-16 text-white max-w-3xl mx-auto">
+        <p className="text-xl md:text-xl text-center mb-16 text-white max-w-3xl mx-auto">
           Discover a world of possibilities with our feature-rich platform
           designed to inspire and empower your creative journey.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 lg:gap-8 md:gap-3">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -131,7 +131,7 @@ const FeatureShowcase = () => {
               <div className="bg-gradient-to-br from-pink-900 to-indigo-900 p-5 rounded-2xl mb-6 shadow-lg">
                 <feature.icon size={20} className="text-white" />
               </div>
-              <h3 className="text-[20px] font-semibold mb-4 text-white">
+              <h3 className="lg:text-[20px] md:text-[25px] font-semibold mb-4 text-white ">
                 {feature.title}
               </h3>
               <p className="text-center text-sm text-white">
@@ -141,7 +141,7 @@ const FeatureShowcase = () => {
           ))}
         </div>
 
-        <div className="mt-20 text-center">
+        <div className="mt-16 text-center">
           <button className="cta-button bg-gradient-to-r from-pink-500 to-indigo-500 px-10 py-4 rounded-full font-semibold text-xl text-white hover:from-pink-600 hover:to-indigo-600 transition duration-300 shadow-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50">
             Start Creating Now
           </button>

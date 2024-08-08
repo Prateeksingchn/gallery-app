@@ -4,7 +4,7 @@ import Floating from "./Home/Floating";
 import ImageSlider from "./Home/ImageSlider";
 import CollectionPage from "./Home/CollectionSec";
 import ImageGrid from "./Home/ImageGrid";
-import PhotographyTips from "./PhotographyTips";
+import PhotographyTips from "./Home/PhotographyTips";
 import AIImageGenerationSection from "./AIImageGenerationSection";
 import FeatureShowcase from "./Home/FeatureShowcase";
 

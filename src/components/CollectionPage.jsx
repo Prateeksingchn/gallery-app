@@ -391,7 +391,7 @@ const CollectionPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F7F6EE] text-white z-50 mb-[900px] rounded-b-[50px]">
+    <div className="min-h-screen bg-[#F7F6EE] text-white  rounded-b-[50px]">
       <CollectionIntro scrollToSection={scrollToSection} />
       <div
         id="about-curation"

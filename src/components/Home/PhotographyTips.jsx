@@ -58,7 +58,7 @@ const PhotographyTips = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           // markers: true,
-          start: "top bottom",
+          start: "top 70%",
           end: "top top",
           scrub: true,
         },
@@ -79,30 +79,30 @@ const PhotographyTips = () => {
       );
 
       // Animate the title
-      tl.fromTo(
-        ".section-title",
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.5 },
-        "-=0.5"
-      );
+      // tl.fromTo(
+      //   ".section-title",
+      //   { opacity: 0, y: 50 },
+      //   { opacity: 1, y: 0, duration: 0.5 },
+      //   "-=0.5"
+      // );
 
       // Animate the tips
-      tipRefs.current.forEach((tip, index) => {
-        tl.fromTo(
-          tip,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 0.3 },
-          "-=0.2"
-        );
-      });
+      // tipRefs.current.forEach((tip, index) => {
+      //   tl.fromTo(
+      //     tip,
+      //     { opacity: 0, y: 50 },
+      //     { opacity: 1, y: 0, duration: 0.3 },
+      //     "-=0.2"
+      //   );
+      // });
 
       // Animate the CTA button
-      tl.fromTo(
-        ".cta-button",
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.3 },
-        "-=0.2"
-      );
+      // tl.fromTo(
+      //   ".cta-button",
+      //   { opacity: 0, y: 50 },
+      //   { opacity: 1, y: 0, duration: 0.3 },
+      //   "-=0.2"
+      // );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -117,16 +117,16 @@ const PhotographyTips = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="w-full min-h-screen flex items-end justify-center overflow-hidden"
+      className="lg:w-[90%] w-[95%] mx-auto my-10 lg:h-[86vh] md:h-[80vh] md:py-10 flex items-end justify-center overflow-hidden"
     >
       <div 
         ref={contentRef}
-        className="w-full bg-gradient-to-br from-indigo-100 to-pink-50 rounded-t-[50px] p-8 md:p-16 overflow-y-auto"
+        className="w-full bg-gradient-to-br from-indigo-100 to-pink-50 rounded-3xl p-8 md:p-4 overflow-y-auto"
       >
-        <h2 className="section-title text-4xl font-bold mb-12 text-center text-gray-800">
+        <h2 className="section-title text-4xl font-bold mt-4 mb-12 text-center text-gray-800">
           Photography Tips
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 lg:gap-8 md:gap-4 lg:mb-12 md:mb-8">
           {photographyTips.map((tip, index) => (
             <motion.div
               key={index}
@@ -137,11 +137,11 @@ const PhotographyTips = () => {
                 <div className="bg-indigo-100 rounded-full p-3 mr-4">
                   {tip.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-[18px] font-semibold text-gray-800">
                   {tip.title}
                 </h3>
               </div>
-              <p className="text-gray-600">{tip.description}</p>
+              <p className="text-gray-600 md:text-[15px]">{tip.description}</p>
             </motion.div>
           ))}
         </div>

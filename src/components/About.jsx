@@ -87,7 +87,7 @@ const AboutUs = () => {
   const backgroundImageUrl = "/images/bg9.jpg";
 
   return (
-    <div className="bg-black text-white min-h-screen font-serif rounded-b-[30px] z-50 mb-[800px]">
+    <div className="bg-black text-white min-h-screen font-serif rounded-b-[30px]">
       <div
         className="h-screen bg-cover bg-center flex flex-col justify-center items-start px-16"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}

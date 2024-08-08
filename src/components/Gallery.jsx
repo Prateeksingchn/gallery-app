@@ -112,7 +112,7 @@ const Gallery = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen bg-gradient-to-b from-zinc-200 to-sky-600 rounded-b-[50px] border-b-2 border-zinc-300 z-50 mb-[800px]"
+      className="min-h-screen bg-gradient-to-b from-zinc-200 to-sky-600 rounded-b-[50px] border-b-2 border-zinc-300 "
     >
       <div className="max-w-8xl mx-auto">
         <GalleryIntroSection featuredImages={featuredImages} />
