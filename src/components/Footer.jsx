@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Footer = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const controls = useAnimation();
   const [ref, inView] = useInView();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Subscribed with email:', email);
-    setEmail('');
+    console.log("Subscribed with email:", email);
+    setEmail("");
   };
 
   React.useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     if (inView) {
-      controls.start('visible');
+      controls.start("visible");
     } else {
-      controls.start('hidden');
+      controls.start("hidden");
     }
   }, [controls, inView]);
 
@@ -40,8 +40,87 @@ const Footer = () => {
         transition={{ duration: 0.5 }}
         className="container mx-auto px-4 pt-10 w-full h-auto pb-8"
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* ... (rest of the footer content) ... */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-0">
+          <div className=" w-[370px] lg:w-[700px] md:w-[300px] ">
+            <h2 className="text-4xl font-semibold mb-4">Say Hello</h2>
+            <div className="mb-2 mt-12 md:mt-48">
+              <h3 className="font-semibold">Stay updated on news</h3>
+              <form
+                onSubmit={handleSubmit}
+                className="flex mt-2 border-2 border-zinc-400 rounded-full overflow-hidden bg-white"
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your Email"
+                  className="bg-white text-black p-2 rounded-l flex-grow"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#F8D347] rounded-full m-[1.2px] text-sm text-black font-bold p-2 hover:bg-gray-800 hover:text-white transition duration-300"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+            <p className="text-xs">
+              &copy; PixelPerfect 2024. All rights reserved
+            </p>
+          </div>
+          <div className="lg:ml-72 md:ml-[100px]  w-[200px] lg:w-[300px] md:w-[200px] mt-10 md:mt-0 lg:mt-0 ">
+            <h3 className="font-bold mb-2">New business</h3>
+            <p>viki@PixelPerfect.com</p>
+            <h3 className="font-bold mt-4 mb-2">Join us</h3>
+            <p>hello@PixelPerfect.com</p>
+            <div className="flex md:flex-row lg:flex-col lg:gap-0 md:gap-36 mt-0 md:mt-[50px] lg:mt-0">
+              <div className="flex flex-col">
+                <h3 className="font-bold mt-4 mb-2">Follow us</h3>
+                <ul>
+                  <li>
+                    <a href="#" className="hover:underline">
+                      LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Instagram
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Twitter
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-col ml-8">
+                <h3 className="font-bold md:mt-4 mt-4 lg:mt-0  mb-2">Legal</h3>
+                <ul>
+                  <li>
+                    <Link to="/cookies" className="hover:underline">
+                      Cookie Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/privacy" className="hover:underline">
+                      Privacy Policy
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="lg:ml-24 ml-0 md:ml-[70px] mt-5 w-[200px] lg:w-[300px] md:w-[200px] ">
+            <h3 className="font-bold mb-2">Contact</h3>
+            <p>Studio 402</p>
+            <p>Makateb Building Two</p>
+            <p>Production City, Dubai</p>
+            <p className="mt-2">+971 (0)4 420 7025</p>
+            <a href="#" className="underline mt-2 inline-block mb-2">
+              See on Map
+            </a>
+          </div>
         </div>
       </motion.div>
 
@@ -57,7 +136,7 @@ const Footer = () => {
           },
         }}
         exit={{ opacity: 0, y: 50 }}
-        className="bg-[#F8D347] pt-12 w-full h-[350px] overflow-hidden flex items-end justify-center"
+        className="bg-[#F8D347] pt-12 w-full lg:h-[350px] md:h-[230px] overflow-hidden flex items-end justify-center"
       >
         <div className="container mx-auto px-4 flex items-end justify-center overflow-hidden">
           <motion.h1
@@ -71,7 +150,7 @@ const Footer = () => {
               },
             }}
             exit={{ opacity: 0, y: 100 }}
-            className="text-[70px] md:text-[16rem] lg:text-[20rem] lg:leading-[14rem] md:leading-[210px] mt-4 lg:tracking-[-0.07em] font-bold font-[roboto]"
+            className="text-[83px] md:text-[9.5rem] lg:text-[20rem] leading-[70px] lg:leading-[14rem] md:leading-[110px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
           >
             PixelPerfect
           </motion.h1>

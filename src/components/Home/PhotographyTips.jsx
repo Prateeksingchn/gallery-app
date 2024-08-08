@@ -126,7 +126,7 @@ const PhotographyTips = () => {
         <h2 className="section-title text-4xl font-bold mt-4 mb-12 text-center text-gray-800">
           Photography Tips
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 lg:gap-8 md:gap-4 lg:mb-12 md:mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 lg:gap-8 md:gap-4 lg:mb-12 md:mb-8">
           {photographyTips.map((tip, index) => (
             <motion.div
               key={index}
