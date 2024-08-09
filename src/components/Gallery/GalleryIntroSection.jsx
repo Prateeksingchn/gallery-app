@@ -36,21 +36,21 @@ const GalleryIntroSection = () => {
   );
 
   const imageClasses = [
-    "top-[5%] md:top-[40%] lg:top-[20%] left-[1%] md:left-[3.5%] w-[30%] md:w-[20%] lg:w-[20%] h-[40%] md:h-[34%] lg:h-[65%]",
-    "top-[5%] md:top-[20%] lg:top-[10%] left-[35%] md:left-[55%] lg:left-[54%] w-[30%] md:w-[20%] lg:w-[20%] h-[15%] md:h-[17%] lg:h-[25%]",
-    "top-[50%] md:top-[68%] lg:top-[72%] left-[20%] md:left-[37%] lg:left-[39%] w-[25%] md:w-[20%] lg:w-[17%] h-[15%] md:h-[14%] lg:h-[20%]",
-    "top-[25%] md:top-[41%] lg:top-[43%] left-[60%] md:left-[82%] lg:left-[82%] w-[25%] md:w-[15%] lg:w-[15%] h-[25%] md:h-[20%] lg:h-[40%]",
+    "top-[52%] md:top-[40%] lg:top-[20%] left-[3.7%] md:left-[3.5%] w-[20%] md:w-[20%] lg:w-[20%] h-[30%] md:h-[34%] lg:h-[65%]",
+    "top-[13%] md:top-[20%] lg:top-[10%] left-[57%] md:left-[55%] lg:left-[54%] w-[20%] md:w-[20%] lg:w-[20%] h-[15%] md:h-[17%] lg:h-[25%]",
+    "top-[77%] md:top-[68%] lg:top-[72%] left-[35%] md:left-[37%] lg:left-[39%] w-[27%] md:w-[20%] lg:w-[17%] h-[17%] md:h-[14%] lg:h-[20%]",
+    "top-[32%] md:top-[41%] lg:top-[43%] left-[82.5%] md:left-[82%] lg:left-[82%] w-[15%] md:w-[15%] lg:w-[15%] h-[20%] md:h-[20%] lg:h-[40%]",
   ];
 
   return (
     <div
-      className="h-[600px] md:h-[600px] lg:min-h-screen w-full"
+      className="h-[400px] md:h-[600px] lg:min-h-screen w-full"
       ref={sectionRef}
     >
-      <section className="h-screen md:h-[750px] lg:min-h-screen w-full bg-[#ECE8E2] relative overflow-hidden">
+      <section className="h-[400px] md:h-[750px] lg:min-h-screen w-full bg-[#ECE8E2] relative overflow-hidden">
         <motion.h1
           style={{ opacity, scale }}
-          className="absolute inset-0 flex items-center justify-center text-[8vw] md:text-[18vw] lg:text-[17vw] font-[kalnia] font-normal tracking-wide leading-none text-red-600 z-10"
+          className="absolute inset-0 flex items-center justify-center text-[19vw] md:text-[18vw] lg:text-[17vw] font-[kalnia] font-normal tracking-wide leading-none text-red-600 z-10"
         >
           Gallery
         </motion.h1>

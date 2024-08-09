@@ -71,7 +71,7 @@ const ImageGridAndPagination = ({ images, loading, totalPages, page, handlePageC
       {/* Image Grid */}
       <AnimatePresence>
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 md:px-8 lg:px-4 mx-auto max-w-7xl auto-rows-[200px] z-50"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4 md:px-8 lg:px-4 mx-auto max-w-7xl auto-rows-[200px] z-50"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}

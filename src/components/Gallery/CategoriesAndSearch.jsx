@@ -24,7 +24,7 @@ const CategoriesAndSearch = ({
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="mx-auto max-w-7xl md:py-14 lg:py-8 px-4 md:px-16 lg:px-8 bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg my-12"
+      className="lg:mx-auto mx-4 max-w-7xl py-10 md:py-14 lg:py-8 px-5 md:px-16 lg:px-8 bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg my-5 md:my-12 lg:my-12"
     >
       {/* Search */}
       <div className="mb-8 relative">
@@ -58,7 +58,7 @@ const CategoriesAndSearch = ({
 
       {/* Categories */}
       <div className="mb-4">
-        <h3 className="text-2xl font-bold text-gray-800 mb-4">Categories</h3>
+        <h3 className="text-xl md:text-2xl lg:text-2xl font-bold text-gray-800 mb-4">Categories</h3>
         <motion.div 
           className="flex flex-wrap gap-3"
           initial={{ opacity: 0 }}
@@ -72,7 +72,7 @@ const CategoriesAndSearch = ({
                 onClick={() => handleCategoryClick(category)}
                 onMouseEnter={() => setHoveredCategory(category)}
                 onMouseLeave={() => setHoveredCategory(null)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-4 py-2 rounded-full text-[12px] md:text-sm lg:text-sm font-medium transition-all duration-300 ${
                   activeCategory === category
                     ? "bg-blue-500 text-white shadow-md"
                     : "bg-white bg-opacity-70 text-gray-700 hover:bg-opacity-100 border border-blue-200"
@@ -98,7 +98,7 @@ const CategoriesAndSearch = ({
           </AnimatePresence>
           <Link to="/collections">
             <motion.button
-              className="px-4 py-2 rounded-full text-sm font-medium bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
+              className="px-4 py-2 rounded-full text-[12px] md:text-sm lg:text-sm font-medium bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
