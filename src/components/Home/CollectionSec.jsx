@@ -79,7 +79,7 @@ const collections = [
 const CollectionCard = ({ collection, index }) => {
   return (
     <div 
-      className="relative overflow-hidden cursor-pointer w-[200px] h-[200px] lg:w-[250px] lg:h-[250px] mx-2 my-1"
+      className="relative overflow-hidden cursor-pointer w-[250px] h-[250px] lg:w-[250px] lg:h-[250px] mx-2 my-1"
       style={{
         top: `${(index % 2) * 30}px`,
       }}
@@ -139,11 +139,11 @@ const MarqueeContainer = ({ children }) => {
 
 const CollectionSec = () => {
   return (
-    <div className="w-full lg:h-screen h-[600px] md:h-[670px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px] z-50">
+    <div className="w-full lg:h-screen h-[800px] md:h-[670px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px] z-50">
       <div className="bg-[#1D1D1D] text-[#f0f0f0] py-8 px-4 md:py-14 md:px-6 lg:pt-14 lg:pb-44 lg:px-10 pb-10">
         <div className="container mx-auto">
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-[5rem] font-bold mb-4 md:mb-6 lg:mb-8"
+            className="text-6xl md:text-6xl lg:text-[5rem] font-bold mb-4 md:mb-6 lg:mb-8"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -160,7 +160,7 @@ const CollectionSec = () => {
             </div>
             <span className="block mt-1">—ECTION</span>
           </motion.h1>
-          <p className="mb-6 md:mb-8 max-w-2xl text-sm md:text-base">
+          <p className="mb-10 md:mb-8 max-w-2xl text-lg md:text-base">
             Explore our vast collection of stunning photographs from talented artists around the world. From breathtaking landscapes to candid street scenes, our gallery showcases the beauty and diversity of visual storytelling through the lens.
           </p>
           <MarqueeContainer>
@@ -171,7 +171,7 @@ const CollectionSec = () => {
             </div>
           </MarqueeContainer>
           <motion.div
-            className="flex justify-center lg:mt-10 mt-0 md:-mt-4 "
+            className="flex justify-center lg:mt-10 mt-7 md:-mt-4 "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}

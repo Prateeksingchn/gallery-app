@@ -127,13 +127,13 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="w-full lg:h-[100vh] h-[500px] md:h-[900px] relative bg-[#f0f0f0] rouned-b-[10px]">
-      <div className="w-full h-screen flex flex-col px-10">
+    <div className="w-full lg:h-[100vh] h-[860px] md:h-[900px] relative bg-[#f0f0f0] rouned-b-[10px]">
+      <div className="w-full h-screen flex flex-col px-5 lg:px-10 md:px-10">
         <div className="flex-1 flex  py-20 relative">
 
           {/* Left Side Image Info */}
           <motion.div 
-            className="lg:w-[30%] absolute lg:left-8 lg:top-44 md:left-0 md:top-10 z-10"
+            className="lg:w-[30%] absolute left-0 top-10 lg:left-8 lg:top-44 md:left-0 md:top-10 z-10"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -202,19 +202,19 @@ const ImageSlider = () => {
                   opacity: { duration: 0.6 },
                   scale: { duration: 0.5 },
                 }}
-                className="lg:w-[40%] lg:h-[100%] md:w-[55%] md:h-[60%] w-[70%] h-[70%] object-cover absolute lg:top-0 lg:right-72 md:bottom-24 md:right-64 shadow-lg rounded-lg"
+                className="lg:w-[40%] lg:h-[100%] md:w-[55%] md:h-[60%] w-[70%] h-[50%] object-cover absolute lg:top-0 lg:right-72 md:bottom-24 md:right-64 bottom-20 left-0 shadow-lg rounded-lg"
               />
             </AnimatePresence>
             <motion.img
               src={images[nextImageIndex].src}
               alt={images[nextImageIndex].alt}
-              className="lg:w-[35%] lg:h-[80%] md:w-[55%] md:h-[50%] w-[70%] h-[70%] object-cover filter grayscale absolute lg:top-14 lg:right-0 md:right-10 md:bottom-36 rounded-lg"
+              className="lg:w-[35%] lg:h-[80%] md:w-[55%] md:h-[50%] w-[55%] h-[40%] object-cover filter grayscale absolute lg:top-14 lg:right-0 md:right-10 md:bottom-36 bottom-32 right-0 rounded-lg"
               initial={{ x: 500, opacity: 0, scale: 0.8 }}
               animate={{ x: 0, opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             />
 
-            <div className="absolute lg:bottom-6 lg:right-12 md:bottom-[6rem] md:right-20  flex items-center space-x-4 lg:scale-100 md:scale-125">
+            <div className="absolute lg:bottom-6 lg:right-12 md:bottom-[6rem] md:right-20 bottom-4 right-10 flex items-center space-x-4 lg:scale-100 md:scale-125 scale-125">
               <button
                 onClick={() => paginate(-1)}
                 className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"

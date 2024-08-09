@@ -103,28 +103,27 @@ const Floating = () => {
     };
   }, []);
 
-
   const floatingImages = [
-    { src: "https://i.pinimg.com/236x/3d/18/21/3d182196300ee640b486dc88b3f09bb7.jpg", alt: "Placeholder", className: "top-[5%] left-[5%] lg: w-[80px] lg:w-[130px] lg:h-[150px] w-[80px] h-[100px] md:w-[130px] md:h-[150px]" },
-    { src: "https://i.pinimg.com/236x/0e/42/7f/0e427fefb82a8f6326dbcce6e4468a56.jpg", alt: "Placeholder", className: "top-[7%] right-[10%] w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] md:w-[110px] md:h-[110px]" },
-    { src: "https://i.pinimg.com/236x/33/12/c4/3312c4eea018181a4de435c44bdb8f30.jpg", alt: "Placeholder", className: "bottom-[15%] left-[7%] lg: w-[80px] lg:h-[100px] w-[80px] h-[100px] md:w-[120px] md:h-[140px]" },
-    { src: "https://i.pinimg.com/236x/98/8b/0d/988b0d2faafc1156acd8ea0b28009985.jpg", alt: "Placeholder", className: "bottom-[20%] right-[10%] w-[90px] h-[70px] md:w-[140px] md:h-[110px]" },
-    { src: "https://i.pinimg.com/236x/a4/e2/02/a4e202ba80d3a9a0b8db24d75c73ff40.jpg", alt: "Placeholder", className: "lg:top-[22%] lg:left-[23%] top-[27%] left-[17%] md:top-[27%] md:left-[25%] w-[80px] h-[80px] md:w-[130px] md:h-[130px] lg:w-[120px] lg:h-[130px]" },
-    { src: "https://i.pinimg.com/236x/4a/cf/77/4acf771a623bb6acacf51b832374028f.jpg", alt: "Placeholder", className: "lg:top-[14%] lg:right-[23.7%] top-[17%] right-[25%] md:top-[17%] md:right-[30%] w-[100px] h-[120px] lg:w-[160px] lg:h-[130px] md:w-[150px] md:h-[150px] " },
-    { src: "https://i.pinimg.com/236x/4d/92/aa/4d92aa15d703b6f5619953a62876e9f9.jpg", alt: "Placeholder", className: "bottom-[7%] md:bottom-[10%] right-[30%] w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden md:block lg:block" },
-    { src: "https://i.pinimg.com/236x/10/f3/c0/10f3c0375d6afc939af6f854b333bba1.jpg", alt: "Placeholder", className: "top-[40%] right-[5%] w-[70px] h-[90px] lg:w-[120px] lg:h-[120px] md:w-[110px] md:h-[140px] hidden md:block lg:block" },
-    { src: "https://i.pinimg.com/236x/c9/dd/59/c9dd590d03ea0cc26c8bdb94c53d92cb.jpg", alt: "Placeholder", className: "bottom-[5%] left-[25%] w-[80px] h-[60px] md:w-[130px] md:h-[100px]" },
-    { src: "https://i.pinimg.com/236x/db/92/3a/db923ae921d9807793f5abac42320647.jpg", alt: "Placeholder", className: "bottom-[15%] left-[45%] w-[80px] h-[60px] md:w-[130px] md:h-[100px] block md:hidden lg:block" },
-    { src: "https://i.pinimg.com/236x/3d/63/90/3d639037ba61d2f2548226940b360db5.jpg", alt: "Placeholder", className: "lg:top-[15%] lg:left-[45%] top-[35%] left-[45%] lg:w-[120px] lg:h-[110px] w-[80px] h-[100px] md:w-[120px] md:h-[150px] hidden md:hidden lg:block" },
+    { src: "https://i.pinimg.com/236x/3d/18/21/3d182196300ee640b486dc88b3f09bb7.jpg", alt: "Placeholder", className: "top-[7%] left-[2%] lg:top-[5%] lg:left-[5%] md:top-[5%] md:left-[5%] w-[60px] h-[60px] lg:w-[130px] lg:h-[150px] md:w-[130px] md:h-[150px]" },
+    { src: "https://i.pinimg.com/236x/0e/42/7f/0e427fefb82a8f6326dbcce6e4468a56.jpg", alt: "Placeholder", className: "top-[7%] right-[10%] w-[55px] h-[60px] lg:w-[100px] lg:h-[100px] md:w-[110px] md:h-[110px]" },
+    { src: "https://i.pinimg.com/236x/33/12/c4/3312c4eea018181a4de435c44bdb8f30.jpg", alt: "Placeholder", className: "bottom-[32%] left-[7%] sm:bottom-[25%] sm:left-[7%] lg:bottom-[15%] lg:left-[7%] md:bottom-[15%] md:left-[7%] w-[60px] h-[60px] lg:w-[80px] lg:h-[100px] md:w-[120px] md:h-[140px]" },
+    { src: "https://i.pinimg.com/236x/98/8b/0d/988b0d2faafc1156acd8ea0b28009985.jpg", alt: "Placeholder", className: "bottom-[25%] right-[10%] sm:bottom-[22%] sm:right-[10%] md:bottom-[20%] md:right-[10%] lg:bottom-[20%] lg:right-[10%] w-[60px] h-[50px] sm:w-[80px] sm:h-[70px] md:w-[140px] md:h-[110px]" },
+    { src: "https://i.pinimg.com/236x/a4/e2/02/a4e202ba80d3a9a0b8db24d75c73ff40.jpg", alt: "Placeholder", className: "top-[22%] left-[15%] sm:top-[24%] sm:left-[18%] lg:top-[22%] lg:left-[23%] md:top-[27%] md:left-[25%] w-[60px] h-[60px] md:w-[130px] md:h-[130px] lg:w-[120px] lg:h-[130px]" },
+    { src: "https://i.pinimg.com/236x/4a/cf/77/4acf771a623bb6acacf51b832374028f.jpg", alt: "Placeholder", className: "top-[15%] right-[35%] sm:top-[16%] sm:right-[30%] lg:top-[14%] lg:right-[23.7%] md:top-[17%] md:right-[30%] w-[50px] h-[60px] sm:w-[70px] sm:h-[80px] lg:w-[160px] lg:h-[130px] md:w-[150px] md:h-[150px]" },
+    { src: "https://i.pinimg.com/236x/4d/92/aa/4d92aa15d703b6f5619953a62876e9f9.jpg", alt: "Placeholder", className: "bottom-[6%] right-[22%] sm:bottom-[8%] sm:right-[25%] md:bottom-[10%] md:right-[30%] lg:bottom-[10%] lg:right-[30%] w-[60px] h-[45px] sm:w-[80px] sm:h-[65px] md:w-[120px] md:h-[120px] block md:block lg:block" },
+    { src: "https://i.pinimg.com/236x/10/f3/c0/10f3c0375d6afc939af6f854b333bba1.jpg", alt: "Placeholder", className: "top-[41%] right-[3%] w-[55px] h-[60px] lg:w-[120px] lg:h-[120px] md:w-[110px] md:h-[140px]block md:block lg:block" },
+    { src: "https://i.pinimg.com/236x/c9/dd/59/c9dd590d03ea0cc26c8bdb94c53d92cb.jpg", alt: "Placeholder", className: "bottom-[12%] left-[2%] sm:bottom-[10%] sm:left-[15%] lg:bottom-[5%] lg:left-[25%] md:bottom-[5%] md:left-[25%] w-[60px] h-[40px] sm:w-[80px] sm:h-[60px] md:w-[130px] md:h-[100px]" },
+    { src: "https://i.pinimg.com/236x/db/92/3a/db923ae921d9807793f5abac42320647.jpg", alt: "Placeholder", className: "bottom-[20%] left-[35%] w-[60px] h-[40px] sm:w-[80px] sm:h-[60px] md:w-[130px] md:h-[100px]  md:hidden lg:block" },
+    { src: "https://i.pinimg.com/236x/3d/63/90/3d639037ba61d2f2548226940b360db5.jpg", alt: "Placeholder", className: "top-[45%] left-[50%] sm:top-[35%] sm:left-[48%] lg:top-[15%] lg:left-[45%] md:top-[15%] md:left-[45%] w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] lg:w-[120px] lg:h-[110px] md:w-[120px] md:h-[150px] hidden md:hidden lg:block" },
   ];
 
   return (
-    <section ref={sectionRef} className="relative w-full lg:h-screen h-[500px] md:h-[850px] overflow-hidden ">
+    <section ref={sectionRef} className="relative w-full h-[500px] sm:h-[650px] md:h-[850px] lg:h-screen overflow-hidden">
       <div ref={contentRef} className="absolute inset-0 bg-[#ECE8E2]">
         <motion.div
           ref={inspirationRef}
           style={{ y }}
-          className="lg:h-screen md:h-[800px] h-[550px] w-full overflow-hidden font-serif lg:mt-0 mt-7 relative"
+          className="h-[450px] sm:h-[550px] md:h-[800px] lg:h-screen w-full overflow-hidden font-serif mt-4 sm:mt-7 lg:mt-0 relative"
         >
           {isClient && (
             <div className="absolute inset-0">
@@ -136,13 +135,13 @@ const Floating = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center max-w-4xl px-4">
               <motion.h1
-                className="text-[45px] md:text-6xl lg:text-8xl font-normal mb-4 leading-tight font-[kalnia]"
+                className="text-3xl sm:text-[45px] md:text-6xl lg:text-8xl font-normal mb-4 leading-tight font-[kalnia]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 Find Inspiration{" "}
-                <span className="text-[45px] md:text-6xl font-[kalnia]">
+                <span className="text-3xl sm:text-[45px] md:text-6xl font-[kalnia]">
                   Wherever You Are
                 </span>
               </motion.h1>

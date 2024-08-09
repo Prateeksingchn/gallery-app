@@ -28,7 +28,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-white text-black w-full">
-      {/* Contact Section */}
+      {/* top Section */}
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 50 }}
@@ -38,12 +38,16 @@ const Footer = () => {
           visible: { opacity: 1, y: 0 },
         }}
         transition={{ duration: 0.5 }}
-        className="container mx-auto px-4 pt-10 w-full h-auto pb-8"
+        className="container mx-auto px-4 pt-14 w-full h-auto pb-8"
       >
         <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-0">
-          <div className=" w-[370px] lg:w-[700px] md:w-[300px] ">
-            <h2 className="text-4xl font-semibold mb-4">Say Hello</h2>
-            <div className="mb-2 mt-12 md:mt-48">
+
+          {/* footer intro */}
+          <div className=" w-[370px] lg:w-[700px] md:w-[320px] ">
+            <h2 className="text-4xl font-semibold mb-4 font-[pacifico] ">
+              Say Hello
+            </h2>
+            <div className="mb-2 mt-20 lg:mt-12 md:mt-48">
               <h3 className="font-semibold">Stay updated on news</h3>
               <form
                 onSubmit={handleSubmit}
@@ -68,14 +72,22 @@ const Footer = () => {
               &copy; PixelPerfect 2024. All rights reserved
             </p>
           </div>
-          <div className="lg:ml-72 md:ml-[100px]  w-[200px] lg:w-[300px] md:w-[200px] mt-10 md:mt-0 lg:mt-0 ">
-            <h3 className="font-bold mb-2">New business</h3>
-            <p>viki@PixelPerfect.com</p>
-            <h3 className="font-bold mt-4 mb-2">Join us</h3>
-            <p>hello@PixelPerfect.com</p>
+
+          {/* follow us */}
+          <div className="lg:ml-72 md:ml-[100px]  w-[350px] lg:w-[300px] md:w-[180px] mt-10 md:mt-0 lg:mt-0 ">
+            <div className="flex flex-row lg:flex-col md:flex-col lg:gap-0 md:gap-5 gap-8">
+              <div className="flex flex-col">
+                <h3 className="font-bold mb-1">New business</h3>
+                <p>viki@PixelPerfect.com</p>
+              </div>
+              <div className="flex flex-col">
+                <h3 className="font-bold mt-0 lg:mt-4 md:mt-0 mb-1">Join us</h3>
+                <p>hello@PixelPerfect.com</p>
+              </div>
+            </div>
             <div className="flex md:flex-row lg:flex-col lg:gap-0 md:gap-36 mt-0 md:mt-[50px] lg:mt-0">
               <div className="flex flex-col">
-                <h3 className="font-bold mt-4 mb-2">Follow us</h3>
+                <h3 className="font-bold mt-4 mb-1">Follow us</h3>
                 <ul>
                   <li>
                     <a href="#" className="hover:underline">
@@ -94,8 +106,8 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div className="flex flex-col ml-8">
-                <h3 className="font-bold md:mt-4 mt-4 lg:mt-0  mb-2">Legal</h3>
+              <div className="flex flex-col ml-28 lg:ml-0 md:ml-0 mt-0 lg:mt-4">
+                <h3 className="font-bold md:mt-4 mt-4 lg:mt-0  mb-1">Legal</h3>
                 <ul>
                   <li>
                     <Link to="/cookies" className="hover:underline">
@@ -111,8 +123,10 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="lg:ml-24 ml-0 md:ml-[70px] mt-5 w-[200px] lg:w-[300px] md:w-[200px] ">
-            <h3 className="font-bold mb-2">Contact</h3>
+
+          {/* Contact Info */}
+          <div className="lg:ml-24 ml-0 md:ml-[70px] mt-5 lg:mt-0 md:mt-0 w-[300px] lg:w-[300px] md:w-[180px] ">
+            <h3 className="font-bold mb-1">Contact</h3>
             <p>Studio 402</p>
             <p>Makateb Building Two</p>
             <p>Production City, Dubai</p>
@@ -150,7 +164,7 @@ const Footer = () => {
               },
             }}
             exit={{ opacity: 0, y: 100 }}
-            className="text-[83px] md:text-[9.5rem] lg:text-[20rem] leading-[70px] lg:leading-[14rem] md:leading-[110px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
+            className="text-[83px] md:text-[9.5rem] lg:text-[20rem] leading-[70px] lg:leading-[13rem] md:leading-[110px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
           >
             PixelPerfect
           </motion.h1>
