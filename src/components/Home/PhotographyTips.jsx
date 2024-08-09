@@ -101,7 +101,7 @@ const PhotographyTips = () => {
     >
       <div 
         ref={contentRef}
-        className="w-full h-[770px] md:h-[800px] lg:h-[900px] xl:h-[900px] bg-gradient-to-br from-indigo-100 to-pink-50 rounded-t-3xl p-4 lg:px-32 lg:py-8 md:p-8"
+        className="w-full h-[770px] md:h-[800px] lg:h-[700px] xl:h-[700px] bg-gradient-to-br from-indigo-100 to-pink-50 rounded-t-3xl p-4 lg:px-32 lg:py-8 md:p-8"
       >
         <h2 className="section-title text-3xl md:text-5xl font-bold mt-2 sm:mt-4 mb-6 md:mb-16 lg:mb-12 text-center text-gray-800">
           Photography Tips

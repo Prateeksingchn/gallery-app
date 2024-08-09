@@ -72,6 +72,8 @@ const Gallery = () => {
   useEffect(() => {
     fetchImages();
     fetchFeaturedImages();
+    // Add this line to scroll to the top when the component mounts
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {

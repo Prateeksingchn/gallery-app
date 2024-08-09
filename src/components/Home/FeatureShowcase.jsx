@@ -32,6 +32,7 @@ const FeatureShowcase = () => {
         // Pin the FeatureShowcase section
         ScrollTrigger.create({
           trigger: sectionRef.current,
+          // markers: true,
           start: "top 15%",
           end: "bottom top",
           pin: true,
@@ -118,7 +119,7 @@ const FeatureShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="text-gray-800 w-full md:w-full lg:w-[97%] mx-auto lg:my-10 md:my-0 lg:h-[80vh] md:h-[600px] py-10 px-8 md:px-8 rounded-none md:rounded-none lg:rounded-3xl overflow-hidden relative bg-gray-600"
+      className="text-gray-800 w-full md:w-full lg:w-[100%] mx-auto lg:-mb-5 md:my-0 lg:h-[80vh] md:h-[630px] py-10 px-8 md:px-8 rounded-none md:rounded-none lg:rounded-3xl overflow-hidden relative bg-gray-600"
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: "cover",

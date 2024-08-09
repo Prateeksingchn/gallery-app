@@ -23,7 +23,7 @@ const NavItem = ({ item, isMobile, onClick }) => {
       <Link
         to={item.path}
         onClick={onClick}
-        className={`block px-3 py-2 text-2xl md:text-lg lg:text-lg font-serif ${
+        className={`block px-3 py-2 text-2xl md:text-lg lg:text-sm font-serif ${
           isActive ? "text-red-500" : "text-gray-800 hover:text-red-500"
         } ${isMobile ? "text-3xl mb-4" : "inline-block"}`}
       >

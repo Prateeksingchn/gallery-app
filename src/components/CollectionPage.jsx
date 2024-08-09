@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import CollectionIntro from "./Collection/CollectionIntro";
 
+// Sample collection data
 const collections = [
   {
     id: 1,
@@ -352,7 +353,7 @@ const collections = [
 const CollectionCard = ({ collection }) => (
   <Link to={`/collection/${collection.id}`}>
     <motion.div
-      className="relative overflow-hidden rounded-lg shadow-lg h-64 sm:h-80 lg:h-[270px] xl:h-[300px] cursor-pointer"
+      className="relative overflow-hidden rounded-lg shadow-lg h-[200px] md:h-[230px] lg:h-[270px] xl:h-[300px] cursor-pointer"
       whileHover={{ scale: 1.03 }}
       transition={{ duration: 0.3 }}
     >
@@ -366,7 +367,7 @@ const CollectionCard = ({ collection }) => (
         <p className="text-sm font-medium mb-2 opacity-75">
           {collection.category}
         </p>
-        <h3 className="text-xl font-bold">{collection.title}</h3>
+        <h3 className="text-[16px] md:text-xl lg:text-xl font-bold">{collection.title}</h3>
       </div>
     </motion.div>
   </Link>
@@ -387,7 +388,15 @@ const CollectionPage = () => {
     if (hash) {
       // Delay the scroll to ensure the page has fully loaded
       setTimeout(() => scrollToSection(hash), 100);
+    } else {
+      // If there's no hash, scroll to the top of the page
+      window.scrollTo(0, 0);
     }
+  }, []);
+
+  // New useEffect to scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -396,9 +405,9 @@ const CollectionPage = () => {
       <div
         id="about-curation"
         ref={gridRef}
-        className="max-w-8xl px-20 pb-20 my-20 bg-[#F7F6EE]"
+        className="max-w-8xl px-5 md:px-10 lg:px-20 pb-10 md:pb-16 lg:pb-20 my-10 md:my-20 lg:my-20 bg-[#F7F6EE]"
       >
-        <h2 className="text-5xl text-red-500 font-bold mb-10 font-[pacifico] underline cursor-pointer pl-4 ">
+        <h2 className=" text-3xl md:text-4xl lg:text-5xl text-red-500 font-bold mb-5 md:mb-10 lg:mb-10 font-[pacifico] underline cursor-pointer pl-4 ">
           Collections
         </h2>
 
@@ -406,7 +415,7 @@ const CollectionPage = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 bg-[#F7F6EE]  rounded-b-3xl"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-10 bg-[#F7F6EE]  rounded-b-3xl"
         >
           {collections.map((collection) => (
             <CollectionCard key={collection.id} collection={collection} />

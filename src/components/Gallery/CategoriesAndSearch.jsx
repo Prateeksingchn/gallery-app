@@ -24,7 +24,7 @@ const CategoriesAndSearch = ({
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg my-12"
+      className="mx-auto max-w-7xl md:py-14 lg:py-8 px-4 md:px-16 lg:px-8 bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg my-12"
     >
       {/* Search */}
       <div className="mb-8 relative">

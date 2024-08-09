@@ -38,7 +38,7 @@ const Footer = () => {
           visible: { opacity: 1, y: 0 },
         }}
         transition={{ duration: 0.5 }}
-        className="container mx-auto px-4 pt-14 w-full h-auto pb-8"
+        className="container mx-auto px-4 pt-16 w-full h-auto pb-8"
       >
         <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-0">
 
@@ -47,7 +47,7 @@ const Footer = () => {
             <h2 className="text-4xl font-semibold mb-4 font-[pacifico] ">
               Say Hello
             </h2>
-            <div className="mb-2 mt-20 lg:mt-12 md:mt-48">
+            <div className="mb-2 mt-20 lg:mt-48 md:mt-48">
               <h3 className="font-semibold">Stay updated on news</h3>
               <form
                 onSubmit={handleSubmit}
@@ -150,7 +150,7 @@ const Footer = () => {
           },
         }}
         exit={{ opacity: 0, y: 50 }}
-        className="bg-[#F8D347] pt-12 w-full lg:h-[350px] md:h-[230px] overflow-hidden flex items-end justify-center"
+        className="bg-[#F8D347] pt-12 w-full lg:h-[350px] md:h-[250px] overflow-hidden flex items-end justify-center"
       >
         <div className="container mx-auto px-4 flex items-end justify-center overflow-hidden">
           <motion.h1
@@ -164,7 +164,7 @@ const Footer = () => {
               },
             }}
             exit={{ opacity: 0, y: 100 }}
-            className="text-[83px] md:text-[9.5rem] lg:text-[20rem] leading-[70px] lg:leading-[13rem] md:leading-[110px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
+            className="text-[83px] md:text-[9.7rem] lg:text-[20rem] leading-[70px] lg:leading-[13rem] md:leading-[100px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
           >
             PixelPerfect
           </motion.h1>

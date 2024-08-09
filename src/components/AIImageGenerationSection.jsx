@@ -85,7 +85,7 @@ const AIImageGenerationSection = () => {
   );
 
   return (
-    <section ref={sectionRef} className="relative w-full lg:w-[93%] md:w-full mx-auto lg:h-[80vh] h-[400px] md:h-[500px] overflow-hidden bg-[#121212] my-0 md:my-0 lg:my-10 rounded-none md:rounded-none lg:rounded-3xl">
+    <section ref={sectionRef} className="relative w-full lg:w-[100%] md:w-full mx-auto lg:h-[80vh] h-[400px] md:h-[500px] overflow-hidden bg-[#121212] my-0 md:my-0 lg:mt-[1px] rounded-none md:rounded-none lg:rounded-3xl">
       <div className="px-4 sm:px-6 lg:px-8 pt-0 pb-12 sm:py-16 lg:py-20 relative h-full flex items-center">
         <div className="flex flex-col lg:flex-row md:flex-row items-center justify-between w-full">
           {/* Left Spline Scene */}

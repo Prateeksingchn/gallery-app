@@ -202,7 +202,7 @@ const ImageSlider = () => {
                   opacity: { duration: 0.6 },
                   scale: { duration: 0.5 },
                 }}
-                className="lg:w-[40%] lg:h-[100%] md:w-[55%] md:h-[60%] w-[70%] h-[50%] object-cover absolute lg:top-0 lg:right-72 md:bottom-24 md:right-64 bottom-20 left-0 shadow-lg rounded-lg"
+                className="lg:w-[40%] lg:h-[100%] md:w-[55%] md:h-[60%] w-[70%] h-[50%] object-cover absolute lg:top-0 lg:left-[30%] md:bottom-24 md:right-64 bottom-20 left-0 shadow-lg rounded-lg"
               />
             </AnimatePresence>
             <motion.img

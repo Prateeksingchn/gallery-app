@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Instagram, Twitter, Github, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -68,6 +68,11 @@ const MarqueeImages = ({ direction = "left" }) => {
 
 const AboutUs = () => {
   const aboutRef = useRef(null);
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const scrollToAbout = () => {
     aboutRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -86,8 +91,11 @@ const AboutUs = () => {
   const creatorImagePlaceholder = "/images/dp2.jpg";
   const backgroundImageUrl = "/images/bg9.jpg";
 
+
   return (
     <div className="bg-black text-white min-h-screen font-serif rounded-b-[30px]">
+
+      {/* About Intro Section */}
       <div
         className="h-screen bg-cover bg-center flex flex-col justify-center items-start px-16"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}
@@ -128,8 +136,12 @@ const AboutUs = () => {
         </motion.div>
       </div>
       <div className="container mx-auto px-4 py-16">
+
+        {/* Marquee left */}
         <MarqueeImages direction="left" />
 
+
+        {/* About Content */}
         <motion.div
           ref={aboutRef}
           initial={{ opacity: 0 }}
@@ -255,8 +267,12 @@ const AboutUs = () => {
           </div>
         </motion.div>
 
+
+        {/* Marquee Right */}
         <MarqueeImages direction="right" />
 
+
+        {/* About Creator */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
