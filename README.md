@@ -65,25 +65,25 @@ Check out the live version of the project [here](https://pixel-perfect-tau.verce
 ## Screenshots
 
 <p align="center">
-  <img src="./public/screenshots/Home.png" alt="Home" width="70%">
+  <img src="./public/screenshots/Home.png" alt="Home" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/Slider.png" alt="Slider" width="70%">
+  <img src="./public/screenshots/Slider.png" alt="Slider" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/Navbar.png" alt="Navbar" width="70%">
+  <img src="./public/screenshots/Navbar.png" alt="Navbar" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/footer.jpeg" alt="Footer" width="70%">
+  <img src="./public/screenshots/footer.jpeg" alt="Footer" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/gallery.jpeg" alt="Gallery" width="70%">
+  <img src="./public/screenshots/gallery.jpeg" alt="Gallery" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/collection.jpeg" alt="Collection" width="70%">
+  <img src="./public/screenshots/collection.jpeg" alt="Collection" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/about.jpeg" alt="About Us" width="70%">
+  <img src="./public/screenshots/about.jpeg" alt="About Us" width="50%">
 </p>
 
 ## Contributing
