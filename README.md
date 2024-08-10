@@ -1,7 +1,9 @@
 
 # Image Gallery App
 
-Welcome to the Image Gallery App, a modern web application that showcases stunning photography using the Unsplash API. Built with React, Tailwind CSS, Framer Motion, and GSAP, this app delivers a smooth and visually appealing experience for users to explore and enjoy beautiful images.
+Welcome to the Image Gallery App, a modern web application that showcases stunning photography using the Unsplash API. Built with
+
+React, Tailwind CSS, Framer Motion, and GSAP, this app delivers a smooth and visually appealing experience for users to explore and enjoy beautiful images.
 
 ## Features
 
@@ -62,13 +64,27 @@ Check out the live version of the project [here](https://pixel-perfect-tau.verce
 
 ## Screenshots
 
-![Home](./public/screenshots/Home.png)
-![Slider](./public/screenshots/Slider.png)
-![Navbar](./public/screenshots/Navbar.png)
-![Footer](./public/screenshots/footer.jpeg)
-![Gallery](./public/screenshots/gallery.jpeg)
-![Collection](./public/screenshots/collection.jpeg)
-![About-us](./public/screenshots/about.jpeg)
+<p align="center">
+  <img src="./public/screenshots/Home.png" alt="Home" width="70%">
+</p>
+<p align="center">
+  <img src="./public/screenshots/Slider.png" alt="Slider" width="70%">
+</p>
+<p align="center">
+  <img src="./public/screenshots/Navbar.png" alt="Navbar" width="70%">
+</p>
+<p align="center">
+  <img src="./public/screenshots/footer.jpeg" alt="Footer" width="70%">
+</p>
+<p align="center">
+  <img src="./public/screenshots/gallery.jpeg" alt="Gallery" width="70%">
+</p>
+<p align="center">
+  <img src="./public/screenshots/collection.jpeg" alt="Collection" width="70%">
+</p>
+<p align="center">
+  <img src="./public/screenshots/about.jpeg" alt="About Us" width="70%">
+</p>
 
 ## Contributing
 
