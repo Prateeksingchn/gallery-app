@@ -70,11 +70,11 @@ Check out the live version of the project [here](https://pixel-perfect-tau.verce
 </p>
 <p align="center">
   <img src="./public/screenshots/Navbar.png" alt="Navbar" width="45%">
-  <img src="./public/screenshots/footer.jpeg" alt="Footer" width="45%">
+  <img src="./public/screenshots/footernew.jpeg" alt="Footer" width="45%">
 </p>
 <p align="center">
   <img src="./public/screenshots/gallerynew.jpeg" alt="Gallery" width="45%">
-  <img src="./public/screenshots/collectionnew.jpeg" alt="Collection" width="45%">
+  <img src="./public/screenshots/collectionnew1.jpeg" alt="Collection" width="45%">
 </p>
 <p align="center">
   <img src="./public/screenshots/aboutnew.jpeg" alt="About Us" width="45%">
