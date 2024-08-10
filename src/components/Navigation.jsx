@@ -23,7 +23,7 @@ const NavItem = ({ item, onClick }) => {
       <Link
         to={item.path}
         onClick={onClick}
-        className={`block px-3 py-2 text-3xl md:text-4xl font-serif ${
+        className={`block px-3 py-2 text-3xl md:text-4xl lg:text-6xl font-serif ${
           isActive ? "text-red-500" : "text-gray-800 hover:text-red-500"
         } mb-6 transition-colors duration-300`}
       >
@@ -124,7 +124,7 @@ const FloatingNavigation = () => {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="fixed inset-y-0 right-0 w-full md:w-2/3 lg:w-1/2 bg-white overflow-hidden flex flex-col justify-center items-center shadow-xl"
+            className="fixed inset-y-0 right-0 w-full md:w-2/3 lg:w-2/5 bg-white overflow-hidden flex flex-col justify-center items-center shadow-xl"
           >
             <motion.button
               whileHover={{ scale: 1.1 }}

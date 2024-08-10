@@ -19,7 +19,7 @@ const AboutContent = ({ aboutRef }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5, duration: 1 }}
-      className="mb-16 relative pt-16 md:pt-20"
+      className="mb-36 relative pt-16 md:pt-20"
       id="about"
     >
       <h2 className="text-5xl md:text-5xl lg:text-7xl mb-8 md:mb-14 italic pl-4 font-[Pacifico] text-center md:text-left">

@@ -6,7 +6,7 @@ import { ChevronLeft } from "lucide-react";
 
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const API_URL = "https://api.unsplash.com/photos";
-const IMAGES_PER_PAGE = 30;
+const IMAGES_PER_PAGE = 15;
 
 const ImageCard = ({ image, span }) => {
   const cardControls = useAnimation();
@@ -66,6 +66,8 @@ const TopImagesGallery = () => {
 
   useEffect(() => {
     fetchImages();
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
   }, []);
 
   const getBentoGridSpan = (index) => {
@@ -109,9 +111,7 @@ const TopImagesGallery = () => {
         </h1>
 
         <p className="text-base sm:text-lg text-gray-700 mb-6 mx-14">
-          Discover the most popular images of today, curated from a selection of
-          amazing AI and 3D renders. Immerse yourself in the creativity and
-          innovation of these stunning visuals.
+          Explore a curated collection of today's most captivating images from around the world. From breathtaking landscapes to powerful portraits, immerse yourself in this visual journey showcasing the best of photography and digital artistry.
         </p>
 
         <AnimatePresence>
