@@ -208,7 +208,7 @@ const ImageSlider = () => {
             <motion.img
               src={images[nextImageIndex].src}
               alt={images[nextImageIndex].alt}
-              className="lg:w-[35%] lg:h-[80%] md:w-[50%] md:h-[50%] w-[55%] h-[40%] object-cover filter grayscale absolute lg:top-14 lg:right-0 md:right-10 md:bottom-36 bottom-32 right-0 rounded-lg"
+              className="lg:w-[35%] lg:h-[80%] md:w-[55%] md:h-[50%] w-[55%] h-[40%] object-cover filter grayscale absolute lg:top-14 lg:right-0 md:right-10 md:bottom-36 bottom-32 right-0 rounded-lg"
               initial={{ x: 500, opacity: 0, scale: 0.8 }}
               animate={{ x: 0, opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}

@@ -43,7 +43,7 @@ const Footer = () => {
         <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-0">
 
           {/* footer intro */}
-          <div className=" w-[340px] lg:w-[700px] md:w-[320px] ">
+          <div className=" w-[300px] lg:w-[700px] md:w-[320px] ">
             <h2 className="text-4xl font-semibold mb-4 font-[pacifico] ">
               Say Hello
             </h2>
@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
 
           {/* follow us */}
-          <div className="lg:ml-72 md:ml-[100px]  w-[350px] lg:w-[300px] md:w-[180px] mt-10 md:mt-0 lg:mt-0 ">
+          <div className="lg:ml-72 md:ml-[100px]  w-[300px] lg:w-[300px] md:w-[180px] mt-10 md:mt-0 lg:mt-0 md:text-base text-sm ">
             <div className="flex flex-row lg:flex-col md:flex-col lg:gap-0 md:gap-5 gap-8">
               <div className="flex flex-col">
                 <h3 className="font-bold mb-1">New business</h3>
@@ -85,7 +85,7 @@ const Footer = () => {
                 <p>hello@PixelPerfect.com</p>
               </div>
             </div>
-            <div className="flex md:flex-row lg:flex-col lg:gap-0 md:gap-36 mt-0 md:mt-[50px] lg:mt-0">
+            <div className="flex md:flex-row lg:flex-col lg:gap-0 -gap-14 md:gap-36 mt-0 md:mt-[50px] lg:mt-0">
               <div className="flex flex-col">
                 <h3 className="font-bold mt-4 mb-1">Follow us</h3>
                 <ul>
@@ -125,7 +125,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="lg:ml-24 ml-0 md:ml-[70px] mt-5 lg:mt-0 md:mt-0 w-[300px] lg:w-[300px] md:w-[180px] ">
+          <div className="lg:ml-24 ml-0 md:ml-[70px] mt-5 lg:mt-0 md:mt-0 w-[300px] lg:w-[300px] md:w-[180px] text-sm ">
             <h3 className="font-bold mb-1">Contact</h3>
             <p>Studio 402</p>
             <p>Makateb Building Two</p>
