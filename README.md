@@ -77,13 +77,13 @@ Check out the live version of the project [here](https://pixel-perfect-tau.verce
   <img src="./public/screenshots/footer.jpeg" alt="Footer" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/gallery.jpeg" alt="Gallery" width="50%">
+  <img src="./public/screenshots/gallerynew.jpeg" alt="Gallery" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/collection.jpeg" alt="Collection" width="50%">
+  <img src="./public/screenshots/collectionnew.jpeg" alt="Collection" width="50%">
 </p>
 <p align="center">
-  <img src="./public/screenshots/about.jpeg" alt="About Us" width="50%">
+  <img src="./public/screenshots/aboutnew.jpeg" alt="About Us" width="50%">
 </p>
 
 ## Contributing
