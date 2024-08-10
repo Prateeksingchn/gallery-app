@@ -17,7 +17,7 @@ Welcome to the Image Gallery App, a modern web application that showcases stunni
 
 ## Live Demo
 
-Check out the live version of the project [here](https://pixel-perfect-ejavuhur2-prateeksingchns-projects.vercel.app/).
+Check out the live version of the project [here](https://pixel-perfect-tau.vercel.app/).
 
 ## Installation
 
