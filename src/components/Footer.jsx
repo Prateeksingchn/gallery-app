@@ -38,12 +38,12 @@ const Footer = () => {
           visible: { opacity: 1, y: 0 },
         }}
         transition={{ duration: 0.5 }}
-        className="container mx-auto px-4 pt-16 w-full h-auto pb-8"
+        className="container mx-auto px-4 pt-6 lg:pt-12 md:pt-12 w-full h-auto pb-8"
       >
         <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-0">
 
           {/* footer intro */}
-          <div className=" w-[370px] lg:w-[700px] md:w-[320px] ">
+          <div className=" w-[340px] lg:w-[700px] md:w-[320px] ">
             <h2 className="text-4xl font-semibold mb-4 font-[pacifico] ">
               Say Hello
             </h2>
@@ -164,7 +164,7 @@ const Footer = () => {
               },
             }}
             exit={{ opacity: 0, y: 100 }}
-            className="text-[83px] md:text-[9.7rem] lg:text-[20rem] leading-[70px] lg:leading-[13rem] md:leading-[100px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
+            className="text-[80px] md:text-[9.7rem] lg:text-[20rem] leading-[70px] lg:leading-[13rem] md:leading-[100px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
           >
             PixelPerfect
           </motion.h1>

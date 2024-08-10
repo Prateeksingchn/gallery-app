@@ -36,7 +36,7 @@ const GalleryIntroSection = () => {
   );
 
   const imageClasses = [
-    "top-[52%] md:top-[40%] lg:top-[20%] left-[3.7%] md:left-[3.5%] w-[20%] md:w-[20%] lg:w-[20%] h-[30%] md:h-[34%] lg:h-[65%]",
+    "top-[52%] md:top-[40%] lg:top-[24%] left-[3.7%] md:left-[3.5%] w-[20%] md:w-[20%] lg:w-[20%] h-[30%] md:h-[34%] lg:h-[65%]",
     "top-[13%] md:top-[20%] lg:top-[10%] left-[57%] md:left-[55%] lg:left-[54%] w-[20%] md:w-[20%] lg:w-[20%] h-[15%] md:h-[17%] lg:h-[25%]",
     "top-[77%] md:top-[68%] lg:top-[72%] left-[35%] md:left-[37%] lg:left-[39%] w-[27%] md:w-[20%] lg:w-[17%] h-[17%] md:h-[14%] lg:h-[20%]",
     "top-[32%] md:top-[41%] lg:top-[43%] left-[82.5%] md:left-[82%] lg:left-[82%] w-[15%] md:w-[15%] lg:w-[15%] h-[20%] md:h-[20%] lg:h-[40%]",

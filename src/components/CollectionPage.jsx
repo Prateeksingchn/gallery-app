@@ -405,7 +405,7 @@ const CollectionPage = () => {
       <div
         id="about-curation"
         ref={gridRef}
-        className="max-w-8xl px-5 md:px-10 lg:px-20 pb-10 md:pb-16 lg:pb-20 my-10 md:my-20 lg:my-20 bg-[#F7F6EE]"
+        className="max-w-8xl px-5 md:px-10 lg:px-20 pb-10 md:pb-12 lg:pb-20 my-10 md:my-10 lg:my-20 bg-[#F7F6EE]"
       >
         <h2 className=" text-3xl md:text-4xl lg:text-5xl text-red-500 font-bold mb-5 md:mb-10 lg:mb-10 font-[pacifico] underline cursor-pointer pl-4 ">
           Collections
@@ -415,7 +415,7 @@ const CollectionPage = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-10 bg-[#F7F6EE]  rounded-b-3xl"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-10 bg-[#F7F6EE] rounded-b-3xl"
         >
           {collections.map((collection) => (
             <CollectionCard key={collection.id} collection={collection} />

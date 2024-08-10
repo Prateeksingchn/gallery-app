@@ -23,11 +23,10 @@ const CollectionIntro = ({ scrollToSection }) => {
             Collections
           </h2>
           <p className="text-sm md:text-lg lg:text-xl mb-2 hidden md:block lg:block xl:block text-black opacity-80 w-[250px] md:w-[450px] lg:w-[710px] font-[roboto]">
-            Discover our carefully curated collections, each telling a unique
-            visual story. From breathtaking landscapes to cutting-edge digital
-            art, our collections showcase the diversity and beauty of visual
-            creativity. Immerse yourself in these thematic galleries, expertly
-            crafted to inspire, challenge, and delight your senses.
+            Discover curated collections that tell unique visual stories. From
+            breathtaking landscapes to cutting-edge digital art, our galleries
+            showcase the beauty and diversity of visual creativity, crafted to
+            inspire and delight.
           </p>
           <p className="text-sm md:text-lg lg:text-xl mb-2 block md:hidden lg:hidden xl:hidden text-black opacity-80 w-[250px] md:w-[450px] lg:w-[710px] font-[roboto]">
             Discover our carefully curated collections, each telling a unique

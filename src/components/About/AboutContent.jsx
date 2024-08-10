@@ -19,14 +19,14 @@ const AboutContent = ({ aboutRef }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5, duration: 1 }}
-      className="mb-16 relative pt-16 md:pt-28"
+      className="mb-16 relative pt-16 md:pt-20"
       id="about"
     >
-      <h2 className="text-5xl md:text-5xl lg:text-7xl mb-8 md:mb-12 italic pl-4 font-[Pacifico] text-center md:text-left">
+      <h2 className="text-5xl md:text-5xl lg:text-7xl mb-8 md:mb-14 italic pl-4 font-[Pacifico] text-center md:text-left">
         About Us
       </h2>
 
-      <div className="flex flex-col-reverse lg:flex-row mb-12 md:mb-20 px-4 md:px-8">
+      <div className="flex flex-col-reverse gap-0 md:gap-10 lg:gap-0 lg:flex-row mb-12 md:mb-0 px-4 md:px-8">
         <div className="w-full lg:w-1/2 pr-0 lg:pr-12 xl:pr-24 mt-8 lg:mt-0">
           <p className="text-gray-300 mb-6 text-lg md:text-xl font-[Roboto]">
             At PixelPerfect Gallery, we've crafted a unique space where
@@ -44,7 +44,7 @@ const AboutContent = ({ aboutRef }) => {
             preferences.
           </p>
         </div>
-        <div className="w-full lg:w-1/2 relative h-[300px] md:h-[400px] lg:h-[470px]">
+        <div className="w-full lg:w-1/2 relative h-[300px] md:h-[400px] lg:h-[470px] ">
           {topImages.map((img, index) => (
             <motion.img
               key={index}
@@ -79,7 +79,7 @@ const AboutContent = ({ aboutRef }) => {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row pt-12 md:pt-20 px-4 md:px-8">
+      <div className="flex flex-col  gap-0 md:gap-10 lg:gap-0 lg:flex-row pt-12 md:pt-20 px-4 md:px-8">
         <div className="w-full lg:w-1/2 relative h-[300px] md:h-[400px] lg:h-[470px] mb-8 lg:mb-0">
           {bottomImages.map((img, index) => (
             <motion.img

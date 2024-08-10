@@ -21,7 +21,7 @@ const AboutCreator = ({ creatorImagePlaceholder }) => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="w-full mt-10 lg:mt-32 px-4 flex flex-col lg:flex-row items-center lg:items-start space-y-12 lg:space-y-10 pb-10 lg:space-x-16"
+      className="w-full mt-10 lg:mt-32 px-4 flex flex-col lg:flex-row items-center lg:items-start space-y-12 lg:space-y-10 pb-2 md:pb-10 lg:pb-10 lg:space-x-16"
     >
       <motion.div
         className="lg:w-2/5 flex justify-center"

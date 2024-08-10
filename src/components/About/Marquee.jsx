@@ -23,7 +23,7 @@ const Marquee = ({ direction = "left" }) => {
   ];
 
   return (
-    <div className="overflow-hidden my-0 md:my-16 lg:my-20 w-full">
+    <div className="overflow-hidden my-0 md:my-12 lg:my-20 w-full">
       <motion.div
         className="flex"
         animate={{
@@ -43,7 +43,7 @@ const Marquee = ({ direction = "left" }) => {
             key={i}
             src={img}
             alt={`Gallery image ${i}`}
-            className="w-[250px] h-[180px] md:w-[300px] md:h-[300px] lg:w-[300px] lg:h-[225px] object-cover"
+            className="w-[250px] h-[180px] md:w-[270px] md:h-[270px] lg:w-[300px] lg:h-[225px] object-cover"
           />
         ))}
       </motion.div>

@@ -79,7 +79,7 @@ const collections = [
 const CollectionCard = ({ collection, index }) => {
   return (
     <div 
-      className="relative overflow-hidden cursor-pointer w-[250px] h-[250px] lg:w-[250px] lg:h-[250px] mx-2 my-1"
+      className="relative overflow-hidden cursor-pointer w-[250px] h-[250px] md:w-[220px] md:h-[220px] lg:w-[250px] lg:h-[250px] mx-2 my-1"
       style={{
         top: `${(index % 2) * 30}px`,
       }}
@@ -139,7 +139,7 @@ const MarqueeContainer = ({ children }) => {
 
 const CollectionSec = () => {
   return (
-    <div className="w-full lg:h-screen h-[800px] md:h-[670px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px] z-50">
+    <div className="w-full lg:h-screen h-[770px] md:h-[720px] bg-[#1D1D1D] overflow-hidden rounded-t-[10px] z-50">
       <div className="bg-[#1D1D1D] text-[#f0f0f0] py-8 px-4 md:py-14 md:px-6 lg:pt-14 lg:pb-44 lg:px-10 pb-10">
         <div className="container mx-auto">
           <motion.h1
@@ -160,7 +160,7 @@ const CollectionSec = () => {
             </div>
             <span className="block mt-1">—ECTION</span>
           </motion.h1>
-          <p className="mb-10 md:mb-8 max-w-2xl text-lg md:text-base">
+          <p className="mb-10 md:mb-8 max-w-2xl lg:text-lg md:text-[18px]">
             Explore our vast collection of stunning photographs from talented artists around the world. From breathtaking landscapes to candid street scenes, our gallery showcases the beauty and diversity of visual storytelling through the lens.
           </p>
           <MarqueeContainer>
@@ -171,7 +171,7 @@ const CollectionSec = () => {
             </div>
           </MarqueeContainer>
           <motion.div
-            className="flex justify-center lg:mt-10 mt-7 md:-mt-4 "
+            className="flex justify-center lg:mt-10 mt-7 md:mt-0 "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
