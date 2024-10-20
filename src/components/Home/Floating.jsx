@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "@studio-freight/lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +64,26 @@ const Floating = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   useEffect(() => {
+    // Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: "vertical",
+      gestureDirection: "vertical",
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    // Connect lenis to RAF (request animation frame)
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
     setIsClient(true);
     let rafId;
     const updateMousePosition = (ev) => {
@@ -100,6 +121,7 @@ const Floating = () => {
       window.removeEventListener("mousemove", throttledUpdateMousePosition);
       cancelAnimationFrame(rafId);
       ctx.revert();
+      lenis.destroy();
     };
   }, []);
 

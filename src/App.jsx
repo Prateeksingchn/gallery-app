@@ -9,12 +9,21 @@ import Details from "./components/Details";
 import CollectionPage from "./components/CollectionPage";
 import CollectionDetail from "./components/CollectionDetail";
 import AIGallery from "./components/AIGallery";
-
+import Cursor from "./components/Cursor";
 
 export default function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-transparent relative">
+        <style jsx global>{`
+          body {
+            cursor: none;
+          }
+          a, button {
+            cursor: none;
+          }
+        `}</style>
+        <Cursor />
         <Navigation />
         <main className="flex-grow">
           <Routes>

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import LocomotiveScroll from "locomotive-scroll";
 
 // ... (the images array of objects) ...
 const images = [
@@ -118,25 +119,41 @@ const variants = {
 
 const ImageSlider = () => {
   const [[page, direction], setPage] = useState([0, 0]);
+  const scrollRef = useRef(null);
 
   const imageIndex = Math.abs(page % images.length);
   const nextImageIndex = (imageIndex + 1) % images.length;
+
+  useEffect(() => {
+    const scroll = new LocomotiveScroll({
+      el: scrollRef.current,
+      smooth: true,
+      multiplier: 1,
+      class: "is-revealed",
+    });
+
+    return () => {
+      if (scroll) scroll.destroy();
+    };
+  }, []);
 
   const paginate = (newDirection) => {
     setPage([page + newDirection, newDirection]);
   };
 
   return (
-    <div className="w-full lg:h-[100vh] h-[860px] md:h-[900px] relative bg-[#f0f0f0] rouned-b-[10px]">
+    <div ref={scrollRef} className="w-full lg:h-[100vh] h-[860px] md:h-[900px] relative bg-[#f0f0f0] rounded-b-[10px]" data-scroll-section>
       <div className="w-full h-screen flex flex-col px-5 lg:px-10 md:px-10">
-        <div className="flex-1 flex  py-20 relative">
+        <div className="flex-1 flex py-10 relative">
 
           {/* Left Side Image Info */}
           <motion.div 
-            className="lg:w-[30%] absolute left-0 top-10 lg:left-8 lg:top-44 md:left-0 md:top-10 z-10"
+            className="lg:w-[35%] absolute left-0 top-10 lg:left-8 lg:top-44 md:left-0 md:top-10 pl-10"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            data-scroll
+            data-scroll-speed="2"
           >
             <div>
               <motion.h2 
@@ -146,6 +163,8 @@ const ImageSlider = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
+                data-scroll
+                data-scroll-speed="1"
               >
                 {images[imageIndex].title}
               </motion.h2>
@@ -156,6 +175,8 @@ const ImageSlider = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
+                data-scroll
+                data-scroll-speed="1.5"
               >
                 {images[imageIndex].subtitle}
               </motion.h3>
@@ -165,6 +186,8 @@ const ImageSlider = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
+                data-scroll
+                data-scroll-speed="1.2"
               >
                 Powered by Unsplash API
               </motion.p>
@@ -174,11 +197,13 @@ const ImageSlider = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
+                data-scroll
+                data-scroll-speed="1.3"
               >
-                <p className="text-sm text-gray-700">
+                <p className="text-lg text-gray-700">
                   Explore our curated collection of stunning images from talented photographers around the world. Each photo tells a unique story and captures a moment in time.
                 </p>
-                <p className="text-sm text-gray-700">
+                <p className="text-lg text-gray-700">
                   Whether you're looking for inspiration, searching for the perfect image for your project, or just browsing beautiful photography, our gallery has something for everyone.
                 </p>
               </motion.div>
@@ -186,7 +211,7 @@ const ImageSlider = () => {
           </motion.div>
           
           {/* Right Side Image Slider */}
-          <div className="lg:w-[70%] md:w-[100%] w-[100%] relative flex items-center justify-center space-x-4 overflow-hidden px-20 ml-auto">
+          <div className="lg:w-[70%] md:w-[100%] w-[100%] relative flex items-center justify-center space-x-4 overflow-hidden px-20 ml-auto" data-scroll data-scroll-speed="1">
             <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={page}
@@ -202,19 +227,23 @@ const ImageSlider = () => {
                   opacity: { duration: 0.6 },
                   scale: { duration: 0.5 },
                 }}
-                className="lg:w-[40%] lg:h-[100%] md:w-[55%] md:h-[60%] w-[70%] h-[50%] object-cover absolute lg:top-0 lg:left-[30%] md:bottom-24 md:right-64 bottom-20 left-0 shadow-lg rounded-lg"
+                className="lg:w-[40%] lg:h-[90%] md:w-[55%] md:h-[60%] w-[70%] h-[50%] object-cover absolute lg:top-0 lg:left-[30%] md:bottom-24 md:right-64 bottom-20 left-0 shadow-lg rounded-lg"
+                data-scroll
+                data-scroll-speed="1.5"
               />
             </AnimatePresence>
             <motion.img
               src={images[nextImageIndex].src}
               alt={images[nextImageIndex].alt}
-              className="lg:w-[35%] lg:h-[80%] md:w-[55%] md:h-[50%] w-[55%] h-[40%] object-cover filter grayscale absolute lg:top-14 lg:right-0 md:right-10 md:bottom-36 bottom-32 right-0 rounded-lg"
+              className="lg:w-[35%] lg:h-[75%] md:w-[55%] md:h-[50%] w-[55%] h-[40%] object-cover filter grayscale absolute lg:top-14 lg:right-0 md:right-10 md:bottom-36 bottom-32 right-0 rounded-lg"
               initial={{ x: 500, opacity: 0, scale: 0.8 }}
               animate={{ x: 0, opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
+              data-scroll
+              data-scroll-speed="1.2"
             />
 
-            <div className="absolute lg:bottom-6 lg:right-12 md:bottom-[6rem] md:right-20 bottom-4 right-10 flex items-center space-x-4 lg:scale-100 md:scale-125 scale-125">
+            <div className="absolute lg:bottom-44 lg:right-12 md:bottom-[6rem] md:right-20 bottom-4 right-10 flex items-center space-x-4 lg:scale-100 md:scale-125 scale-125" data-scroll data-scroll-speed="1.1">
               <button
                 onClick={() => paginate(-1)}
                 className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
