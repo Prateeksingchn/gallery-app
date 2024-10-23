@@ -1,11 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { useMediaQuery } from 'react-responsive';
 
 const Cursor = () => {
+  const isLargeDevice = useMediaQuery({ minWidth: 1024 });
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
 
   useEffect(() => {
+    if (!isLargeDevice) return;
+
     const cursor = cursorRef.current;
     const follower = followerRef.current;
 
@@ -56,7 +60,9 @@ const Cursor = () => {
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
     };
-  }, []);
+  }, [isLargeDevice]);
+
+  if (!isLargeDevice) return null;
 
   return (
     <>

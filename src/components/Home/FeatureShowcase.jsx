@@ -1,163 +1,156 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Download, Share, Heart } from "lucide-react";
+import { Download, Share, Heart, Image, Search, Tag } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FeatureShowcase = () => {
   const sectionRef = useRef(null);
-  const featureRefs = useRef([]);
-  featureRefs.current = [];
-  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
-
-  const backgroundImageUrl = "#f2f2f2";
-
-  const addToRefs = (el) => {
-    if (el && !featureRefs.current.includes(el)) {
-      featureRefs.current.push(el);
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    let ctx;
-    if (isLargeScreen) {
-      ctx = gsap.context(() => {
-        // Pin the FeatureShowcase section
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          // markers: true,
-          start: "top 15%",
-          end: "bottom top",
-          pin: true,
-          pinSpacing: false,
-        });
-
-        gsap.fromTo(
-          featureRefs.current,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 70%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-
-        gsap.fromTo(
-          ".feature-title",
-          { scale: 0.9, opacity: 0 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 1,
-            ease: "elastic.out(1, 0.5)",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 50%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-
-        gsap.fromTo(
-          ".cta-button",
-          { y: 20, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: ".cta-button",
-              start: "top 90%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }, sectionRef);
-    }
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      if (ctx) {
-        ctx.revert();
-      }
-    };
-  }, [isLargeScreen]);
+  const featureCardRef = useRef(null);
+  const [activeFeature, setActiveFeature] = useState(0);
 
   const features = [
     {
+      icon: Image,
+      title: "High-Quality Images",
+      description: "Access a vast library of stunning, high-resolution images",
+    },
+    {
+      icon: Search,
+      title: "Smart Search",
+      description: "Find the perfect image with our AI-powered search engine",
+    },
+    {
       icon: Download,
-      title: "Download",
-      description: "Get high-quality images on your device",
+      title: "Easy Downloads",
+      description: "Download images in various sizes and formats with one click",
     },
     {
       icon: Share,
-      title: "Share",
-      description: "Easily share images with friends and family",
+      title: "Instant Sharing",
+      description: "Share your favorite images across social media platforms",
+    },
+    {
+      icon: Tag,
+      title: "Custom Collections",
+      description: "Organize and tag images to create personalized collections",
     },
     {
       icon: Heart,
-      title: "Like",
-      description: "Show appreciation for your favorite images",
+      title: "Favorites",
+      description: "Save and like images to curate your personal inspiration board",
     },
   ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFeature((prev) => (prev + 1) % features.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    gsap.to(featureCardRef.current, {
+      opacity: 0,
+      y: 20,
+      duration: 0.3,
+      onComplete: () => {
+        gsap.to(featureCardRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+        });
+      },
+    });
+  }, [activeFeature]);
+
+  useEffect(() => {
+    const svgs = document.querySelectorAll('.floating-svg');
+    svgs.forEach((svg) => {
+      gsap.to(svg, {
+        x: "random(-50, 50)",
+        y: "random(-50, 50)",
+        rotation: "random(-30, 30)",
+        duration: "random(5, 10)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    });
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="text-gray-800 w-full md:w-full lg:w-[100%] mx-auto lg:-mb-5 md:my-0 lg:h-[80vh] md:h-[630px] py-10 px-8 md:px-8 rounded-none md:rounded-none lg:rounded-3xl overflow-hidden relative bg-gray-600"
-      style={{
-        backgroundImage: `url(${backgroundImageUrl})`,
-        backgroundSize: "cover",
-      }}
+      className="bg-[#121212] text-white py-20 px-4 sm:px-6 md:px-12 overflow-hidden relative"
     >
-      <div className="absolute inset-0 bg-black opacity-50 mix-blend-overlay" />
+      {/* Animated SVG backgrounds */}
+      <div className="absolute inset-0">
+        {[...Array(30)].map((_, i) => (
+          <svg 
+            key={i} 
+            className="floating-svg absolute" 
+            viewBox="0 0 100 100" 
+            width={`${Math.random() * 40 + 10}px`} 
+            height={`${Math.random() * 40 + 10}px`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          >
+            <circle cx="50" cy="50" r="30" fill={`url(#grad-${i})`} />
+            <defs>
+              <radialGradient id={`grad-${i}`}>
+                <stop offset="0%" stopColor={`hsl(${Math.random() * 60 + 240}, 100%, 50%)`} />
+                <stop offset="100%" stopColor={`hsl(${Math.random() * 60 + 300}, 100%, 50%)`} />
+              </radialGradient>
+            </defs>
+          </svg>
+        ))}
+      </div>
+
       <div className="max-w-6xl mx-auto relative z-10">
-        <h2 className="feature-title text-5xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
-          Unleash Your Creativity
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-center">
+          Elevate Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Visual Experience</span>
         </h2>
-        <p className="text-xl md:text-xl text-center mb-16 text-white max-w-3xl mx-auto">
-          Discover a world of possibilities with our feature-rich platform
-          designed to inspire and empower your creative journey.
+        <p className="text-base sm:text-lg md:text-xl text-center mb-12 text-gray-300 max-w-3xl mx-auto">
+          Discover powerful features designed to inspire your creativity.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 lg:gap-8 md:gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              ref={addToRefs}
-              className="flex flex-col items-center bg-white/10 px-6 py-5 rounded-2xl backdrop-blur-sm hover:bg-black/20 transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="bg-gradient-to-br from-pink-900 to-indigo-900 p-6 rounded-2xl mb-6 shadow-lg">
-                <feature.icon size={20} className="text-white" />
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="w-full lg:w-1/2" ref={featureCardRef}>
+            <div className="bg-white bg-opacity-5 backdrop-filter backdrop-blur-lg rounded-2xl p-6 sm:p-8 transform transition-all duration-500 hover:bg-opacity-10 hover:scale-105 border border-white border-opacity-10">
+              <div className="flex items-center mb-6">
+                <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-3 rounded-lg mr-4">
+                  {React.createElement(features[activeFeature].icon, { size: 24, className: "text-white" })}
+                </div>
+                <h3 className="text-xl sm:text-2xl font-semibold">{features[activeFeature].title}</h3>
               </div>
-              <h3 className="lg:text-[20px] md:text-[25px] text-[25px] font-semibold mb-4 text-white ">
-                {feature.title}
-              </h3>
-              <p className="text-center text-[15px] text-white">
-                {feature.description}
-              </p>
+              <p className="text-gray-300">{features[activeFeature].description}</p>
             </div>
-          ))}
+          </div>
+          <div className="w-full lg:w-1/2 grid grid-cols-3 gap-4">
+            {features.map((feature, index) => (
+              <button
+                key={index}
+                className={`p-4 rounded-lg transition-all duration-300 transform hover:scale-110 ${
+                  index === activeFeature
+                    ? "bg-gradient-to-br from-purple-500 to-pink-600 shadow-lg"
+                    : "bg-white bg-opacity-5 hover:bg-opacity-10 border border-white border-opacity-10"
+                }`}
+                onClick={() => setActiveFeature(index)}
+              >
+                {React.createElement(feature.icon, { size: 24, className: "text-white mx-auto" })}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-8 md:mt-16 lg:mt-16 text-center">
-          <button className="cta-button bg-gradient-to-r from-pink-500 to-indigo-500 px-10 py-4 rounded-full font-semibold text-xl text-white hover:from-pink-600 hover:to-indigo-600 transition duration-300 shadow-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50">
-            Start Creating Now
+        <div className="mt-16 text-center">
+          <button className="bg-gradient-to-r from-purple-500 to-pink-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:from-purple-600 hover:to-pink-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 shadow-lg">
+            Explore Gallery
           </button>
         </div>
       </div>

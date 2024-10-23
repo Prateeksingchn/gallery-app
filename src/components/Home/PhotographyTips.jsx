@@ -53,38 +53,8 @@ const PhotographyTips = () => {
 
     window.addEventListener("resize", handleResize);
 
-    let ctx;
-    if (isLargeScreen) {
-      ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            end: "top top",
-            scrub: true,
-          },
-        });
-
-        tl.fromTo(
-          contentRef.current,
-          { 
-            backgroundColor: "rgba(255, 255, 255, 0)",
-            y: '100%'
-          },
-          { 
-            backgroundColor: "rgba(255, 255, 255, 1)", 
-            y: '0%',
-            duration: 1
-          }
-        );
-      }, sectionRef);
-    }
-
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (ctx) {
-        ctx.revert();
-      }
     };
   }, [isLargeScreen]);
 
@@ -101,7 +71,7 @@ const PhotographyTips = () => {
     >
       <div 
         ref={contentRef}
-        className="w-full h-[770px] md:h-[800px] lg:h-[700px] xl:h-[700px] bg-gradient-to-br from-indigo-100 to-pink-50 rounded-t-3xl p-4 lg:px-32 lg:py-8 md:p-8"
+        className="w-full h-[770px] md:h-[800px] lg:h-[700px] xl:h-[700px] bg-gradient-to-br from-[#1D1D1D] to-[#1D1D1D] p-4 lg:px-32 lg:py-8 md:p-8"
       >
         <h2 className="section-title text-3xl md:text-5xl font-bold mt-2 sm:mt-4 mb-6 md:mb-16 lg:mb-12 text-center text-gray-800">
           Photography Tips

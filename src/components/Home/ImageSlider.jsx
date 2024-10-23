@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import LocomotiveScroll from "locomotive-scroll";
+
 
 // ... (the images array of objects) ...
 const images = [
@@ -118,105 +118,63 @@ const variants = {
 };
 
 const ImageSlider = () => {
-  const [[page, direction], setPage] = useState([0, 0]);
-  const scrollRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-  const imageIndex = Math.abs(page % images.length);
-  const nextImageIndex = (imageIndex + 1) % images.length;
-
-  useEffect(() => {
-    const scroll = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      multiplier: 1,
-      class: "is-revealed",
-    });
-
-    return () => {
-      if (scroll) scroll.destroy();
-    };
-  }, []);
-
-  const paginate = (newDirection) => {
-    setPage([page + newDirection, newDirection]);
+  const nextImage = () => {
+    setDirection(1);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  return (
-    <div ref={scrollRef} className="w-full lg:h-[100vh] h-[860px] md:h-[900px] relative bg-[#f0f0f0] rounded-b-[10px]" data-scroll-section>
-      <div className="w-full h-screen flex flex-col px-5 lg:px-10 md:px-10">
-        <div className="flex-1 flex py-10 relative">
+  const prevImage = () => {
+    setDirection(-1);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
 
-          {/* Left Side Image Info */}
+  const currentImage = images[currentIndex];
+  const nextImageIndex = (currentIndex + 1) % images.length;
+
+  return (
+    <div className="w-full lg:h-[100vh] sm:h-[870px] h-[930px] md:h-[900px] relative bg-[#f0f0f0] rounded-b-[10px]">
+      <div className="w-full h-screen flex flex-col px-2 sm:px-6 lg:px-10 md:px-10">
+        <div className="flex-1 flex lg:flex-row flex-row py-10 relative">
+          {/* Left Side: Image Info */}
           <motion.div 
-            className="lg:w-[35%] absolute left-0 top-10 lg:left-8 lg:top-44 md:left-0 md:top-10 pl-10"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+          className="lg:w-[35%] absolute left-0 top-10 lg:left-8 lg:top-44 md:left-0 md:top-10 lg:pl-10 pl-1 lg:pr-0 pr-1"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            data-scroll
-            data-scroll-speed="2"
           >
-            <div>
-              <motion.h2 
-                className="text-4xl font-sans font-bold text-gray-800"
-                key={images[imageIndex].title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                data-scroll
-                data-scroll-speed="1"
-              >
-                {images[imageIndex].title}
-              </motion.h2>
-              <motion.h3 
-                className="text-xl font-sans mt-2 text-gray-600"
-                key={images[imageIndex].subtitle}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                data-scroll
-                data-scroll-speed="1.5"
-              >
-                {images[imageIndex].subtitle}
-              </motion.h3>
-              <motion.p
-                className="mt-4 text-sm text-gray-500"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                data-scroll
-                data-scroll-speed="1.2"
-              >
-                Powered by Unsplash API
-              </motion.p>
+            <AnimatePresence mode="wait">
               <motion.div
-                className="mt-6 space-y-4"
+                key={currentImage.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                data-scroll
-                data-scroll-speed="1.3"
+                transition={{ duration: 0.3 }}
               >
-                <p className="text-lg text-gray-700">
-                  Explore our curated collection of stunning images from talented photographers around the world. Each photo tells a unique story and captures a moment in time.
-                </p>
-                <p className="text-lg text-gray-700">
-                  Whether you're looking for inspiration, searching for the perfect image for your project, or just browsing beautiful photography, our gallery has something for everyone.
-                </p>
+                <h2 className="text-4xl font-sans font-bold text-gray-800">{currentImage.title}</h2>
+                <h3 className="text-xl font-sans mt-2 text-gray-600">{currentImage.subtitle}</h3>
+                <p className="mt-4 text-sm text-gray-500">Powered by Unsplash API</p>
+                <div className="mt-6 space-y-4">
+                  <p className="text-sm lg:text-lg text-gray-700">
+                    Explore our curated collection of stunning images from talented photographers around the world. Each photo tells a unique story and captures a moment in time.
+                  </p>
+                  <p className="text-sm lg:text-lg text-gray-700">
+                    Whether you're looking for inspiration, searching for the perfect image for your project, or just browsing beautiful photography, our gallery has something for everyone.
+                  </p>
+                </div>
               </motion.div>
-            </div>
+            </AnimatePresence>
           </motion.div>
           
-          {/* Right Side Image Slider */}
-          <div className="lg:w-[70%] md:w-[100%] w-[100%] relative flex items-center justify-center space-x-4 overflow-hidden px-20 ml-auto" data-scroll data-scroll-speed="1">
+          {/* Right Side: Image Slider */}
+          <div className="lg:w-[70%] md:w-[100%] w-[100%] lg:h-full h-[900px]  relative flex items-center justify-center lg:space-x-4 space-x-0  overflow-hidden ml-auto">
             <AnimatePresence initial={false} custom={direction}>
               <motion.img
-                key={page}
-                src={images[imageIndex].src}
-                alt={images[imageIndex].alt}
+                key={currentIndex}
+                src={currentImage.src}
+                alt={currentImage.alt}
                 custom={direction}
                 variants={variants}
                 initial="enter"
@@ -224,38 +182,32 @@ const ImageSlider = () => {
                 exit="exit"
                 transition={{
                   x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.6 },
-                  scale: { duration: 0.5 },
+                  opacity: { duration: 0.2 },
                 }}
-                className="lg:w-[40%] lg:h-[90%] md:w-[55%] md:h-[60%] w-[70%] h-[50%] object-cover absolute lg:top-0 lg:left-[30%] md:bottom-24 md:right-64 bottom-20 left-0 shadow-lg rounded-lg"
-                data-scroll
-                data-scroll-speed="1.5"
+                className="lg:w-[45%] lg:h-[95%] md:w-[55%] md:h-[60%] sm:w-[55%] sm:h-[55%] w-[80%] h-[40%] object-cover absolute lg:bottom-4 lg:left-[30%] md:bottom-24 md:right-64 sm:bottom-36 sm:right-64 bottom-28 left-0 shadow-lg rounded-lg"
               />
             </AnimatePresence>
             <motion.img
               src={images[nextImageIndex].src}
               alt={images[nextImageIndex].alt}
-              className="lg:w-[35%] lg:h-[75%] md:w-[55%] md:h-[50%] w-[55%] h-[40%] object-cover filter grayscale absolute lg:top-14 lg:right-0 md:right-10 md:bottom-36 bottom-32 right-0 rounded-lg"
-              initial={{ x: 500, opacity: 0, scale: 0.8 }}
-              animate={{ x: 0, opacity: 1, scale: 1 }}
+              className="lg:w-[40%] lg:h-[80%] md:w-[55%] md:h-[53%] sm:w-[55%] sm:h-[51%] w-[55%] h-[35%] object-cover filter grayscale absolute lg:top-16 lg:right-0 md:right-10 md:bottom-32 sm:bottom-40 sm:right-0 bottom-32 right-0 rounded-lg"
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
-              data-scroll
-              data-scroll-speed="1.2"
             />
-
-            <div className="absolute lg:bottom-44 lg:right-12 md:bottom-[6rem] md:right-20 bottom-4 right-10 flex items-center space-x-4 lg:scale-100 md:scale-125 scale-125" data-scroll data-scroll-speed="1.1">
+            <div className="absolute lg:bottom-3 lg:right-20 md:bottom-[5rem] md:right-24 sm:bottom-28 sm:right-12 bottom-14 right-16 flex items-center space-x-4 lg:scale-100 md:scale-125 scale-125">
               <button
-                onClick={() => paginate(-1)}
+                onClick={prevImage}
                 className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
               >
                 <ChevronLeft size={24} />
               </button>
-              <div className="text-sm text-gray-600">
-                {String(imageIndex + 1).padStart(2, "0")} /{" "}
+              <div className="text-lg text-gray-600">
+                {String(currentIndex + 1).padStart(2, "0")} /{" "}
                 {String(images.length).padStart(2, "0")}
               </div>
               <button
-                onClick={() => paginate(1)}
+                onClick={nextImage}
                 className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
               >
                 <ChevronRight size={24} />
