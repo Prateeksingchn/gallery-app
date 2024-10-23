@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useMediaQuery } from 'react-responsive';
 
@@ -6,6 +6,7 @@ const Cursor = () => {
   const isLargeDevice = useMediaQuery({ minWidth: 1024 });
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     if (!isLargeDevice) return;
@@ -35,22 +36,16 @@ const Cursor = () => {
         });
 
         gsap.set(follower, {
-          left: posX - 20,
-          top: posY - 20,
+          left: posX - 15,
+          top: posY - 15,
         });
       },
     });
 
     const handleLinkHoverEvents = () => {
       document.querySelectorAll('a, button').forEach((el) => {
-        el.addEventListener('mouseenter', () => {
-          cursor.classList.add('scale-50');
-          follower.classList.add('scale-150');
-        });
-        el.addEventListener('mouseleave', () => {
-          cursor.classList.remove('scale-50');
-          follower.classList.remove('scale-150');
-        });
+        el.addEventListener('mouseenter', () => setIsHovering(true));
+        el.addEventListener('mouseleave', () => setIsHovering(false));
       });
     };
 
@@ -68,13 +63,25 @@ const Cursor = () => {
     <>
       <div
         ref={cursorRef}
-        className="fixed w-2 h-2 bg-black rounded-full pointer-events-none z-[2000] transition-transform duration-200 ease-out"
-        style={{ left: '-100px', top: '-100px' }}
+        className={`fixed w-3 h-3 bg-white rounded-full pointer-events-none z-[2001] transition-transform duration-300 ease-out mix-blend-difference ${
+          isHovering ? 'scale-[2]' : ''
+        }`}
+        style={{
+          left: '-100px',
+          top: '-100px',
+        }}
       ></div>
       <div
         ref={followerRef}
-        className="fixed w-10 h-10 border-2 border-black border-opacity-50 rounded-full pointer-events-none z-40 transition-transform duration-200 ease-out"
-        style={{ left: '-100px', top: '-100px' }}
+        className={`fixed w-10 h-10 rounded-full pointer-events-none z-[2000] transition-all duration-300 ease-out mix-blend-difference ${
+          isHovering ? 'scale-150 opacity-50' : 'opacity-30'
+        }`}
+        style={{
+          left: '-100px',
+          top: '-100px',
+          border: '1px solid rgba(255, 255, 255, 0.8)',
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        }}
       ></div>
     </>
   );

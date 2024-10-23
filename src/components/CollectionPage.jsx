@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLocomotiveScroll } from 'react-locomotive-scroll';
 import CollectionIntro from "./Collection/CollectionIntro";
 
 // Sample collection data
@@ -374,40 +375,56 @@ const CollectionCard = ({ collection }) => (
 );
 
 const CollectionPage = () => {
+  const containerRef = useRef(null);
   const gridRef = useRef(null);
+
+  const { scroll } = useLocomotiveScroll({
+    el: containerRef.current,
+    smooth: true,
+    multiplier: 1,
+    class: 'is-revealed',
+  });
+
+  useEffect(() => {
+    if (scroll) {
+      scroll.update();
+    }
+  }, [scroll]);
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+    if (section && scroll) {
+      scroll.scrollTo(section);
     }
   };
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1); // Remove the '#' from the hash
+    const hash = window.location.hash.slice(1);
     if (hash) {
-      // Delay the scroll to ensure the page has fully loaded
       setTimeout(() => scrollToSection(hash), 100);
     } else {
-      // If there's no hash, scroll to the top of the page
-      window.scrollTo(0, 0);
+      if (scroll) {
+        scroll.scrollTo(0, { duration: 0, disableLerp: true });
+      }
     }
-  }, []);
+  }, [scroll]);
 
-  // New useEffect to scroll to top when component mounts
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (scroll) {
+      scroll.scrollTo(0, { duration: 0, disableLerp: true });
+    }
+  }, [scroll]);
 
   return (
-    <div className="min-h-screen bg-[#F7F6EE] text-white  rounded-b-[50px]">
+    <div ref={containerRef} data-scroll-container className="min-h-screen bg-[#F7F6EE] text-white rounded-b-[50px]">
       <CollectionIntro scrollToSection={scrollToSection} />
       <div
         id="about-curation"
         ref={gridRef}
+        data-scroll-section
         className="max-w-8xl px-5 md:px-10 lg:px-20 pb-10 md:pb-12 lg:pb-20 my-10 md:my-10 lg:my-20 bg-[#F7F6EE]"
       >
-        <h2 className=" text-3xl md:text-4xl lg:text-5xl text-red-500 font-bold mb-5 md:mb-10 lg:mb-10 font-[pacifico] underline cursor-pointer pl-4 ">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl text-red-500 font-bold mb-5 md:mb-10 lg:mb-10 font-[pacifico] underline cursor-pointer pl-4">
           Collections
         </h2>
 

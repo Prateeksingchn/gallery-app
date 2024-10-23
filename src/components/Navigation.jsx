@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useMediaQuery } from 'react-responsive';
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -13,6 +14,7 @@ const navItems = [
 const NavItem = ({ item, onClick }) => {
   const location = useLocation();
   const isActive = location.pathname === item.path;
+  const isLargeDevice = useMediaQuery({ minWidth: 1024 });
 
   return (
     <motion.div
@@ -23,11 +25,33 @@ const NavItem = ({ item, onClick }) => {
       <Link
         to={item.path}
         onClick={onClick}
-        className={`block px-3 py-2 text-3xl md:text-4xl lg:text-6xl font-serif ${
+        className={`block px-3 py-2 text-3xl md:text-4xl lg:text-[4.5rem] uppercase font-serif ${
           isActive ? "text-red-500" : "text-gray-800 hover:text-red-500"
-        } mb-6 transition-colors duration-300`}
+        } mb-6 lg:mb-0 transition-colors duration-300 relative`}
+        onMouseEnter={() => {
+          if (isLargeDevice) {
+            document.body.style.cursor = 'none';
+          }
+        }}
+        onMouseLeave={() => {
+          if (isLargeDevice) {
+            document.body.style.cursor = 'auto';
+          }
+        }}
       >
-        {item.name}
+        <motion.span
+          initial={{ y: 0 }}
+          whileHover={{ y: -5 }}
+          transition={{ duration: 0.3 }}
+        >
+          {item.name}
+        </motion.span>
+        <motion.div
+          className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.3 }}
+        />
       </Link>
     </motion.div>
   );
@@ -36,6 +60,7 @@ const NavItem = ({ item, onClick }) => {
 const FloatingNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isLargeDevice = useMediaQuery({ minWidth: 1024 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -57,33 +82,45 @@ const FloatingNavigation = () => {
   const menuVariants = {
     closed: {
       opacity: 0,
-      x: "100%",
+      height: 0,
       transition: {
-        duration: 0.5,
-        ease: [0.76, 0, 0.24, 1],
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1],
       },
     },
     open: {
       opacity: 1,
-      x: "0%",
+      height: "100vh",
       transition: {
         duration: 0.5,
-        ease: [0.76, 0, 0.24, 1],
+        ease: [0.4, 0, 0.2, 1],
       },
     },
   };
 
   const menuItemVariants = {
-    closed: { x: 50, opacity: 0 },
+    closed: { y: 20, opacity: 0 },
     open: i => ({
-      x: 0,
+      y: 0,
       opacity: 1,
       transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-        ease: [0.76, 0, 0.24, 1],
+        delay: i * 0.05,
+        duration: 0.4,
+        ease: [0.175, 0.885, 0.32, 1.275], // Bouncy effect
       },
     }),
+  };
+
+  const handleMouseEnter = () => {
+    if (isLargeDevice) {
+      document.body.style.cursor = 'none';
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isLargeDevice) {
+      document.body.style.cursor = 'auto';
+    }
   };
 
   return (
@@ -94,23 +131,41 @@ const FloatingNavigation = () => {
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14">
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-[kalnia] text-gray-800 hover:text-red-500 transition-colors duration-300">
+            <Link 
+              to="/" 
+              className="text-3xl font-normal text-[#121212] hover:text-red-900 transition-colors duration-300 font-['Baskervville']"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               PixelPerfect
             </Link>
           </div>
-          <div>
+          <div className="z-50">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-red-500 focus:outline-none transition-colors duration-300"
+              className="inline-flex items-center justify-center p-2 rounded-full text-[#121212] hover:bg-red-500 hover:text-white focus:outline-none transition-all duration-300"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <span className="sr-only">Open main menu</span>
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              <motion.div
+                animate={isOpen ? "open" : "closed"}
+                variants={{
+                  open: { rotate: 180 },
+                  closed: { rotate: 0 },
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </motion.div>
             </motion.button>
           </div>
         </div>
@@ -124,22 +179,27 @@ const FloatingNavigation = () => {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="fixed inset-y-0 right-0 w-full md:w-2/3 lg:w-2/5 bg-white overflow-hidden flex flex-col justify-center items-center shadow-xl"
+            className="fixed inset-x-0 top-0 bg-[#ECE8E2] overflow-hidden flex flex-col justify-center items-center shadow-xl"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={closeMenu}
-              className="absolute top-5 right-5 p-2 rounded-md text-gray-800 hover:text-red-500 focus:outline-none transition-colors duration-300"
+            <motion.div 
+              className="w-full h-full flex flex-col lg:flex-row justify-center items-center"
+              variants={{
+                open: {
+                  transition: { staggerChildren: 0.05, delayChildren: 0.1 }
+                },
+                closed: {
+                  transition: { staggerChildren: 0.03, staggerDirection: -1 }
+                }
+              }}
             >
-              <X size={32} />
-            </motion.button>
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.name}
                   custom={i}
                   variants={menuItemVariants}
+                  className="lg:mx-4"
                 >
                   <NavItem
                     item={item}
@@ -147,7 +207,7 @@ const FloatingNavigation = () => {
                   />
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
