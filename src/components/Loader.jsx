@@ -1,96 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useAnimationFrame,
-} from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "@studio-freight/lenis";
+import React from 'react';
+import { motion } from 'framer-motion';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const FloatingImage = ({ src, alt, className }) => {
-  const ref = useRef(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const x = useSpring(mouseX, { stiffness: 50, damping: 10 });
-  const y = useSpring(mouseY, { stiffness: 50, damping: 10 });
-
-  useAnimationFrame(() => {
-    if (ref.current && window.mouseX !== undefined && window.mouseY !== undefined) {
-      const rect = ref.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const distanceX = (window.mouseX - centerX) / 20;
-      const distanceY = (window.mouseY - centerY) / 20;
-
-      mouseX.set(distanceX);
-      mouseY.set(distanceY);
-    }
-  });
-
-  return (
-    <motion.div ref={ref} className={`absolute ${className}`} style={{ x, y }}>
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-cover rounded-sm"
-        loading="lazy"
-      />
-    </motion.div>
-  );
-};
-
-const Floating = () => {
-  const sectionRef = useRef(null);
-  const contentRef = useRef(null);
-  const inspirationRef = useRef(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: "vertical",
-      gestureDirection: "vertical",
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    setIsClient(true);
-    let rafId;
-    const updateMousePosition = (ev) => {
-      window.mouseX = ev.clientX;
-      window.mouseY = ev.clientY;
-    };
-
-    const throttledUpdateMousePosition = (ev) => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => updateMousePosition(ev));
-    };
-
-    window.addEventListener("mousemove", throttledUpdateMousePosition, { passive: true });
-
-    return () => {
-      window.removeEventListener("mousemove", throttledUpdateMousePosition);
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
-
+const Loader = ({ setIsLoading }) => {
   const floatingImages = [
     { src: "https://i.pinimg.com/236x/3d/18/21/3d182196300ee640b486dc88b3f09bb7.jpg", alt: "Placeholder", className: "top-[7%] left-[2%] right-[2%] bottom-[2%] w-[60px] h-[60px] lg:top-[5%] lg:left-[5%] lg:right-[5%] lg:bottom-[5%] md:top-[14.5%] md:left-[2%] md:right-[2%] md:bottom-[2%] w-[60px] h-[60px] lg:w-[130px] lg:h-[150px] md:w-[110px] md:h-[120px] sm:top-[5%] sm:left-[5%] sm:right-[10%] sm:bottom-[10%] sm:w-[80px] sm:h-[80px]" },
     { src: "https://i.pinimg.com/236x/0e/42/7f/0e427fefb82a8f6326dbcce6e4468a56.jpg", alt: "Placeholder", className: "top-[7%] right-[10%] md:top-[10%] md:right-[8%] lg:top-[7%] lg:right-[10%] w-[55px] h-[60px] lg:w-[100px] lg:h-[100px] md:w-[110px] md:h-[110px] sm:top-[8%] sm:right-[2%] sm:w-[90px] sm:h-[90px]" },
@@ -106,37 +17,63 @@ const Floating = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative w-full h-[500px] sm:h-[600px] md:h-[850px] lg:h-screen overflow-hidden">
-      <div ref={contentRef} className="absolute inset-0 bg-[#ECE8E2]">
-        <div
-          ref={inspirationRef}
-          className="h-[450px] sm:h-[550px] md:h-[850px] lg:h-screen w-full overflow-hidden font-serif mt-4 sm:mt-7 lg:mt-0 relative"
-        >
-          {isClient && (
-            <div className="absolute inset-0">
-              {floatingImages.map((img, index) => (
-                <FloatingImage key={index} {...img} />
-              ))}
-            </div>
-          )}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center max-w-4xl px-4">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-normal mb-4 leading-tight font-[kalnia]">
-                Find Inspiration{" "}
-                <br />
-                <span className="text-3xl sm:text-4xl md:text-6xl font-[kalnia]">
-                  Wherever You Are
-                </span>
-              </h1>
-              <div className="mt-2">
-                <div className="h-0.5 bg-red-500 mx-auto" style={{ width: "80px" }}></div>
-              </div>
-            </div>
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#ECE8E2]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="relative w-full h-full">
+        {floatingImages.map((img, index) => (
+          <motion.img
+            key={index}
+            src={img.src}
+            alt={img.alt}
+            className={`absolute object-cover rounded-sm ${img.className}`}
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.15 }}
+          />
+        ))}
+        <motion.div
+          className="absolute inset-0 bg-[#ECE8E2]"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 0 }}
+          exit={{ scaleY: 1 }}
+          transition={{ duration: 0.5, delay: 4 }}
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <motion.h2
+              className="text-3xl md:text-4xl font-[kalnia] text-black mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              Loading Inspiration
+            </motion.h2>
+            <motion.div
+              className="w-64 h-2 bg-gray-200 rounded-full mx-auto overflow-hidden"
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 3.5, ease: "easeInOut" }}
+            >
+              <motion.div
+                className="h-full bg-black"
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 3.5, ease: "easeInOut" }}
+                onAnimationComplete={() => {
+                  setTimeout(() => setIsLoading(false), 500);
+                }}
+              />
+            </motion.div>
           </div>
         </div>
       </div>
-    </section>
+    </motion.div>
   );
 };
 
-export default Floating;
+export default Loader;

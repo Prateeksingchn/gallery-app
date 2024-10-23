@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
@@ -10,11 +10,26 @@ import CollectionPage from "./components/CollectionPage";
 import CollectionDetail from "./components/CollectionDetail";
 import AIGallery from "./components/AIGallery";
 import Cursor from "./components/Cursor";
-import ErrorBoundary from "./components/ErrorBoundary"; // Import the ErrorBoundary component
-import { useMediaQuery } from 'react-responsive'; // Add this import
+import ErrorBoundary from "./components/ErrorBoundary";
+import { useMediaQuery } from 'react-responsive';
+import Loader from './components/Loader'; // Import the Loader component
 
 export default function App() {
-  const isLargeDevice = useMediaQuery({ minWidth: 1024 }); // Define large device
+  const isLargeDevice = useMediaQuery({ minWidth: 1024 });
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3500); // 3.5 seconds loading time
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loader setIsLoading={setIsLoading} />;
+  }
 
   return (
     <Router>

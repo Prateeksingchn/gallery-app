@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const controls = useAnimation();
-  const [ref, inView] = useInView();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,8 +18,6 @@ const Footer = () => {
   };
 
   React.useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     if (inView) {
       controls.start("visible");
     } else {
@@ -28,112 +27,104 @@ const Footer = () => {
 
   return (
     <footer className="bg-white text-black w-full">
-      {/* top Section */}
+      {/* Top Section */}
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 50 }}
+        initial="hidden"
         animate={controls}
         variants={{
           hidden: { opacity: 0, y: 50 },
           visible: { opacity: 1, y: 0 },
         }}
         transition={{ duration: 0.5 }}
-        className="container mx-auto px-4 pt-6 lg:pt-12 md:pt-12 w-full h-auto pb-8"
+        className="container mx-auto px-4 md:px-14 lg:px-10 py-8 lg:py-12 w-full "
       >
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-0">
-
-          {/* footer intro */}
-          <div className=" w-[300px] lg:w-[700px] md:w-[320px] ">
-            <h2 className="text-4xl font-semibold mb-4 font-[pacifico] ">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-10 gap-8 lg:gap-12">
+          {/* Footer intro */}
+          <div className="md:col-span-2 lg:col-span-6">
+            <h2 className="text-4xl lg:text-5xl font-semibold mb-6 font-['Pacifico',_cursive] text-gray-800">
               Say Hello
             </h2>
-            <div className="mb-2 mt-20 lg:mt-48 md:mt-48">
-              <h3 className="font-semibold">Stay updated on news</h3>
+            <div className="mb-4 mt-8 lg:mt-12">
+              <h3 className="font-semibold text-lg mb-3">Stay updated on news</h3>
               <form
                 onSubmit={handleSubmit}
-                className="flex mt-2 border-2 border-zinc-400 rounded-full overflow-hidden bg-white"
+                className="flex flex-col sm:flex-row mt-2 border-2 border-gray-300 rounded-lg sm:rounded-full overflow-hidden bg-white shadow-sm"
               >
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your Email"
-                  className="bg-white text-black p-2 rounded-l flex-grow"
+                  className="bg-white text-black p-3 flex-grow focus:outline-none w-full"
+                  required
                 />
                 <button
                   type="submit"
-                  className="bg-[#F8D347] rounded-full m-[1.2px] text-sm text-black font-bold p-2 hover:bg-gray-800 hover:text-white transition duration-300"
+                  className="bg-[#F8D347] text-sm md:text-base text-black font-bold px-6 py-3 hover:bg-gray-800 hover:text-white transition duration-300 ease-in-out w-full sm:w-auto"
                 >
                   Subscribe
                 </button>
               </form>
             </div>
-            <p className="text-xs">
-              &copy; PixelPerfect 2024. All rights reserved
+            <p className="text-sm text-gray-600">
+              &copy; PixelPerfect {new Date().getFullYear()}. All rights reserved
             </p>
           </div>
 
-          {/* follow us */}
-          <div className="lg:ml-72 md:ml-[100px]  w-[300px] lg:w-[300px] md:w-[180px] mt-10 md:mt-0 lg:mt-0 md:text-base text-sm ">
-            <div className="flex flex-row lg:flex-col md:flex-col lg:gap-0 md:gap-5 gap-8">
-              <div className="flex flex-col">
-                <h3 className="font-bold mb-1">New business</h3>
-                <p>viki@PixelPerfect.com</p>
+          {/* Follow us */}
+          <div className="col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2">
+            <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+              <div>
+                <h3 className="font-bold text-lg mb-1">New business</h3>
+                <p className="text-gray-600 text-sm md:text-base">viki@PixelPerfect.com</p>
               </div>
-              <div className="flex flex-col">
-                <h3 className="font-bold mt-0 lg:mt-4 md:mt-0 mb-1">Join us</h3>
-                <p>hello@PixelPerfect.com</p>
+              <div>
+                <h3 className="font-bold text-lg mb-1">Join us</h3>
+                <p className="text-gray-600 text-sm md:text-base">hello@PixelPerfect.com</p>
               </div>
             </div>
-            <div className="flex md:flex-row lg:flex-col lg:gap-0 -gap-14 md:gap-36 mt-0 md:mt-[50px] lg:mt-0">
-              <div className="flex flex-col">
-                <h3 className="font-bold mt-4 mb-1">Follow us</h3>
-                <ul>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      LinkedIn
+            <div className="mt-6 lg:mt-8">
+              <h3 className="font-bold text-lg mb-2">Follow us</h3>
+              <ul className="space-y-2">
+                {['LinkedIn', 'Instagram', 'Twitter'].map((social) => (
+                  <li key={social}>
+                    <a href="#" className="text-gray-600 text-sm md:text-base hover:text-black transition duration-300">
+                      {social}
                     </a>
                   </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Twitter
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex flex-col ml-28 lg:ml-0 md:ml-0 mt-0 lg:mt-4">
-                <h3 className="font-bold md:mt-4 mt-4 lg:mt-0  mb-1">Legal</h3>
-                <ul>
-                  <li>
-                    <Link to="/cookies" className="hover:underline">
-                      Cookie Policy
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/privacy" className="hover:underline">
-                      Privacy Policy
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+                ))}
+              </ul>
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="lg:ml-24 ml-0 md:ml-[70px] mt-5 lg:mt-0 md:mt-0 w-[300px] lg:w-[300px] md:w-[180px] text-sm ">
-            <h3 className="font-bold mb-1">Contact</h3>
-            <p>Studio 402</p>
-            <p>Makateb Building Two</p>
-            <p>Production City, Dubai</p>
-            <p className="mt-2">+971 (0)4 420 7025</p>
-            <a href="#" className="underline mt-2 inline-block mb-2">
+          {/* Contact Info and Legal */}
+          <div className="md:col-span-1 lg:col-span-2">
+            <h3 className="font-bold text-lg mb-3">Contact</h3>
+            <address className="not-italic text-gray-600 text-sm md:text-base">
+              <p>Studio 402</p>
+              <p>Makateb Building Two</p>
+              <p>Production City, Dubai</p>
+              <p className="mt-2">+971 (0)4 420 7025</p>
+            </address>
+            <a href="#" className="inline-block mt-3 text-sm md:text-base text-black border-b-2 border-[#F8D347] hover:border-black transition duration-300">
               See on Map
             </a>
+            <div className="mt-6 lg:mt-8">
+              <h3 className="font-bold text-lg mb-2">Legal</h3>
+              <ul className="space-y-2">
+                {[
+                  { to: "/cookies", text: "Cookie Policy" },
+                  { to: "/privacy", text: "Privacy Policy" },
+                ].map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className="text-gray-600 text-sm md:text-base hover:text-black transition duration-300">
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -150,9 +141,9 @@ const Footer = () => {
           },
         }}
         exit={{ opacity: 0, y: 50 }}
-        className="bg-[#F8D347] pt-12 w-full lg:h-[350px] md:h-[250px] overflow-hidden flex items-end justify-center"
+        className="bg-[#F8D347] pt-8 md:pt-16 lg:pt-20 w-full h-[100px] sm:h-[170px] md:h-[200px] lg:h-[300px] overflow-hidden flex items-end justify-center"
       >
-        <div className="container mx-auto px-4 flex items-end justify-center overflow-hidden">
+        <div className=" flex items-end justify-center overflow-hidden h-full">
           <motion.h1
             initial={{ opacity: 0, y: 100 }}
             animate={{
@@ -164,7 +155,7 @@ const Footer = () => {
               },
             }}
             exit={{ opacity: 0, y: 100 }}
-            className="text-[80px] md:text-[9.7rem] lg:text-[20rem] leading-[70px] lg:leading-[13rem] md:leading-[100px] mt-4 tracking-tighter lg:tracking-[-0.07em] md:tracking-tighter font-bold font-[roboto]"
+            className="text-[3.7rem] sm:text-[8rem] md:text-[10rem] lg:text-[19rem] leading-none tracking-tighter font-bold font-[roboto] text-black mb-[-0.2em]"
           >
             PixelPerfect
           </motion.h1>

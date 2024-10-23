@@ -1,110 +1,154 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { Camera, Aperture, Sun, Clock, Mountain, Droplet } from "lucide-react";
-import { gsap } from 'gsap';
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const photographyTips = [
   {
     title: "Rule of Thirds",
     description: "Divide your frame into a 3x3 grid and place key elements along the lines or at their intersections.",
-    icon: <Camera className="w-6 h-6" />,
+    icon: <Camera />,
+    image: "https://images.unsplash.com/photo-1571661043951-31cde5616b38?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    title: "Use Leading Lines",
+    title: "Leading Lines",
     description: "Incorporate natural lines to guide the viewer's eye towards the main subject of your photograph.",
-    icon: <Mountain className="w-6 h-6" />,
+    icon: <Mountain />,
+    image: "https://images.unsplash.com/photo-1611552966394-4980980a17e4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    title: "Play with Perspective",
+    title: "Perspective",
     description: "Change your shooting angle or position to create unique and compelling viewpoints.",
-    icon: <Aperture className="w-6 h-6" />,
+    icon: <Aperture />,
+    image: "https://images.pexels.com/photos/358499/pexels-photo-358499.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   },
   {
-    title: "Golden Hour Lighting",
+    title: "Golden Hour",
     description: "Shoot during the first and last hour of sunlight for warm, soft lighting in your photos.",
-    icon: <Sun className="w-6 h-6" />,
+    icon: <Sun />,
+    image: "https://images.pexels.com/photos/2612045/pexels-photo-2612045.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   },
   {
-    title: "Experiment with Shutter Speed",
+    title: "Shutter Speed",
     description: "Use slow shutter speeds for motion blur or fast speeds to freeze action.",
-    icon: <Clock className="w-6 h-6" />,
+    icon: <Clock />,
+    image: "https://images.unsplash.com/photo-1501281819477-eb42ada01d39?q=80&w=1773&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    title: "Master Manual Mode",
+    title: "Manual Mode",
     description: "Learn to control aperture, shutter speed, and ISO for complete creative control.",
-    icon: <Droplet className="w-6 h-6" />,
+    icon: <Droplet />,
+    image: "https://images.pexels.com/photos/930029/pexels-photo-930029.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   },
 ];
 
 const PhotographyTips = () => {
-  const sectionRef = useRef(null);
-  const contentRef = useRef(null);
-  const tipRefs = useRef([]);
-  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
+  const [activeTip, setActiveTip] = useState(0);
+  const controls = useAnimation();
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024);
-    };
+    controls.start({
+      opacity: [0.3, 0.7, 0.3],
+      scale: [1, 1.1, 1],
+      transition: { duration: 7, repeat: Infinity, ease: "easeInOut" }
+    });
+  }, [controls]);
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isLargeScreen]);
-
-  const addToRefs = (el) => {
-    if (el && !tipRefs.current.includes(el)) {
-      tipRefs.current.push(el);
-    }
+  const backgroundVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 }
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="w-full mx-auto min-h-auto flex items-end justify-center"
+    <motion.section 
+      className="relative w-full py-16 bg-gradient-to-br from-[#F0F0F0] to-[#E0E0E0] overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
-      <div 
-        ref={contentRef}
-        className="w-full h-[770px] md:h-[800px] lg:h-[700px] xl:h-[700px] bg-gradient-to-br from-[#1D1D1D] to-[#1D1D1D] p-4 lg:px-32 lg:py-8 md:p-8"
-      >
-        <h2 className="section-title text-3xl md:text-5xl font-bold mt-2 sm:mt-4 mb-6 md:mb-16 lg:mb-12 text-center text-gray-800">
-          Photography Tips
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6 md:mb-12 lg:mb-12">
-          {photographyTips.map((tip, index) => (
-            <motion.div
-              key={index}
-              ref={addToRefs}
-              className="bg-white rounded-xl shadow-lg p-4 sm:p-6 transform transition duration-300 hover:scale-105"
-            >
-              <div className="flex items-center mb-3 sm:mb-4">
-                <div className="bg-indigo-100 rounded-full p-2 sm:p-3 mr-3 sm:mr-4">
-                  {tip.icon}
-                </div>
-                <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800">
-                  {tip.title}
-                </h3>
-              </div>
-              <p className="text-sm sm:text-base text-gray-600">{tip.description}</p>
-            </motion.div>
-          ))}
-        </div>
-        <div className="text-center">
-          <Link
-            to="/photography-tips"
-            className="cta-button inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 sm:py-3 px-6 sm:px-8 rounded-full text-sm sm:text-base font-semibold hover:from-indigo-600 hover:to-purple-700 transition duration-300 shadow-md hover:shadow-lg"
-          >
-            Explore All Tips
-          </Link>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-indigo-200 rounded-full opacity-20"
+            style={{
+              width: Math.random() * 60 + 20,
+              height: Math.random() * 60 + 20,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={controls}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-5xl font-bold mb-16 text-center text-gray-800"
+        >
+          Master the Art of Photography
+        </motion.h2>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+          <div className="lg:col-span-2">
+            <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.img
+                  key={activeTip}
+                  src={photographyTips[activeTip].image}
+                  alt={photographyTips[activeTip].title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  variants={backgroundVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                />
+              </AnimatePresence>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={activeTip}
+                  className="absolute bottom-0 left-0 right-0 p-8 text-white"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <h3 className="text-3xl font-bold mb-2">{photographyTips[activeTip].title}</h3>
+                  <p className="text-lg">{photographyTips[activeTip].description}</p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+          <div>
+            <div className="grid grid-cols-2 gap-4">
+              {photographyTips.map((tip, index) => (
+                <motion.button
+                  key={index}
+                  className={`p-4 rounded-xl ${
+                    index === activeTip ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800'
+                  } shadow-md hover:shadow-lg transition-all duration-300`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setActiveTip(index)}
+                  animate={index === activeTip ? { scale: [1, 1.1, 1] } : {}}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex flex-col items-center text-center">
+                    {React.cloneElement(tip.icon, { className: "w-8 h-8 mb-2" })}
+                    <span className="text-sm font-medium">{tip.title}</span>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
