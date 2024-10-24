@@ -25,8 +25,8 @@ const NavItem = ({ item, onClick }) => {
       <Link
         to={item.path}
         onClick={onClick}
-        className={`block px-3 py-2 text-3xl md:text-4xl lg:text-[4.5rem] uppercase font-serif ${
-          isActive ? "text-red-500" : "text-gray-800 hover:text-red-500"
+        className={`block px-3 py-2 text-4xl sm:text-[3rem] md:text-[2.7rem] lg:text-[4.5rem] uppercase font-[kalnia] ${
+          isActive ? "text-red-500" : "text-gray-100 hover:text-red-500"
         } mb-6 lg:mb-0 transition-colors duration-300 relative`}
         onMouseEnter={() => {
           if (isLargeDevice) {
@@ -82,7 +82,7 @@ const FloatingNavigation = () => {
   const menuVariants = {
     closed: {
       opacity: 0,
-      height: 0,
+      x: "100%",
       transition: {
         duration: 0.3,
         ease: [0.4, 0, 0.2, 1],
@@ -90,7 +90,7 @@ const FloatingNavigation = () => {
     },
     open: {
       opacity: 1,
-      height: "100vh",
+      x: 0,
       transition: {
         duration: 0.5,
         ease: [0.4, 0, 0.2, 1],
@@ -134,12 +134,12 @@ const FloatingNavigation = () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           <div className="flex items-center">
             <Link 
               to="/" 
-              className="text-3xl font-normal text-[#121212] hover:text-red-900 transition-colors duration-300 font-['Baskervville']"
+              className="text-[1.7rem] font-normal text-[#121212] hover:text-red-900 transition-colors duration-300 font-[kalnia]"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -179,12 +179,12 @@ const FloatingNavigation = () => {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="fixed inset-x-0 top-0 bg-[#ECE8E2] overflow-hidden flex flex-col justify-center items-center shadow-xl"
+            className="fixed inset-y-0 right-0 w-full md:w-[45%] lg:w-[35%] bg-[#242423] overflow-hidden flex flex-col justify-center items-center shadow-xl"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
             <motion.div 
-              className="w-full h-full flex flex-col lg:flex-row justify-center items-center"
+              className="w-full h-full flex flex-col justify-center items-center md:items-start space-y-3 lg:space-y-12"
               variants={{
                 open: {
                   transition: { staggerChildren: 0.05, delayChildren: 0.1 }
@@ -204,6 +204,7 @@ const FloatingNavigation = () => {
                   <NavItem
                     item={item}
                     onClick={closeMenu}
+                    className="transition-transform duration-300 transform hover:scale-105"
                   />
                 </motion.div>
               ))}

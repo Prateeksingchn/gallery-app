@@ -61,7 +61,7 @@ const PhotographyTips = () => {
 
   return (
     <motion.section 
-      className="relative w-full py-16 bg-gradient-to-br from-[#F0F0F0] to-[#E0E0E0] overflow-hidden"
+      className="relative w-full py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-[#F0F0F0] to-[#E0E0E0] overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -88,13 +88,13 @@ const PhotographyTips = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-5xl font-bold mb-16 text-center text-gray-800"
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-16 text-center text-gray-800"
         >
           Master the Art of Photography
         </motion.h2>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-          <div className="lg:col-span-2">
-            <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
+          <div className="w-full lg:w-2/3">
+            <div className="relative aspect-[3/2] sm:aspect-video rounded-3xl overflow-hidden shadow-2xl">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.img
                   key={activeTip}
@@ -112,38 +112,40 @@ const PhotographyTips = () => {
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={activeTip}
-                  className="absolute bottom-0 left-0 right-0 p-8 text-white"
+                  className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 text-white"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <h3 className="text-3xl font-bold mb-2">{photographyTips[activeTip].title}</h3>
-                  <p className="text-lg">{photographyTips[activeTip].description}</p>
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">{photographyTips[activeTip].title}</h3>
+                  <p className="text-sm sm:text-base lg:text-lg">{photographyTips[activeTip].description}</p>
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
-          <div>
-            <div className="grid grid-cols-2 gap-4">
-              {photographyTips.map((tip, index) => (
-                <motion.button
-                  key={index}
-                  className={`p-4 rounded-xl ${
-                    index === activeTip ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800'
-                  } shadow-md hover:shadow-lg transition-all duration-300`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setActiveTip(index)}
-                  animate={index === activeTip ? { scale: [1, 1.1, 1] } : {}}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="flex flex-col items-center text-center">
-                    {React.cloneElement(tip.icon, { className: "w-8 h-8 mb-2" })}
-                    <span className="text-sm font-medium">{tip.title}</span>
-                  </div>
-                </motion.button>
-              ))}
+          <div className="w-full lg:w-1/3">
+            <div className="overflow-x-auto pb-4 lg:pb-0">
+              <div className="flex items-center justify-center lg:grid lg:grid-cols-2 gap-4 lg:gap-6" style={{ minWidth: 'max-content' }}>
+                {photographyTips.map((tip, index) => (
+                  <motion.button
+                    key={index}
+                    className={`p-3 sm:p-4 rounded-xl w-28 sm:w-28 md:w-36 lg:w-40 ${
+                      index === activeTip ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800'
+                    } shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setActiveTip(index)}
+                    animate={index === activeTip ? { scale: [1, 1.1, 1] } : {}}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="flex flex-col items-center text-center">
+                      {React.cloneElement(tip.icon, { className: "w-6 h-6 sm:w-6 sm:h-6 md:w-8 md:h-8 mb-1 sm:mb-2" })}
+                      <span className="text-xs sm:text-xs md:text-sm font-medium">{tip.title}</span>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
