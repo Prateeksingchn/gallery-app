@@ -98,19 +98,19 @@ const TopImagesGallery = () => {
       transition={{ duration: 0.8 }}
       className="min-h-screen bg-[#ECE8E2] px-2 sm:px-4 lg:py-20 md:py-12"
     >
-      <div className="max-w-[1350px] mx-auto">
+      <div className="max-w-[1350px] mx-auto py-14 md:py-0">
         <Link
           to="/"
-          className="text-black text-lg font-semibold mb-4 inline-flex items-center ml-14"
+          className="text-black text-lg font-semibold mb-4 inline-flex items-center ml-3 sm:ml-14"
         >
           <ChevronLeft size={20} className="mr-1" />
           Back to Home
         </Link>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl ml-14 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 font-[anton] tracking-wider mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl ml-4 sm:ml-14 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 font-[anton] tracking-wider mb-4">
           Top Images of Today
         </h1>
 
-        <p className="text-base sm:text-lg text-gray-700 mb-6 mx-14">
+        <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-6 mx-4 sm:mx-14">
           Explore a curated collection of today's most captivating images from around the world. From breathtaking landscapes to powerful portraits, immerse yourself in this visual journey showcasing the best of photography and digital artistry.
         </p>
 
@@ -133,7 +133,7 @@ const TopImagesGallery = () => {
             </motion.div>
           ) : (
             <motion.div
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4 md:px-8 lg:px-4 mx-auto max-w-7xl auto-rows-[200px] z-50"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 sm:px-4 md:px-8 lg:px-4 mx-auto max-w-7xl auto-rows-[200px] z-50"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}

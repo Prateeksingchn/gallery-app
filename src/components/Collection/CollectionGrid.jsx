@@ -13,7 +13,7 @@ const CollectionCard = ({ collection }) => (
     >
       <img src={collection.image} alt={collection.title} className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70" />
-      <div className="absolute bottom-0 left-0 p-6 text-white">
+      <div className="absolute bottom-0 left-0 p-0 md:p-6 text-white">
         <p className="text-sm font-medium mb-2 opacity-75">{collection.category}</p>
         <h3 className="text-xl font-bold">{collection.title}</h3>
       </div>
@@ -24,7 +24,7 @@ const CollectionCard = ({ collection }) => (
 const CollectionGrid = () => {
   return (
     <motion.div
-      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 bg-[#FAF7F2] "
+      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-8 lg:gap-10 bg-[#FAF7F2] "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}

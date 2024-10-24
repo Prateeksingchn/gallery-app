@@ -34,7 +34,7 @@ const CategoriesAndSearch = ({
           }`}
           animate={{ scale: isFocused ? 1.02 : 1 }}
         >
-          <Search size={20} className="ml-4 text-gray-400" />
+          <Search size={20} className="ml-2 sm:ml-4 text-gray-400 hidden sm:block" />
           <input
             type="text"
             value={query}
@@ -42,16 +42,17 @@ const CategoriesAndSearch = ({
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="Search for images..."
-            className="w-full px-4 py-3 rounded-full focus:outline-none text-gray-700 bg-transparent"
+            className="flex-grow px-2 sm:px-4 py-2 sm:py-3 rounded-full focus:outline-none text-[0.8rem] lg:text-[1rem]  text-gray-700 bg-transparent"
           />
           <motion.button
             type="button"
             onClick={handleSearch}
-            className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-300 mr-1"
+            className="p-2 sm:px-6 sm:py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-300 mr-2 sm:mr-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Search
+            <Search size={16} className="block sm:hidden " />
+            <span className="hidden sm:block">Search</span>
           </motion.button>
         </motion.div>
       </div>
@@ -60,7 +61,7 @@ const CategoriesAndSearch = ({
       <div className="mb-4">
         <h3 className="text-xl md:text-2xl lg:text-2xl font-bold text-gray-800 mb-4">Categories</h3>
         <motion.div 
-          className="flex flex-wrap gap-3"
+          className="flex flex-wrap gap-3 justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}

@@ -119,7 +119,7 @@ const PhotographyTips = () => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">{photographyTips[activeTip].title}</h3>
-                  <p className="text-sm sm:text-base lg:text-lg">{photographyTips[activeTip].description}</p>
+                  <p className="text-xs sm:text-base lg:text-lg">{photographyTips[activeTip].description}</p>
                 </motion.div>
               </AnimatePresence>
             </div>

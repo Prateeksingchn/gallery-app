@@ -98,7 +98,7 @@ const ImageGridAndPagination = ({ images, loading, totalPages, page, handlePageC
             <motion.button
               onClick={() => handlePageChange(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="px-4 py-2 bg-[#F0F0F0] text-purple-600 rounded-full disabled:opacity-50 flex items-center border border-purple-300 hover:bg-purple-50 transition-all duration-300 shadow-md disabled:cursor-not-allowed"
+              className="px-3 py-2 bg-[#F0F0F0] text-purple-600 rounded-full disabled:opacity-50 flex items-center border border-purple-300 hover:bg-purple-50 transition-all duration-300 shadow-md disabled:cursor-not-allowed"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -106,32 +106,35 @@ const ImageGridAndPagination = ({ images, loading, totalPages, page, handlePageC
               Prev
             </motion.button>
 
-            {[...Array(Math.min(5, totalPages))].map((_, index) => {
-              const pageNumber = page - 2 + index;
-              return (
-                pageNumber > 0 &&
-                pageNumber <= totalPages && (
-                  <motion.button
-                    key={pageNumber}
-                    onClick={() => handlePageChange(pageNumber)}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      pageNumber === page
-                        ? "bg-purple-600 text-white"
-                        : "bg-white text-purple-600 border border-purple-300 hover:bg-purple-50"
-                    } transition-all duration-300 shadow-md`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    {pageNumber}
-                  </motion.button>
-                )
-              );
-            })}
+            {/* Page numbers only on larger screens */}
+            <div className="hidden sm:flex space-x-2">
+              {[...Array(Math.min(5, totalPages))].map((_, index) => {
+                const pageNumber = page - 2 + index;
+                return (
+                  pageNumber > 0 &&
+                  pageNumber <= totalPages && (
+                    <motion.button
+                      key={pageNumber}
+                      onClick={() => handlePageChange(pageNumber)}
+                      className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center ${
+                        pageNumber === page
+                          ? "bg-purple-600 text-white"
+                          : "bg-white text-purple-600 border border-purple-300 hover:bg-purple-50"
+                      } transition-all duration-300 shadow-md`}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      {pageNumber}
+                    </motion.button>
+                  )
+                );
+              })}
+            </div>
 
             <motion.button
               onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="px-4 py-2 bg-white text-purple-600 rounded-full disabled:opacity-50 flex items-center border border-purple-300 hover:bg-purple-50 transition-all duration-300 shadow-md disabled:cursor-not-allowed"
+              className="px-3 py-2 bg-white text-purple-600 rounded-full disabled:opacity-50 flex items-center border border-purple-300 hover:bg-purple-50 transition-all duration-300 shadow-md disabled:cursor-not-allowed"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

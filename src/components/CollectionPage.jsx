@@ -364,8 +364,8 @@ const CollectionCard = ({ collection }) => (
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70" />
-      <div className="absolute bottom-0 left-0 p-6 text-white">
-        <p className="text-sm font-medium mb-2 opacity-75">
+      <div className="absolute bottom-0 left-0 p-2 md:p-6 text-white">
+        <p className="text-sm font-medium mb-2 opacity-75 hidden sm:block">
           {collection.category}
         </p>
         <h3 className="text-[16px] md:text-xl lg:text-xl font-bold">{collection.title}</h3>
@@ -422,7 +422,7 @@ const CollectionPage = () => {
         id="about-curation"
         ref={gridRef}
         data-scroll-section
-        className="max-w-8xl px-5 md:px-10 lg:px-20 pb-10 md:pb-12 lg:pb-20 my-10 md:my-10 lg:my-20 bg-[#F7F6EE]"
+        className="max-w-8xl px-2 sm:px-6 md:px-10 lg:px-20 pb-10 md:pb-12 lg:pb-20 my-10 md:my-10 lg:my-20 bg-[#F7F6EE]"
       >
         <h2 className="text-3xl md:text-4xl lg:text-5xl text-red-500 font-bold mb-5 md:mb-10 lg:mb-10 font-[pacifico] underline cursor-pointer pl-4">
           Collections

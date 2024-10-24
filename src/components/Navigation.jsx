@@ -135,11 +135,11 @@ const FloatingNavigation = () => {
       onMouseLeave={handleMouseLeave}
     >
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-12 lg:h-14">
           <div className="flex items-center">
             <Link 
               to="/" 
-              className="text-[1.7rem] font-normal text-[#121212] hover:text-red-900 transition-colors duration-300 font-[kalnia]"
+              className="text-lg lg:text-[1.7rem] font-normal text-[#121212] hover:text-red-900 transition-colors duration-300 font-[kalnia]"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >

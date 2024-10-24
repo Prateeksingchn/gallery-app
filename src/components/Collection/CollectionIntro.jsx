@@ -7,7 +7,7 @@ const CollectionIntro = ({ scrollToSection }) => {
   return (
     <div className="bg-black text-white h-[370px] md:h-[680px] lg:min-h-screen font-serif">
       <div
-        className="h-[370px] md:h-[680px] lg:h-screen bg-cover bg-center flex flex-col justify-center items-start px-10 md:px-20 lg:px-20 py-2"
+        className="h-[370px] md:h-[680px] lg:h-screen bg-cover bg-center flex flex-col justify-center items-start px-3 sm:px-7 md:px-20 lg:px-20 py-2"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}
       >
         <motion.div
