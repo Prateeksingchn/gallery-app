@@ -195,7 +195,7 @@ const ImageSlider = () => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
             />
-            <div className="absolute lg:bottom-3 lg:right-20 md:bottom-[5rem] md:right-24 sm:bottom-28 sm:right-12 bottom-32 right-16 flex items-center space-x-4 lg:scale-100 md:scale-125 scale-125">
+            <div className="absolute lg:bottom-3 lg:right-20 md:bottom-[5rem] md:right-24 sm:bottom-28 sm:right-12 bottom-32 right-14 flex items-center space-x-4 lg:scale-100 md:scale-125 scale-125">
               <button
                 onClick={prevImage}
                 className="bg-transparent text-gray-800 hover:text-gray-600 transition-colors"
